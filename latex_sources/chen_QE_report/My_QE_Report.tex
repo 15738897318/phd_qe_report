@@ -1,0 +1,123 @@
+\documentclass[12pt,a4paper]{report}
+\oddsidemargin 0.25in
+\evensidemargin 0.25in
+\textwidth 6in
+\linespread{1.5}
+\topmargin 0.5in
+\usepackage{enumerate}
+\usepackage[lined,linesnumbered,ruled]{algorithm2e}
+\usepackage{tabularx}
+\usepackage{amsmath, amsthm, bbm, amsfonts, fancybox, times, amssymb, array, graphicx, hyperref, mathrsfs, cite}
+\usepackage{bm}
+\usepackage{fancyheadings}
+\usepackage{appendix}
+\usepackage{booktabs}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{algorithmic}
+\usepackage{balance}
+\setcounter{secnumdepth}{3}
+\newtheorem{Def}{Definition}
+\newtheorem{theorem}{Theorem}
+\graphicspath{{figs/}}
+
+%----------------------------------------------------------------------------------------------------------------
+
+\begin{document}
+\pagestyle{empty}
+\begin{center}
+\LARGE \textbf{Compressed Sensing for Wideband Signal Processing}
+\end{center}
+\vspace{1cm}
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=4.5cm]{ntu_logo.eps}
+  \end{center}
+\end{figure}
+
+\vspace{0.5cm} \large
+\begin{center}
+\textbf{Chen Hao}
+\end{center}
+\vspace{0.3cm}
+
+\begin{center}
+\textbf{School of Computer Engineering}
+\end{center}
+\vspace{0.5cm} \normalsize
+
+\begin{center}
+A Process report submitted to the School of Computer Engineering \\
+of Nanyang Technological University\\
+\vspace{0.2cm}
+in partial fulfillment of the requirements for the\\
+degree of Doctor of Philosophy \\
+\vspace{0.6cm} Supervisor: Assoc. Prof. Vun Chan Hua\\
+\vspace{0.6cm}
+
+January 2015
+\end{center}
+\normalsize
+\newpage
+\mbox{}
+\newpage
+%-----------------------------------------------------------------------------------------------------------------
+\newpage
+\Large
+\begin{abstract}
+\normalsize
+
+\indent Signal processing have been widely deployed in many computational applications in areas such as image processing, video conferencing, smart sensors network, and other real-time processing technologies. Many signal processing systems also involve signal sampling and conversion, where one of the most crucial limitations lies in the sampling theory (the Nyquist sampling rate or Shannon theory, which states the minimum two time sampling rate requirement.) Due to limited data processing and storing capability found in many wireless communication systems, excessive data samples will negatively affect their performance and power efficiency, and hence forms the bottleneck of entire digital systems. 
+
+As a novel paradigm for signal processing and acquisition, the compressive sensing or compressed sensing (CS) technique, is identified to have great potential for resolving the problems mentioned above. The CS theory has been proven to be suitable for numerous computer science and electronic engineering based applications, where it is possible to overcome the limitation of the traditional sampling theory. 
+
+The main idea of the research work is to further extend the CS based techniques to wireless systems. Using this approach, the novel systems will be proposed that encompass various areas such as data compression, data acquisition, data storage, data transmission, optimal recovery and processing. Specifically, we stress the focus on the wideband signal processing since the requirement of sampling wideband spectrum generates comparatively higher pressure than narrow band signal processing, hence dealing with wideband acquisition and processing is full of importance and necessary. 
+
+Following this idea, in this report, we focus our research aims to the areas involving extremely high frequency acquisition and processing scenarios -- the ultra wideband (UWB) positioning and cognitive spectrum sensing (CSS). For many ultra wideband (UWB) communication systems, how to receive the signal over GHz at lower cost is a crucial problem. For cognitive radios (CR), how to efficiently sense the occupation of active primary users (PU) while not creating interference to PUs is still an important and open issue.
+
+In order to solve these problems, this report studies novel approaches which respectively embed the CS framework into those systems. In our proposed CS-UWB system, random projection is located at transmitters to support CS framework while sub-Nyquist low-rate ADCs are implemented at receivers. As a result, not only the accuracy is improved but also the sampling cost is significantly reduced. On the other hand, we study the recent CS-CSS systems' performance and analyize the cost of embedding CS into such systems. The analysis result indicates us that rather than fully reconstructing the CS measurements, the partial recovery or extraction useful information directly from unrecovered signals is more attractive and suitable in many cognitive radio spectrum sensing cases since it improves the real-time capability while keeps low sampling rate in CS. This idea intrigues our future research directions and motivations aiming at compressive signal processing (CSP, including compressive measurements analysis and partial support recovery etc) for wideband signal processing in cognitive radios and ultra wideband systems.
+
+The organization this report is presented as: Chapter \ref{C:compressed_sensing} firstly presents the overview of compressed sensing theory and its applications, and then focuses on wideband signal acquisition hardware design which relates to our survey for recent CS-ADC architectures. Then the following chapter \ref{C:compressive_uwb_positioning} presents our related work in compressive UWB positioning systems. What's more, the chapter \ref{C:wideband_css} introduces the compressive spectrum sensing for cognitive radios, but points out the limitation due to CS fully reconstruction. Finally, the chapter \ref{C:csp_css} proposes our recommenced future research on compressive signal processing based cognitive spectrum sensing.
+\end{abstract}
+
+\newpage
+\begin{center}
+\Large
+\vspace{3cm} \textbf{Acknowledgements}
+\end{center}
+\normalsize
+\indent \indent I would like to express my sincere and great gratitude to my supervisor, Assoc Prof. Vun Chan Hua for his kind guidance and encouragement. It is a great honor to work with him. I own my sincere appreciate to all my friends in CeMNet. Without their help, my first year study and research in NTU can not process well.
+
+
+\newpage
+\makeatletter
+\let \asas \ps@plain
+\let \ps@plain \ps@empty
+\makeatother \large
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+\addtolength{\headheight}{3pt} \pagestyle{fancy}
+\setlength{\headrulewidth}{0.1pt}
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter. #1}{}}
+\lhead{\fancyplain{}{\bfseries\footnotesize\sc\leftmark}} \rhead{}
+\addtolength{\headsep}{-0.1in}
+\cfoot{\fancyplain{}{\bfseries\rm\thepage}}
+\pagenumbering {arabic}     % Use arabic number for the page number of main body
+\normalsize
+%-------------------------------------------------------------------------------------------------------------
+
+\include{Introduction}
+\include{Compressed_Sensing}
+\include{Compressive_Ultra_Wideband_Positioning}
+\include{Wideband_Cognitive_Spectrum_Sensing}
+\include{Signal_Processing_for_Compressive_Spectrum_Sensing}
+%\include{Conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{Reference}
+
+\end{document}

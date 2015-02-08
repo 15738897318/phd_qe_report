@@ -1,0 +1,40 @@
+Published
+====
+
+\indent \indent Over the past few decades, signal processing have been widely deployed in many computational applications in areas such as image processing, video conferencing, smart sensors network, and other real-time processing technologies. These applications are also increasingly implemented in the form of embedded systems such as mobile and wireless devices\cite{mamaghanian2011compressed}, aerospace equipment, and biomedical instruments\cite{lustig2008compressed} etc.
+
+Many signal processing systems also involve signal sampling and conversion, where one of the most crucial limitations lies in the sampling theory (the Nyquist sampling rate or Shannon theory, which states the minimum two time sampling rate requirement.) Due to limited data processing and storing capability found in many wireless communication systems, excessive data samples will negatively affect their performance and power efficiency, and hence forms the bottleneck of entire digital systems. 
+
+As a novel paradigm for signal processing and acquisition, the compressive sensing or compressed sensing (CS) technique\cite{davenport2011introduction}, is identified to have great potential for resolving the problems mentioned above. The CS theory has been proven to be suitable for numerous computer science and electronic engineering based applications, where it is possible to overcome the limitation of the traditional sampling theory. 
+
+The main idea of the research work is to further extend the CS based techniques to wideband signal processing systems. Using this approach, the novel systems will be proposed that encompass various areas such as data compression, data acquisition, data storage, data transmission, optimal recovery and processing. In addition, since signal processing system are popular and suitable in many embedded wireless network applications such as battery supplied mobile devices, we would also focus on CS techniques that will be particularly effective for wireless devices. 
+
+Especially, this report illustrates our related research on CS based ultra wideband (UWB) positioning and cognitive spectrum sensing (CR). For many ultra wideband (UWB) communication systems, the high data rate transmission in 1-10 GHz puts huge pressure on signal detection at ADCs at receivers, which indicates the sampling rate becomes a main bottleneck to the UWB system. For cognitive radios, in order to automatically sense the surrounding environment within limited power (for intelligently adapts its configuration), each CR requires high energy-efficient and low rate sampling paradigm. These demands give rise to the CS-based framework in original systems.  
+
+This report first presents the overview of compressed sensing theory and its applications, and then focus on wideband signal acquisition. In this part, our related survey of CS based ADCs is introduced, and related work in CS based UWB positioning systems is proposed. Further, we turn to the recent research on cognitive radio spectrum sensing, and propose our idea -- compressive signal processing for cognitive spectrum sensing.  
+
+====
+Unpublished
+
+###UWB
+
+In this chapter, we presents an overview of the compressed sensing (CS) based applications for wireless networks. Especially, we focus on on our related work in ultra-wideband (UWB) positioning system. The proposed work shows the potential advantages if we implement CS projection in the transmitter of the UWB positioning system according to the experiment result. However, it still points out the drawback of CS framework in the generation high-rate pseudo-random sequence. Based on this point, finally, a trade-off design of CS-based UWB is proposed and its performance is measured.
+
+The proposed CS-based UWB positioning shows the potential advantages if we implement CS projection in the transmitter of the UWB positioning system according to our experiment. Besides, it also points out the drawback of CS framework in the generation high-rate pseudo-random sequence. As a result, a trade-off design of CS-based UWB is proposed and measured.
+
+CS based IR-UWB systems can possibly detect high frequency sparse signals under a sub-Nyquist sampling rates that far below the Nyquist rate (twice the IR-UWB bandwidth). This result is advantageous which releases the bottleneck of the large bandwidth constraints on ADC at UWB receivers, and consequently reduces storage limits and improves energy efficiency in IR-UWB positioning systems.
+
+###CR
+CS based cognitive spectrum sensing 
+
+\indent \indent As the wireless techniques keep fast developing, the limited spectrum resource seriously restricts the fast increasing demand for more accessible bandwidth in recent decades. As a result, the dynamic spectrum access (DSA) which enables wireless devices opportunistically access the idle bands becomes necessary and popular. Followed by this idea, the cognitive radio (CR) arises aiming at optimal utilisation of idle bands (unlicensed spectrum) for communications without doing harm to the primary users (licensed spectrum). Besides, the CR devices can sense the environment (including spectrum usage, noise level etc) quickly and accurately, so that they can reconfigure themselves to adapt the varying circumstance.
+
+In this chapter, we propose an overview of cognitive radio (CR) networks and then focus on the bottleneck in its front-end sampling devices. Due to the wideband sensing task in CR, the required sampling rate becomes extremely high. Although various approaches [xx-yy] are recently developed to solve this problem, it's shown that in many scenarios, the compressed sensing is the optimal method to solve the problem [xx-yy]. This chapter presents the recent work of compressed spectrum sensing for cognitive radio.
+
+###CS
+\indent \indent Compressed Sensing is introduced as an optimal solution to significantly reduce the sampling rate, and consequently it has been widely applied in wireless communication. 
+
+###CSP
+
+\indent \indent In this chapter, we propose a potential approach, term as the compressive signal processing (CSP) [x], to enhance the real-time capability of compressed sensing based cognitive sensing framework under the assumption that in many cases fully recovery is NOT necessary. Followed by this idea, [xx-yy] successfully reduce the executive time since the magnitude of recovered signal length is significantly decreased. On the other hand, since cognitive spectrum sensing (CSS) only requires detecting the 'existence' of spectrum, so fine recovery is no need. From this aspect, the idea of CSP is well suited for CSS. In this chapter, an overview of the compressed signal processing (CSP) theory is presented, as well as the CSP-based applications in wireless communications. 
+

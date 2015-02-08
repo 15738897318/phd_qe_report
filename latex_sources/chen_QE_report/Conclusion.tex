@@ -1,0 +1,41 @@
+\chapter{Conclusion}\label{C:conclusion}
+
+\indent \indent To the best of our knowledge, the aforementioned compressed signal processing (CSP) technique has not been fully developed, because as the interest of signal changes in different environment, spectrum that does Not need "fully recovery" (e.g. interfere and unrelated frequency bands) also varies. In other words, many potential spectrum sensing application based on CSP are still worth developing under different cases. 
+
+In this chapter, our future work is introduced. The work follows the recent research of the CSP, implemented on cognitive spectrum sensing (CSS), and focus on how to directly get enough informations from partial compressed measurements, or without any recovery. This topic involve innovative filtering and estimation method for compressed signals (as research goes on, maybe classification will also be involved. Our final aim is to embed these technique to reduce the hardware complexity and improving its real-time capability for cognitive radio devices. 
+
+%-------------------------------------------------------------------------------------------------------------
+\section{Contributions}\label{sct:Contribution}
+\indent \indent In our research of AMS tracking algorithm, there are three major contributions in the following aspects:
+
+\paragraph{Image Representation:} We design an adaptive fusion mechanism of IPCA (Incremental Principle Component Analysis) and color histogram. The IPCA represent the object as an incrementally updated eigenspace, where IPCA is robust to adapt the multi-view of the object and distortions leading by illumination variations and rotations. However, as the IPCA method uses the wrapped image patch of the object, it is very sensitive against the shape deformation of pliable objects. The color histogram feature is used as a complementary feature to the IPCA in our method, where color histogram discards the spatial information. We adaptively adjust the weights of the representation method in our reference appearance model, based on the discrimination of the color histogram feature between the object and the background.
+
+\paragraph{Appearance Model:} To avoid the error accumulation in appearance model updating, we propose our AMS tracking method. We copy the object appearance information into a new initialized appearance model before big transformations in video sequence (\emph{e.g.}, occlusion, appearance variation, fast movement and cluttered background). If the transformation is allowed like appearance variation and fast movement, the updated reference model during the transformation would be selected in the following tracking. But if it is invalid transformation like collusion and cluttered background, the new initialized model is selected after the transformation. This mechanism is able to avoid error accumulation in model updating successfully.
+
+\paragraph{Implementation:} We implement the AMS tracking algorithm with MATLAB and do the comparison with some recently popular visual tracking algorithms. The accuracy and analysis are given. We also test the computation efficiency of our AMS tracking algorithm against iVT \cite{iVT2008} tracking.
+
+%-------------------------------------------------------------------------------------------------------------
+\section{Recommendations for Future Work}\label{sct:FutureWork}
+\indent \indent The following are three directions of our future work in surveillance system.
+
+\subsection{Time Efficient Algorithms}
+\indent \indent The accuracy of our proposed AMS tracking algorithm is good compare to the recently popular visual tracking algorithms. However, the time overhead of the proposed algorithm is more than iVT algorithm, where only iVT is also implemented with MATLAB in the compared algorithms. The additional computation complexity comparing to iVT algorithm is in the appearance selection mechanism, as each model in the model pool requires the computing of the related reliable function. In the proposed method, the reliable function in each frame is independent, and we need to do the same computing in each frame. One way of reducing the time overhead is to incrementally update the reliable functions frame by frame. The computational complexity reducing problem is an important issue in future research of object tracking.
+
+\subsection{Multimodal Surveillance}
+\indent \indent Another direction of our future work is multimodal surveillance, where multimodal sensors are integrated into the system including video, audio, IR radiation, laser, vibration and some biometric sensors. The multimodal surveillance system has the capability to work in complex and rugged environments (\emph{e.g.}, night and dust background), detect dissembling targets and provide more feature details of the targets with biometric sensors. The challenges in multimodal surveillance system mainly include: multiple sensor control techniques and multimodal integration algorithms.
+
+\paragraph{Multiple Sensor Control Techniques:} mainly focus on the problem of most efficiently exploring the capability of each sensor and broadening the territory of the surveillance area with limited sensors. It asks the cameras to be calibrated with specifical parameters by considering the location, viewpoints of the related camera. The configuration of all the sensors installation is another important issue. The overlapping area of different sensors should be considered in order to find the related objects while maximizing the surveillance area at the same time.
+
+\paragraph{Multimodal integration algorithms} is to effectively integrate the data from different multimodal sensors. The different data types can lead to the improvement of the detection and tracking accuracy. The problem in multimodal integration includes synchronization of sensors, corresponding objects finding in multiple sensors, and data transmission methods. In our future work, we will focus on some common sensors integration like video, audio and infrared.
+
+\subsection{Object Behavior Analysis}
+\indent \indent Object behavior analysis is another challenging issue in surveillance system. It is an important part of event detection and relies on the output of the object detection and tracking algorithm. The behaviour analysis problem can be formulated as a classification problem by matching the detected time varying features to the pre-defined image sequence. However, due to the complexity of the interactions and activities that have flexible representations, behavior analysis problem can be addressed by using rule-based inference, causal analysis, physical constraints and syntactic analysis.
+
+Our future work on this area will focus on efficiently using the data results from the object detection and tracking step and improve the detection and tracking by feeding back the object behavior. Like when we analyze crowd behaviours, we can model the targets as bounding box or points in object detection and tracking. But in the situation of understanding the behaviour of a suspicious person, it is better for us to model the body with articulated model to get the trajectories of each part of the body. Besides, the object behavior analysis result can give feedbacks to the detection and tracking by estimating the possible states of the object in the incoming frames.
+%-------------------------------------------------------------------------------------------------------------
+\section{Submitted Papers}
+
+\begin{enumerate}[{[}1{]}]
+  \item Y. Yuan, S. Emmanuel and W. Lin, “Appearance Model Selection in Visual Object Tracking,” International Conference on Acoustics, Speech, and Signal Processing (ICASSP 2013), Submitted,  Vancouver, Canada, May 2013.
+  \item Y. Yuan, S. Emmanuel and W. Lin, “Robust Visual Tracking via Appearance Model Selection,” IEEE Transaction on Multimedia, Submitted.
+\end{enumerate}

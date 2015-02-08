@@ -1,0 +1,12 @@
+%uwb-pos-model.tex
+Extremely wide transmission bandwidths of the IR-UWB offers outstanding multipath resolutions for accurate positioning in indoor environment. Consider a typical UWB indoor communication model shown in Fig. \ref{uwb1} where distributed UWB receivers (base stations) are placed in an area to detect the location of a moving UWB transmitter (tag). The transmitter periodically broadcasts Gaussian shaped pulse $p(t)$ through an indoor multipath channel, and receivers detect signals for time of arrival (TOA) based positioning calculation. The received signals can be described as (\ref{eq_recv}):
+\begin{equation}
+\label{eq_recv}
+r(t) = p(t) * h(t) + n(t) = \sum_{l=1}^{L} a_l p(t-\tau_l) + n(t) 
+\end{equation}
+where $p(t)$ is the transmitted Gaussian pulse, $n(t)$ stands for zero-mean additive white Gaussian noise (AWGN), and $h(t)$ refers to the standard UWB channel model denoted by IEEE 802.15.4a (\ref{eq_chan}):
+\begin{equation}
+\label{eq_chan}
+h(t) = \sum_{l=1}^{L} a_l \delta(t-\tau_l)
+\end{equation}
+Here $a_l$ and $\tau_l$ are the gain and delay corresponding to the $i$-th path in the channel model. The $L$ defines the total number of propagation paths, and $\delta(t)$ is the Dirac delta function. Based on the fact that geometrical difference yields different time of arrivals, the received signals at the different receivers are collected for TOA based algorithm. At last accurate position of the transmitter is calculated based on TOA \cite{d2010toa}. In addition, since both transmitted pulses and components of multipath channel can be regarded as approximately sparse, the received IR-UWB signals becomes sparse, and consequently the CS framework is applicable for UWB positioning \cite{yang2011compressive}. 

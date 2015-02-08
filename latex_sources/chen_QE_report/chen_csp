@@ -1,0 +1,21 @@
+\chapter{Compressed Signal Processing for Cognitive Radio}\label{C:comp_sign_proc}
+
+\indent \indent In this chapter, we propose a potential approach, term as the compressive signal processing (CSP) [x], to enhance the real-time capability of compressed sensing based cognitive sensing framework under the assumption that in many cases fully recovery is NOT necessary. Followed by this idea, [xx-yy] successfully reduce the executive time since the magnitude of recovered signal length is significantly decreased. On the other hand, since cognitive spectrum sensing (CSS) only requires detecting the 'existence' of spectrum, so fine recovery is no need. From this aspect, the idea of CSP is well suited for CSS. In this chapter, an overview of the compressed signal processing (CSP) theory is presented, as well as the CSP-based applications in wireless communications. 
+
+%\indent \indent In this chapter, we propose an overview of cognitive radio (CR) networks and then focus on the bottleneck in its front-end sampling devices. Due to the wideband sensing task in CR, the required sampling rate becomes extremely high. Although various approaches [xx-yy] are recently developed to solve this problem, it's shown that in many scenarios, the compressed sensing is the optimal method to solve the problem [xx-yy]. This chapter presents the recent work of compressed spectrum sensing for cognitive radio.
+
+%-------------------------------------------------------------------------------------------------------------
+
+\section{Motivation}\label{sct:csp_moti}
+
+\indent \indent In the last chapter, compressed sensing based spectrum sensing techniques for cognitive radio are puzzled by the heavy burden from non-linear CS reconstruction procedure [xx-yy]. Previous approaches such as greedy recovery [xx-yy] aims at fast reconstruction while keeping considerable robustness, and they achieve to present enough contributions. 
+
+%Besides, the CS techniques highly relies on the assumption that object (spectrum) are sparse, in other words, CS is not  suitable for dense wireless communication environment. These two problems lead the following discussion in the next chapter, which shows our proposed research directions. 
+
+%re-write{
+A fundamental difference between CS and classical sampling is the manner in which the two frameworks deal with signal recovery, i.e., the problem of recovering the signal from the measurements. In the Shannon-Nyquist framework, signal recovery is achieved through sinc interpolation?a linear process that requires little computation and has a simple interpretation. In CS, however, signal recovery is achieved using nonlinear and relatively expensive optimization-based or iterative algorithms [xx3?5]. Thus, up to this point, most of the CS literature has focused on improving the speed and accuracy of this process [xx6?9].
+
+However, signal recovery is not actually necessary in many signal processing applications. Very often we are only interested in solving an inference problem (extracting certain information from measurements) or in filtering out information that is not of interest before further processing. While one could always attempt to re- cover the full signal from the compressive measurements and then solve the inference or filtering problem using traditional DSP techniques, this approach is typically suboptimal in terms of both accuracy and efficiency. 
+
+Our future work takes some initial steps towards a general framework for what we call compressive signal processing (CSP), an alternative approach in which signal processing problems are solved directly in the compressive measurement domain **without** first resorting to a full-scale signal reconstruction.
+%}
