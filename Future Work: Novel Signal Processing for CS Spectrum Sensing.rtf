@@ -1,0 +1,1150 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf130
+{\fonttbl\f0\fmodern\fcharset0 Courier-Bold;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue192;\red0\green0\blue0;\red107\green0\blue1;
+\red15\green112\blue1;\red77\green77\blue77;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\b\fs24 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\chapter\{Future Work: Novel Signal Processing for CS Spectrum Sensing\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  \
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{C:csp_css\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+In the last chapter \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{C:\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 wideband_css\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, we have discussed the main drawback in compressed sensing based spectrum sensing (CS-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CSS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) which derives from the computational non-linear CS reconstruction. As a fact, the CS framework sacrifices the time and energy performance in reconstruction produce (in return, the sampling rate is reduced). In order to solve this problem, this chapter focuses on exploring the potential approach of directly analysing compressive measurements without fully CS reconstruction. The new approach is termed as compressive signal processing (CSP), and it will be used for compressive spectrum sensing (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CSS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) in cognitive radio network (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CRN\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ), so that the drawback may be overcome in our proposed CSP based \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CSS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  systems. \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Introduction to CSP\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+The compressed sensing based wideband spectrum sensing for cognitive radio provides its outstanding feature in reducing the sampling rate. However, the corresponding drawbacks emerge in real-time ability and energy cost, mainly due to its computational complex non-linear reconstruction and energy cost in entire cognitive radio systems.  \
+\
+However, many signal processing applications such as detection, classification, estimation and filtering do NOT require entire signal reconstruction \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 davenport2010signal\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. For instance, cognitive radios are aiming at processing the hypothesis detection rather than fully recovering the primary signals. In these cases, the aim of CS fully recovery is no longer necessary, so processing schemes like 'directly analysis without recovery' or 'partial recovery then analysis' become possible and applicable for cognitive spectrum sensing. \
+\
+This novel idea derives from the compressive signal processing (CSP)\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 davenport2010signal\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, which aims at extracting information directly from compressive samples without fully recovery.  \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Literature Review\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+In \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ohlsson2013compressive\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, the shift retrieval problem for compressive samples is researched. Rather than recovering CS data then analysing the shifted distance, the author develops efficient algorithms and proofs for directly recognising the shift distance from CS data. \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 Valsesia\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  et al \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 valsesia2014compressive\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} develops the circulant sensing matrix based processing for compressive measurements, which displays an potential CSP application for convolution based models and is suitable for filtering or channel impulse response involved cases. Especially, for cognitive radio spectrum detection, a CSP based energy detector is designed in \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 appaiah2013spectrum\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. Further, \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 Guo\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  et al develops CSP for feature detector in \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 guo2013feature\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} and pattern clustering is achieved.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Proposed Research\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Since so far the CSP concept is always only defined in the theory level and has not been widely applied to \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CSS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  field, we believe there still exists many worthy research area and cases for CSP based spectrum sensing. In other words, CSP based cognitive spectrum sensing is still a relative new approach which applies the CS but throw away some CS drawbacks for \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  spectrum sensing. \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Potential CSP Applications In Spectrum Sensing\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+The following sections are organised as different function introduction for CSP based cognitive radio spectrum sensing, including filtering, detection, estimation. Some related potential application for CS-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 UWB\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  and CS demodulation are also introduced.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{CSP based Filtering\}\\label\{sct:csp_filter\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+In scenarios where cognitive spectrum sensing requires filters, the design cost for \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 analog\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  filters are expensive. Here we may use CSP based filtering to transform the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 analog\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  filter to digital filter, which omits the implementation of hardware design for filters.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Filter Domain Transform\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Assume that the filter's impulse response is \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $h$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  (with length of \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $N_h$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ) and its corresponding matrix form is \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $H$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , then \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $H$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is a circulant sensing matrix. \
+\
+Then, according to a CSP related theory in \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 valsesia2014compressive\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, it possible to exchange the \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $H$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\Phi$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  (compressed sensing matrix), sometimes in CS frameworks, the effect of \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 analog\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  filter equals the effect processed by digital filters. The compressive measurements \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $y$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  can be directly processed by filtering \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $H$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  without recovery in some cases \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 csp\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -filter\} as follows:  \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{csp-filter\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\hat y = \\Phi H x = H \\Phi x = H y \\quad, where \\quad i \\in [1,m-N_h+1].\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+, where the \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\Phi$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is compressed sensing matrix with size of \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $m \\times N$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 .  Consequently, by moving the filtering from \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 analog\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  to digital part, large amount of hardware complexity could be omitted. \
+\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}[!t]\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.75\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{figs/\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 csp\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -filter-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 thm\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 png\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagram of exchanging order of circulant matrix. \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $H$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is corresponding impulse response of filter, \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\Phi$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the compressed sensing matrix. The exchanging sacrifice is the loss of rows in the results (matrix in the right side of equal sign).\}
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{csp-filter-thm\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Interference filtering\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+In cases where useless information is redundancy for further recovery in CS framework, or specifically where some sub-bands are priorly known in the compressive cognitive spectrum sensing, system using CSP can regard those useless information as interference, which applies CSP to achieve the procedure of 'sample-then-filter' to compressive data rather than sample-recover-then-filter it. \
+\
+Assume a sparse signal \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x \\in R^N$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  which consists of two components:\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{csp1\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 x = x_s + x_I, \\quad x_S \\in S_S\\; and\\; x_I \\in S_I\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+, where the \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x_S$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  contains the spectrum of interest and the \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x_I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  stands for the useless information. After the CS acquisition, we gain \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $y = \\Phi x = \\Phi(x_S + x_I)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . Then our aim is to wipe out the contribution of \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\Phi x_I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  from the observation \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $y$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  before recovering \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . The following theorem provide the applicability of this idea:  \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{theorem\}\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 davenport2010signal\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{csp2\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+Suppose that \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\Phi$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  satisfies the \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\delta$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 -stable RIP for all \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x_S\\in\\Sigma_S$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x_I\\in\\Sigma_I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , where \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is a \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $K_I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  dimensional subspace of \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $R^\{N\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . Assume that \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\Psi_I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is an matrix whose columns constructs an orthogonal basis for the \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $K_I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  dimensional subspace. Define the matrix \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $P_\{\\Omega\} = \\Phi\\Psi_I(\\Phi\\Psi_I)^\{\\dagger\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $P_\{\\Omega^\{\\perp\}\} = I-P_\{\\Omega\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . For any \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x \\in \\Sigma_S \\cup \\Sigma_I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , we regard \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x = x_S + x_I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , where \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x_S \\in s_S$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x_I \\in s_I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , then\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{csp3\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 P_\{\\Omega^\{\\perp\}\} \\Phi x = P_\{\\Omega^\{\\perp\}\} \\Phi \\hat x ,\\quad\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\frac\{\\delta\}\{1-\\delta\} \\leq \\|P_\{\\Omega^\{\\perp\}\} \\Phi \\hat x\\|_2 \\leq 1 + \\delta \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{theorem\}\
+The theorem \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 csp2\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} proofs that there exists a matrix \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $P_\{\\Omega^\{\\perp\}\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  which is nearly orthogonal to the useless information \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x_I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  such that \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $P_\{\\Omega^\{\\perp\}\} x_I \\approx 0$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . Hence the matrix \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $P_\{\\Omega^\{\\perp\}\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the filter for selecting the desired signal \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x_S$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . we can apply this theory to construct a filtering matrix in CS acquisition model if the support of the \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x_I$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is known. \
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{CSP based Detection\}\\label\{sct:csp_detect\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}[!t]\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.5\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{figs/\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 csp\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 detec_vs_ED\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 png\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagram of performance comparison between the CSP detector (compressive signal processing based detector) and ED (energy detector) from aspect of signal to noise ratio and detection error.\}
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{csp-detec_vs_ED\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{CSP based Energy Detector\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+Davenport et al \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 davenport2010signal\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} develops the theorem to directly build up hypothesis detection directly through compressed samples. Assume the detection is based on two hypotheses in \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\begin\{aligned\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 H0: y = \\Phi w  \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 H1: y = \\Phi (w + s)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\end\{aligned\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+, where \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $s$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the primary user's signal, \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $y$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the vectorial observation, \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\Phi$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is compressed sensing matrix (e.g. the random demodulation), and \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $w$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  stands for the noise. Then the following equation \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 csp\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -detect\} presents the structure of CSP based detector. \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{csp-detect\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\Lambda(y) = (\\Phi \\Phi^T)^\{-1\} \\Phi s \\quad \\mathop\{\\lessgtr\}_\{H_1\}^\{H_0\} \\quad \\alpha\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+In \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 appaiah2013spectrum\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, the experimental results of comparing CSP-detector and traditional energy detector (ED), is shown in figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 csp\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 detec_vs_ED\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. It has been shown that CS based Detector can provide better Error \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 vs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  performance. \
+\
+One defect of this simulation result is that, the paper does not discuss blind sensing techniques for cases where the information of primary signal \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $s$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is unknown to us. Thus further developing for CSP based blind sensing is a potential direction. \
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{CSP based Cyclic Feature Detector\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %re-write:\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf3 \expnd0\expndtw0\kerning0
+\ul \ulc3 \outl0\strokewidth0 Guo\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  et al \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 guo2013feature\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} develops CSP for feature detector in  and achieves pattern clustering.\
+The work generates the compressive spectrum measurement by utilizing both the cyclic-stationary feature and sparsity prior knowledge at the spectrum sensing front end. Then the paper applies the compressive CSP without the need of signal or feature reconstruction. \
+\
+However, as the author states that \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 guo2013feature\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, the CSP feature detection model is still simple. So how to \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 analyze\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  the spectrum pattern recognition performance in a more complicated \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CRN\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  environment is open issue. For instance, with large-scale \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SUs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  and non-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 Poisson\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  PU traffic models. Also, More efficient machine learning schemes (such as information geometry) can be used to recognize the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 PUs\'e2\'80\'99\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  signal patterns after obtaining the CS samples via CSP scheme. \
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{CSP based Estimation\}\\label\{sct:csp_estim\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Since the signal-to-noise-ratio, sparsity order are crucial factors which seriously affects the performance of compressive detectors, CSP based estimation becomes popular for cognitive radio. \
+\
+This technique make \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  be able to directly predict the level of sparsity or noise, so that \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  can vary the sampling rate or change the detection algorithms based on those predicted information.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Sparsity Order Estimation\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+For instance, the sparsity order of the spectrum occupancy is time-varying in \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  networks. If \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  intends to fully exploit the CS framework, the sampling rate of CS receiver should keeping adjusting to sparsity orders. \
+\
+Therefore, estimating the sparsity orders in very important, and the \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 sharma2014compressive\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} develops an approach which analysis sparsity order through asymptotic eigenvalue probability distribution function (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 aepdf\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) from the covariance matrix of the compressively sampled primary signal. In details, the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 aepdf\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  is related to the sparsity order via a lookup table in figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 csp\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 soe\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. \
+\
+However, this paper does not apply the estimated information into further process in spectrum sensing to pursuit higher efficiency in adaptive sampling rate. So next we can apply the idea to further improvement of sensing efficiency.\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}[!t]\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.75\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{figs/\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 csp\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 soe\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 png\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagram of lookup table for sparsity order estimation through signal-to-noise ratio (SNR) and asymptotic eigenvalue probability distribution function (aepdf). For example, if the value of aepdf = 7.26 for the compressive case in SNR = 2db, it can be estimated that the sparsity order of spectrum occupancy is 0.6\}
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{csp-soe\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Noise Level Estimation\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+For \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  networks, the signal-to-noise ratio (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) affects the performance of spectrum detectors. For example, the energy detector (ED) is simple and fast, but with poor performance in low \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  scenarios; Feature detectors (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 FD\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) are complex and slow, but have strong robustness to noise. In \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 sharma2014compressive_snr\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, the author \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 similarily\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  build up a lookup table relating the noise estimation with the eigenvalue probability distribution function in covariance matrix of the compressively sampled primary signal. \
+\
+Then if we have the access to estimate the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  in \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CRN\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , we can achieve the following spectrum sensing approach in the future: \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\paragraph
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Hybrid Spectrum Sensing\} \
+\
+If we have known the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , we can design a more intelligent two stage detector. In the coarse stage, a quick search is done over a wide bandwidth, and in the fine stage, the sensing is done over the individual candidate sub-bands in that bandwidth, one at a time. the coarse stage is based on energy detection due to its fast processing. If the test statistics is larger than a predefined threshold, then the band is considered occupied. Otherwise, a fine stage is performed where a cycle-stationary detector is implemented due to its robustness at the low \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  regime. (For sparsity level, we can judge whether the CS based detector suitable if there exists dense channel occupancy by primary users)\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\paragraph
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Adaptive spectrum Sensing\} \
+\
+In case when a \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  successfully know the primary signals' \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  can intelligently choose optimal detection algorithms based on \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  related performance of detectors. For instance, if the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  is detected to be very low, then cycle-stationary detection algorithm can be used due to its robustness at the low \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  regime. Otherwise, the energy detector can be used since it's fast and accurate enough in high \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  regime. Extending this idea of selecting various of detector based on CSP estimation, we can select the optimal detector adaptively. This will provide future cognitive radio more flexibility to the varying environment.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Other Related Wideband Processing with CSP\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{CSP based TOA for UWB Positioning\}\\label\{sct:csp_toa\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Maximizing the cross-correlation between the two signals is one of the key steps in time-of-arrival (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 TOA\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) algorithms which have been applied in compressive \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 UWB\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  positioning in chapter \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{C:\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 compressive_uwb_positioning\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. In that system, the procedures at receiving end can be abstracted as (1) low-rate sampling, then (2) CS fully reconstruction, finally (3) \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 TOA\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  algorithm based \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 locationing\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 . However, the (2) CS fully reconstruction may sometimes Not necessary if we borrow the theorem.\
+\
+According to \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ohlsson2013compressive\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, where the shift retrieval problem for compressive samples is investigated, we may directly recognising the shift distance from CS data without recovery. Now the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 thoerem\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  has not been embedded into \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 UWB\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  positioning, so the CSP-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 TOA\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  positioning is a possible research application in the future.\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}[!t]\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.75\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{figs/\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 csp\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -shift.\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 png\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Histogram for the estimated shift in SNR = 2. From left to right, top to bottom, compression ratio = 0.1 ... 1. The true shift was set to 5 in all trials\}
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{csp-shift\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{CSP based Demodulation\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+A compressive sensing phase-locked loop (CS-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 PLL\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 schnelle2012compressive\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, is designed for directly extracting the phase and frequency from compressively sampled modulated signal \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $without$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  sparse recovery. Since the restricted \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 isometry\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  property (RIP) of CS ensures that the standard inner product between \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x[n]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $u[n]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is approximately the same as that in the compressively sensed version produced by \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $y[m]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $u[n]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 davenport2010signal\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, hence, the inner products in the standard \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 PLL\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  and that in the CS-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 PLL\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  are nearly the same, ensuring the consistence between the standard \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 PLL\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\theta [n]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and the CS-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 PLL's\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  output \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\theta [m]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . The presentation of the \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\theta [m]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  can be presented as \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\theta [m] = \\sum_\{k\} y[k]v[k]h[m-k]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , where the index \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $m$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  indicates the lower sampling rate compared with the Nyquist rate index \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $n$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . In addition, the compressive sensing operations \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\Phi$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  which apply the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 RD's\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  architecture consist of a input pseudo-random sequence, a mixer, a integrator, and a low-rate sampling ADC, which is the same as the random demodulator's architecture in chapter 2.\
+\
+This CS-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 PLL\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  has many application fields if the FM demodulation is necessary in compressive sensed data. When we successfully apply this technique, we don not need recovery, but directly demodulate original information from the received modulated signals.\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}[!t]\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.5\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{figs/\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 pll2\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .pdf\}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagram of the compressive sensing phase-locked loop (CS-PLL). The components includes the pre-CS sampler, phase detector, loop filter, oscillator and the feed-back CS multiplier\}
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{CS-PLL\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Conclusion\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+In the this chapter, we have followed the discussion of the main drawback in compressed sensing based spectrum sensing (CS-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CSS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) which derives from the computational non-linear CS reconstruction, and then propose the idea of signal processing directly on compressively sampled data (CSP) without fully recovery. Then we introduce our future potential work which will embed CSP into cognitive spectrum sensing, including CSP based filtering, CSP based detection, and CSP based estimation. Some other possible CSP applications in \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 UWB\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  positioning and signal demodulation are also introduced. We hope that by utilise the CSP in spectrum sensing, a high real-time performance, high flexible ,energy efficient hardware could be achieved in the future. \
+\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %--------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %As a fact, the CS framework sacrifices the time and energy performance in reconstruction produce (in return, the sampling rate is reduced). In order to solve this problem, this chapter focuses on exploring the potential approach of directly analysing compressive measurements without fully CS reconstruction. The new approach is termed as compressive signal processing (CSP), and it will be used for compressive spectrum sensing (CSS) in cognitive radio (CR), so that the drawback will be overcome. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %In conclusion, the motivations for developing signal processing for compressed measurements can be categorised in following aspects:\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\paragraph\{Demand for simple signal processing in CS\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %The reconstruction algorithms for CS is non-linear, which indicates that the recovered data are not directly suitable for conventional digital signal processing where a simple recovery using cardinal sine (sinc) interpolation (linear process) is required. One solution is to sequentially achieve CS reconstruction and then process the recovered data, but it's too computational expensive.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\paragraph\{Requirement for energy efficiency in CS\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %The discussion in chapter \\ref\{C:wideband_css\} stresses the main drawback in CS based cognitive spectrum sensing. which derives from the computational non-linear CS reconstruction.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % %--------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\section\{Interference Avoidance\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % Assume a sparse signal $x \\in R^N$ which consists of two components:\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\label\{csp1\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % x = x_s + x_I, \\quad x_S \\in S_S\\; and\\; x_I \\in S_I\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % , where the $x_S$ contains the spectrum of interest and the $x_I$ stands for the useless information. After the CS acquisition, we gain $y = \\Phi x = \\Phi(x_S + x_I)$. Then our aim is to wipe out the contribution of $\\Phi x_I$ from the observation $y$ before recovering $x$. The following theorem provide the applicability of this idea:  \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{theorem\}\\cite\{davenport2010signal\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\label\{csp2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % Suppose that $\\Phi$ satisfies the $\\delta$-stable RIP for all $x_S\\in\\Sigma_S$ and $x_I\\in\\Sigma_I$, where $I$ is a $K_I$ dimensional subspace of $R^\{N\}$. Assume that $\\Psi_I$ is an matrix whose columns constructs an orthogonal basis for the $K_I$ dimensional subspace. Define the matrix $P_\{\\Omega\} = \\Phi\\Psi_I(\\Phi\\Psi_I)^\{\\dagger\}$ and $P_\{\\Omega^\{\\perp\}\} = I-P_\{\\Omega\}$. For any $x \\in \\Sigma_S \\cup \\Sigma_I$, we regard $x = x_S + x_I$, where $x_S \\in s_S$ and $x_I \\in s_I$, then\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\label\{csp3\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % P_\{\\Omega^\{\\perp\}\} \\Phi x = P_\{\\Omega^\{\\perp\}\} \\Phi \\hat x ,\\quad\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\frac\{\\delta\}\{1-\\delta\} \\leq \\|P_\{\\Omega^\{\\perp\}\} \\Phi \\hat x\\|_2 \\leq 1 + \\delta \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{theorem\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % The theorem \\ref\{csp2\} proofs that there exists a matrix $P_\{\\Omega^\{\\perp\}\}$ which is nearly orthogonal to the useless information $x_I$ such that $P_\{\\Omega^\{\\perp\}\} x_I \\approx 0$. Hence the matrix $P_\{\\Omega^\{\\perp\}\}$ is the filter for selecting the desired signal $x_S$. we can apply this theory to construct a $filtering matrix$ in CS acquisition model if the support of the $x_I$ is known. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % In addition, it also points out that $P_\{\\Omega^\{\\perp\}\}\\Psi$ satisfies the $\\delta/(1-\\delta)$-stable RIP for all $x \\in \\Sigma_\{S_S\}$, indicating that this filtering matrix provide a stable recovery:  \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{theorem\}\\cite\{davenport2010signal\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\label\{csp4\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % Suppose that $\\Phi$ satisfies the $\\delta$-stable RIP for all $x_S\\in\\Sigma_S$ and $x_I\\in\\Sigma_I$, where $I$ is a $K_I$ dimensional subspace of $R^\{N\}$. Assume that $\\Psi_I$ is an matrix whose columns constructs an orthogonal basis for the $K_I$ dimensional subspace. Define the matrix $P_\{\\Omega\}$ and $P_\{\\Omega^\{\\perp\}\}$ as in the theorem \\ref\{csp2\}. Then the $P_\{\\Omega^\{\\perp\}\}\\Phi$ satisfies $\\delta/(1-\\delta)$-stable RIP for all $x_S \\in \\Sigma_S$ and $P_\{\\Omega\}\\Phi$ satisfies $\\delta$-stable RIP for all $x_I \\in \\Sigma_I$.  \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{theorem\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\paragraph\{Requirement for real time ability in CS\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\section\{Compressive Estimation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\subsection\{Compressive Phase-Locked Loop\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\indent \\indent Since computationally expensive for accurate sparse recovery is relatively high which reduces the real-time processing ability of CS devices, a compressive sensing phase-locked loop (CS-PLL)  \\cite\{schnelle2012compressive\}, is designed for directly extracting the phase and frequency from compressively sampled modulated signal $without$ sparse recovery. This novel architecture brings computational advantages that improves the real-time processing capability in CS devices such as FM receivers\\cite\{davenport2010wideband\} and widely implemented in wireless communication. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % %It applies a revised PLL structure by adding two compressive sensing (CS) operations $\\Phi$ to the original standard architecture of PLLs: one operation is the pre-CS sampler representing the random demodulator (RD) for modulated signal acquisition; another one is the feed-back multiplier which has the same structure as the first, which locates between the oscillator and the phase detector. Then the new architecture of the CS-PLL is shown in Figure \\ref\{CS-PLL\}, comprised of a pre-CS sampler, phase detector, loop filter, oscillator and a feed-back CS multiplier.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{figure\}[!t]\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\includegraphics[width=2.2in]\{figs/pll2.pdf\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\caption\{Block diagram of the compressive sensing phase-locked loop (CS-PLL). The components includes the pre-CS sampler, phase detector, loop filter, oscillator and the feed-back CS multiplier\}\\label\{CS-PLL\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{figure\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % Since the restricted isometry property (RIP) of CS ensures that the standard inner product between $x[n]$ and $u[n]$ is approximately the same as that in the compressively sensed version produced by $y[m]$ and $u[n]$\\cite\{davenport2010signal\}, hence, the inner products in the standard PLL (\\ref\{eqn_pll1\}) and that in the CS-PLL (\\ref\{eqn_pll2\}) are nearly the same, ensuring the consistence between the standard PLL $\\theta [n]$ and the CS-PLL's output $\\theta [m]$. The presentation of the $\\theta [m]$ can be presented as:\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\label\{eqn_pll2\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\theta [m] = \\sum_\{k\} y[k]v[k]h[m-k]\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{equation\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % , where the index $m$ indicates the lower sampling rate compared with the Nyquist rate index $n$. In addition, the compressive sensing operations $\\Phi$ which apply the RD's architecture consist of a input pseudo-random sequence, a mixer, a integrator, and a low-rate sampling ADC, which is the same as the RD's architecture shown in Figure \\ref\{RD\}.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %--------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\section\{Compressive Sensing Processing\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\subsection\{Applications: CSP Detector\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\indent \\indent the CSP-detector which estimates the existence of primary users directly from CS samples before recovery, so running time is significantly saved. Further, CS-filters, CS-estimators etc can also embedded for other scenarios in cognitive spectrum sensing, in order to improve the real-time capability direction, or further adaptive sensing schemes. Also, our future research direction will follow this idea.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %In this section, compressed sensing based spectrum sensing techniques for cognitive radio are introduced and compared. As a result, traditional sensing techniques of CR such as energy detector, feature detector can improve their detection performance if they implement the CS technique under the assumption that sensed spectrum are sparse. However, as the CS reconstruction requires non-linear processing which is much complex than traditional linear sinc based recovery, the real-time capability loss becomes the main payment for reducing the high sampling rate problem aforementioned in this chapter. Besides, the CS techniques highly relies on the assumption that object (spectrum) are sparse, in other words, CS is not  suitable for dense wireless communication environment. These two problems lead the following discussion in the next chapter, which shows our proposed research directions. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\section\{Compressed Signal Processing for Cognitive Radio\}\\label\{C:csp_cr\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\indent \\indent In aforementioned sections, compressed sensing based spectrum sensing techniques for cognitive radio are introduced and compared. As a result, traditional sensing techniques of CR such as energy detector (ED), coherent detector (CD) can improve their detection performance if they implement the CS technique under the assumption that sensed spectrum are sparse. However, as the CS reconstruction requires non-linear processing which is much complex than traditional linear sinc based recovery [xx-yy], the real-time capability loss becomes the main payment for reducing the high sampling rate problem aforementioned in this chapter. Besides, the CS techniques highly relies on the assumption that object (spectrum) are sparse, in other words, CS is not  suitable for dense wireless communication environment. These two problems lead the following discussion in the next chapter, which shows our proposed research directions. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\indent \\indent In this chapter, we propose a potential approach, term as the compressive signal processing (CSP) [x], to enhance the real-time capability of compressed sensing based cognitive sensing framework under the assumption that in many cases fully recovery is NOT necessary. Followed by this idea, [xx-yy] successfully reduce the executive time since the magnitude of recovered signal length is significantly decreased. On the other hand, since cognitive spectrum sensing (CSS) only requires detecting the 'existence' of spectrum, so fine recovery is no need. From this aspect, the idea of CSP is well suited for CSS. In this chapter, an overview of the compressed signal processing (CSP) theory is presented, as well as the CSP-based applications in wireless communications. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\indent \\indent In this chapter, we propose an overview of cognitive radio (CR) networks and then focus on the bottleneck in its front-end sampling devices. Due to the wideband sensing task in CR, the required sampling rate becomes extremely high. Although various approaches [xx-yy] are recently developed to solve this problem, it's shown that in many scenarios, the compressed sensing is the optimal method to solve the problem [xx-yy]. This chapter presents the recent work of compressed spectrum sensing for cognitive radio.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %-------------------------------------------------------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\section\{Motivation\}\\label\{sct:csp_moti\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\indent \\indent In the last chapter, compressed sensing based spectrum sensing techniques for cognitive radio are puzzled by the heavy burden from non-linear CS reconstruction procedure [xx-yy]. Previous approaches such as greedy recovery [xx-yy] aims at fast reconstruction while keeping considerable robustness, and they achieve to present enough contributions. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %Besides, the CS techniques highly relies on the assumption that object (spectrum) are sparse, in other words, CS is not  suitable for dense wireless communication environment. These two problems lead the following discussion in the next chapter, which shows our proposed research directions. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %--------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %Besides, since accurate detection of cognitive spectrum sensing is always required for not interfering primary users, time consuming algorithms -- convex optimization (e.g.basis pursuit) is needed. In such cases, large delays are generated and in conflict with agility (i.e. feedback reconfiguration) in cognitive radios. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %--------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %However, in CS acquisition model, this relation no longer remains indicating we cannot directly achieve CS based signal processing without recovering the original data. What's worse, CS based reconstruction is always complicated than that in traditional Nyquist theory based ADCs: In traditional ADCs, signal reconstruction can be achieved by $sinc$ interpolation which is a linear processing with little computation, while the CS based signal reconstruction requires nonlinear computations such as convex optimization based or greedy pursuit algorithms, which are considered as  more computationally expensive\\cite\{davenport2010signal\}. Therefore, the signal processing becomes a crucial problem in acquisition systems using CS based ADCs. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %--------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %Signal processing through compressive measurements is always difficult than that by traditional one. In traditional Nyquist theory framework, the signal processing applies the relation between the spectrum and time domain samples, which makes the digital processing operations easily replaced by their continuous counterparts \\cite\{mishali2011xamplingsignal\}. Digital filtering exploits this relation, as well as estimation, detection and classification.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %---------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\section\{Conclusion\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %In the last chapter \\ref\{C:wideband_css\}, we have discussed that the main drawback of compressed sensing based spectrum sensing (CS-CSS) lies in the non-linear CS reconstruction. As a fact, the CS enhance the performance in sampling but sacrifice the one in reconstruction produce -- the computational complexity for CS reconstruction brings heavy cost in both time cost and energy cost. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %---------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\paragraph\{Real-Time Capability\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %The reconstruction algorithms for CS is non-linear, which indicates that the recovered data are not directly suitable for conventional digital signal processing where a simple recovery using cardinal sine (sinc) interpolation (linear process) is needed. Besides, since accurate detection of cognitive spectrum sensing is always required for not interfering primary users, time consuming algorithms -- convex optimization (e.g.basis pursuit) is needed. In such cases, large delays are generated and in conflict with agility (i.e. feedback reconfiguration) in cognitive radios. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\paragraph\{Energy Efficiency\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %The heavy reconstruction for CS not only brings large time-delay, but also additional energy cost. Compared to linear recovery in traditional approaches, the CS based signal detection additionally required the block for spectrum recovery before further hypothesis detection. Then here comes the question: what if we directly perform hypothesis detection without CS reconstruction ? If the idea is achievable, the additional energy cost will be eliminated so that the entire energy reduces. Besides, not only detection, if we can expand this idea to filtering, estimation, then more intelligent-based scheme for cognitive radio can be supported in physical layer. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %To our best knowledge, most of CSP based cognitive spectrum sensing do Not involves energy aware design. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %Our aims for following the CSP are (1) find energy-efficient solution for cognitive spectrum sensing, and (2) solve the real-time capacity to enhance the overall performance of compressive CRs. Since the CSP applications are still relying on various conditions, such SNR, Taps of filters, length of original signal, \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\section\{CSP Theory for Cognitive Spectrum Sensing\}\\label\{sct:csp_theory\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\indent \\indent In many scenarios, the aim of CS fully recovery is no longer necessary, and directly analysis or partial recovery then analysis become possible and applicable. This section briefly presents CSP theory by various topics relating to our research area of cognitive radio spectrum sensing. Theories for CSP based filtering, estimation, interference avoidance, classification, shift retrieval, sparsity order prediction are briefly introduced.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %--------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %Further, Guo et al develops CSP for feature detector in \\cite\{guo2013feature\} and pattern clustering is achieved.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %--------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\indent \\indent In some noise cases, only parts of certain information from measurements are needed, and thus we prefer to filter out the useless information before further signal processing. Therefore, if we could estimate the useless information corresponding to some observations, and then $throw$ them $away$ before CS based signal recovery, we can avoid a high computational complexity and thus save the power efficiency significantly. According to \\cite\{Theorem 1, davenport2010signal\}. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+}

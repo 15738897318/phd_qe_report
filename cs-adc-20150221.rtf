@@ -1,0 +1,1475 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf130
+{\fonttbl\f0\fmodern\fcharset0 Courier-Bold;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue192;\red0\green0\blue0;\red77\green77\blue77;
+\red107\green0\blue1;\red15\green112\blue1;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\b\fs24 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\chapter\{Compressed Sensing based Analog to Digital Converter\}\\label\{C:cs-adc\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Traditional Nyquist Theory becomes cumbersome when an acquisition system processes wideband signals which contains a relatively high frequency component. In this chapter, we discuss  recent applications embedding CS into \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  to reduce the sampling rate and improve \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\'e2\'80\'99\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  performance. This chapter focuses on the CS based \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  design, categories different popular CS-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  in areas of wireless communication, and finally discusses the architectures and compare the performance.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Introduction\}\\label\{ch3:intro\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\pard\pardeftab720
+\cf3 \expnd0\expndtw0\kerning0
+\ul \ulc3 \outl0\strokewidth0 Analog\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -to-Digital Converters (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) are key components for signal acquisition and processing systems.\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 %%re-wr\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+Ideally, each sampling event should result in the signal value at the specific sampling instant. However, in practice, there are main factors that limit the ADC performance (e.g. increase system noise, phase offset and magnitude error, inter-symbol interference \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 etc\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) such as uncertainty in the sampling instant (i.e., jitter) and the finite sampling bandwidth, manifested as a weighted integration over a small time interval around the sampling instant (i.e., aperture).\
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 %%\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+What is worse, those effects become more serious at higher input signal frequencies, as the signal slew-rate (i.e., rate of change of a signal) is proportional to the signal frequency so that a small jitter or aperture uncertainty can generate non-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 idealities\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  which cause a significant error in high-speed sampling, especially effects the performance in modern signal acquisition and processing systems which requires high frequency signal inputs.\
+\
+The CS has enabled alternative solutions to this problem for high-speed \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  in the area of CS based \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 analog\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -information-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 convertion\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 AIC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ). Well-known applications of CS based \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 AIC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  include random demodulator \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 tropp2010beyond\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, modulated wideband converter \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2009blind\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} and non-uniform sampler \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{ \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ragheb2007implementation\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. It has been claimed that these \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 AIC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  architectures enable high resolution at high frequencies while only using low frequency, which are sub-Nyquist \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 . \
+\
+In addition, CS enable systems to acquire relatively small number of samples which reduce the power cost for sensing and storage. From these aspects, the CS based \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  are important and needed to be investigated. \
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Sensing Matrix Modelling\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+Since there is always not enough freedom for building random matrix (Gaussian or Bernoulli) subject to physical or other constraints in hardware implementations as well as the ADC designs, at the moment, the combination design comprised of partial randomness and partial deterministic (or termed as partial random structural matrix) becomes popular since most applications have constraints in design sensing matrix such as dictionary (Fourier basis) or channel impulse response, although many those combination design cannot reach the optimal boundary of minimum required samples \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $O(k log(\\frac\{N\}\{k\}))$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . In the following CS-ADC applications, most of the sensing matrices that are partial random structural matrices are analysed in their sub-section named \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\emph\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Acquisition Model\}, and corresponding reconstruction performances (in terms of sampling rates / minimum required samples) are displayed in sub-section named \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\emph\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Fast Reconstruction\}. \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Random Demodulator\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Random Demodulator (RD) \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 tropp2010beyond\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} is a newer and more popular \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  for CS-based signal acquisition and processing.\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}[!t]\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.5\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 random_demodulator\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .pdf\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagram of random demodulator (RD). The components includes a pseudo-random sign generator, a low-pass filter, and a sub-Nyquist ADC\}
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{RD\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+The k-sparse input signal x is first mixed with the chipping sequence \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $p_c(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  which is a waveform constructed by pseudo-random variables of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\\{\\pm 1\\\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  (termed as chipping sequence). The mixed product component \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $x(t) \\cdot p_c(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is then passed through an anti-aliasing low pass filter \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $h(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , before being sampled at a uniform interval but at a lower sampling rate of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $m$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  which is of the order \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $O(K log(N/K))$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  which is much lower than the normal required rate corresponds to \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $N$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  (since \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $K << N$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ). The most widely used reconstruction algorithms for RD are those based on \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 OMP\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  and \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CoSaMP\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  greedy pursuit. Experimental results \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 tropp2010beyond\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} demonstrates that the minimal sampling rate needed is only \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $1.7K(log(N/K))$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and in addition, it provides better \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  performance when compared with conventional Nyquist rate based \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Acquisition Model\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+We first assume the RD acting on the discrete time domain instead of the continuous-time domain. We first suppose \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $x = \\Psi s$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , where \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\Psi$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the discrete time Fourier transform (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 DFT\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) matrix and \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $s$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $K$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  sparse coefficients. Next, the RD measurement \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\Phi$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  can be described as a combination of two matrices representing chipping sequence \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $p_c(n)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and sub-Nyquist sampling action, respectively.\
+\
+First, we consider the action of mixing chipping sequence \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $p_c(n)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  described as diagonal matrix \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $D$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  where the value \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\epsilon$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  of non-zero items (diagonal items) are chosen pseudo-randomly from the set \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\\{-1,+1\\\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  as shown in (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mx_chipping\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}):\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{mx_chipping\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 D = \\left(\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{cccc\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\epsilon_0 & & &\\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 & \\epsilon_1 & &\\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 & & \\ddots &\\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 & & &\\epsilon_\{n-1\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\\right)_\{N \\times N\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\
+Next, we consider the action of the sampling at a sub-Nyquist rate \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $M$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . Suppose that \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $M$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  divides the Nyquist rate \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $N$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , then each sample is the sum of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $N/M$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  consecutive entries of input signal\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 kirolos2006analog\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. In summary, this sampling behaviour can be treated as an \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $M \\times N$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  matrix \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\Phi$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  in (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mx_subsample\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}) where each row has \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $N/M$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  successive entries beginning with its \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $mN/M+1$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 th\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  item, where \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $m = 0,1,\\ldots, N-1$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  refers to the column number.\
+\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{mx_subsample\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\Phi = \\left(\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{cccc\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \{\\underbrace\{\{1\\hspace\{0.15em\}1\}\\ldots 1 \}_\{N/M\}\}& & & \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6  & \{\{1\\hspace\{0.15em\}1\}\\ldots 1 \} & & \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6  & & \\ddots & \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6  & & & \{\{1\\hspace\{0.15em\}1\}\\ldots 1 \}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\\right)_\{M \\times N\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\
+In conclusion, the final observation behaviour of RD can be modernised as the following (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mx_measure\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}),\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6  \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{mx_measure\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 y = (\\Phi D) x = (\\Phi D \\Psi) s = As\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+where \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\Phi D$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  stands for the architecture in Figure \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{RD\} and \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $A$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the final measurement for sparse components \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $s$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , providing stable and robust reconstruction if \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $A$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  satisfies the RIP.\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Fast Reconstruction\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Convex optimisation and greedy pursuits have been both developed and applied in this architecture such as \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 OMP\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  and \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CoSaMP\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , and they have been widely used for reconstruction for RD \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 yang2009compressed\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ,\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 bai2012high\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. According to experimental results of RD\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 tropp2010beyond\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, the necessary minimal samples for stable reconstruction for this architecture is \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $1.7K(\\log(N/K))+1$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and similar to the theoretical results\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 donoho2006high\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} stating the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 theorcial\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  minimum number in compressive sampling using random matrix. Hence, the required samples for CS \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 reseaches\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  a magnitude of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $OK(\\log(N/K))$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  (\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $K << N$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ) and considered much less than \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $2N$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  samples needed for Nyquist sampling. Besides,\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 tropp2010beyond\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} also find out that the robustness of RD surpasses that of the traditional Nyquist sampling by testing of the signal-to-noise ratio (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) in different situations.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Modulated Wideband \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 Convertor\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Modulated Wideband Converter (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2009blind\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} is an approach that applies the CS theory for traditional blind multi-band signal receivers \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 black1980time\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, where the carrier frequency is either time-variant or unknown. Figure \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC1\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} shows the architecture of the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , which consists of parallel channels of RD based sub-Nyquist rate \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .\
+\
+Each periodic sequence (at \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $T_P$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  interval) of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $p_i(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  with minimum duration of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $T_p/M$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is mixed with the input multi-band signal \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $x(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . This shifts each channel spectrum by \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\Delta f_p$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  (\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $f_p = 1/\{T_p\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  which is then filtered to the baseband for sampling by sub-Nyquist \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 . Reconstruction is done by support detection via continuous to finite block (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CTF\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) which is shown in Figure \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ctf\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, and the followed signal reconstruction, where the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CTF\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  block is comprised of frame construction and the multiple measurement vectors (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MMV\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) reconstruction, and the signal reconstruction can be achieved by a direct pseudo-inverse operation based on results of the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CTF\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  block.\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}[!t]\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.5\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC1\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .pdf\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagram of modulated wideband convertor (MWC). The components includes parallel periodic waveforms mixers, low-pass filters, and sub-Nyquist ADCs\}
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{MWC1\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Acquisition Model\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+We assume that \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  samples a multi-band signal \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $x(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  obtaining sparse spectrum \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $X(f)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  supported by N frequency segments (Each of segments does not exceed B Hz). When \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $x(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is mixed by the \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $p_i(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 %a periodic piecewise sequence $p_i(t)$ which alternates between $\\pm1$ at time interval $T_p/M$ and chipping sequence in \\ref\{RD\} can be used.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+the spectrum \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $X(f)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $x(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  becomes: \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{eqn_mwc1\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{split\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{aligned\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\bar X_i(f) = \\int_\{-\\infty\}^\{+\\infty\} x(t) p_i(t) e^\{-j2\\pi ft\}dt \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 = \\sum_\{l=-\\infty\}^\{+\\infty\} c_\{il\} X(f-lf_p)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{aligned\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{split\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+, where the periodic sequence \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $p_i(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  can be represented by:\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{eqn_mwc2\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 p_i(t)=\\sum_\{l=-\\infty\}^\{+\\infty\}c_\{il\}e^\{j\\frac\{2\\pi\}\{T_p\}lt\},\\; c_\{il\}= \\frac\{1\}\{T_p\}\\int_\{0\}^\{T_p\}p_i(t)e^\{j\\frac\{2\\pi\}\{T_p\} lt\} dt\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}[!t]\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.5\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC2\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .pdf\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\
+Block diagram of the relationship between the spectrum of the output \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $y_i(n)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and the input \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $X(f)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  In this example, channels \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $1$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $m$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  linearly combines the original the spectrum segments around \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $lf_p$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\bar lf_p$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\tilde lf_p$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  with different weights \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $c_\{il\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 .\
+\}
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{MWC2\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+Sampled to baseband by filters and \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , the weighted and accumulated \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $X(f)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  has a relationship with the discrete-time Fourier transform (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 DTFT\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $y_i[n]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  (the \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $ith$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  group of the output) shown in (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 eqn_mwc3\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}):\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{eqn_mwc3\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 Y_i(e^\{j2\\pi fT_s\})=\\sum_\{l=-L_0\}^\{+L_0\}c_\{il\}X(f-lf_p)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+, where \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $T_s = 1/\{f_s\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , and \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $L0$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  satisfies \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $2(L_0+1)f_p \\geq f_\{NYQ\}+f_s$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $2L_0+1=M$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 .\
+\
+Since (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 eqn_mwc3\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}) establishes the relationship between observations and input sparse signals, the measurement or the CS sensing matrix can be described as \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\mathbf y(f) = C \\mathbf z(f)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 :\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{align\}\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{eqn_mwc4\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\underbrace\{\\left[\\small\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{c\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 Y_1(e^\{j2\\pi fT_s\}) \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\vdots  \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 Y_m(e^\{j2\\pi fT_s\})\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\right]\}_\{\\mathbf y(f)\} =\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\underbrace\{\\left(\\small\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{ccc\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6  c_\{11\} & \\ldots & c_\{1M\} \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6  \\vdots &  \\ddots & \\vdots\\\\   \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6  c_\{m1\}& \\ldots & c_\{mM\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\right)\}_\{C\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\underbrace\{\\left[\\small\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{c\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 X(f-\{L_0\}f_p) \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\vdots  \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 X(f+\{L_0\}f_p)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\right]\}_\{\\mathbf z(f)\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{align\}\
+, where \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $C = \\\{c_\{il\}\\\}_\{m \\times M\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  depends on the choice of different \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $p_i(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . A popular application of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $p_i(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is referred as the sign waveform generator in RD\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2010theory\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} as well as in Figure \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC1\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, produced by a shift-register structure. In this case, the corresponding coefficients \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $c_\{il\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  equals:\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{split\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{aligned\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 c_\{il\}= \\frac\{1\}\{T_p\} \\int_\{l=0\}^\{\\frac\{T_p\}\{M\}\} \\sum_\{k=0\}^\{M-1\} a_\{ik\} e^\{j \\frac\{2\\pi\}\{T_p\} l (t+k \\frac\{T_p\}\{M\})\} \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6       = \\frac\{1\}\{T_p\} \\sum_\{k=0\}^\{M-1\} a_\{ik\} e^\{-j \\frac\{2\\pi\}\{M\} lk \} \\int_\{l=0\}^\{\\frac\{T_p\}\{M\}\} e^\{-j \\frac\{2\\pi\}\{M\} lt \}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{aligned\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{split\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{eqn_mwc5\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+, where \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $a_\{m,M-1\} \\in \\\{\\pm1\\\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  refers to the value of the \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $p_i(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . Embedding the presentation of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $c_\{il\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  to the (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 eqn_mwc4\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}), the CS sensing matrix of the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  can be represented as: \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $Y_i(e^\{j2\\pi fT_s\})= CX(f) = HFDX(f)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , where \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $C$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  consists of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $HFD$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  as follows:\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{align\}\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{eqn_mwc6\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\underbrace\{\\left(\\footnotesize\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{ccc\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 a_\{1,0\}&\\ldots &a_\{1,M-1\} \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\vdots &\\ddots & \\vdots \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 a_\{m,0\}&\\ldots &a_\{m,M-1\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\\right)\}_\{H_\{m \\times M\}\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\underbrace\{\\left(\\small\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{ccc\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 | & \\ldots & | \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\bar F_\{L_0\} & \\ldots &  \\bar F_\{-L_0\}\\\\   \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 | & \\ldots & |\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\\right)\}_\{F_\{M \\times M\}\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\underbrace\{\\left(\\footnotesize\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{ccc\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 d_\{0\}&& \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 &\\ddots &  \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 &&d_\{M-1\}   \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\\right)\}_\{D_\{M \\times M\}\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{align\}\
+, where \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $F$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the discrete time Fourier transform (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 DFT\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) matrix constructed by \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\bar F_\{L_i\} = [e^\{-j0\\cdot i\},\\ldots, e^\{-j \\frac\{2\\pi\}\{M\} (M-1)\\cdot i\}]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $D = \\\{d_l = \\frac\{1\}\{T_p\} \\int_\{0\}^\{\\frac\{T_p\}\{M\}\} e^\{-j \\frac\{2\\pi\}\{M\} lk\}\\\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 .\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Fast Reconstruction\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Considering the CS measurement in (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 eqn_mwc4\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}), recovering the \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\mathbf z(f)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  where each row \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $X(f-lf_p)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  presents sparse spectrum segments can be regarded as recovering a infinite set of joint sparse vectors. This problem can be solved by changing it to the problem of multiple measurement vectors (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MMV\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 )\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2008reduce\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} and has been implemented as Figure \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ctf\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}:\
+\
+Step 1: Calculating \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $Q = \\sum_\{-\\infty\}^\{+\\infty\}\\mathbf y[n]\\mathbf y^\{T\}[n]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , where \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\mathbf y[n]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  = \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $[y_1[n],\\ldots,y_m[n]]^\{T\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the output sampled at the time interval \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $nT_s$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . Then finding the matrix \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $V$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  by solving \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $Q = VV^T$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 .\
+\
+Step 2: After gain \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $V$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , solving the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MMV\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  problem defined as \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $V = CU$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , where \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $C$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  refers to the measurement of \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  in (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 eqn_mwc4\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}) and (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 eqn_mwc6\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}). Since applying the chipping sequence in RD \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2010theory\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} as \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $p_i(t)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  for \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  is proven applicable and satisfied the expected RIP \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2009expected\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, the matrix \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $C$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  has sufficient guarantees to provide stable and robust reconstructions for \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MMV\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  based \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $l1$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 -minimisation\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2008reduce\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, changing this HP-hard problem to a polynomial time computable. Furthermore, \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MMV\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  greedy pursuits  in\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 chen2006theoretical\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ,\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2008reduce\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ,\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 sun2009efficient\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} presents better computational performance and widely used. Then the joint sparse \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\Omega$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is recovered as \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\Omega = \\cup_\{i \\in \\Omega\} supp(U)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 .\
+\
+Since \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  in Figure \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC1\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} satisfies the expected RIP \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2009expected\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, the problem of multiple measurement vectors (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MMV\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) can solved in CS theory. Hence the above procedures finally  recovers the input infinite set \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\Omega$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  of joint sparse vectors \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\mathbf z(f)=\{X(f-lf_p)\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , and use \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\mathbf z(f)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  recover the \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $x[n_\{Ts\}]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , the recovery of the blind multi-band signal in time domain:\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{eqn_zn\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 z[n] = C_\{\\Omega\}^\{\\dagger\} y[n], \\quad C_\{\\Omega\}^\{\\dagger\} = C_\{\\Omega\}^T(C_\{\\Omega\}^TC_\{\\Omega\})^\{-1\}C_\{\\Omega\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+, where C is the matrix in (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mx_measure\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}) and \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\mathbf z[n]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the set of the inverse \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 DTFT\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $z_i[f] = X(f-lfp)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  in (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 eqn_mwc4\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}). Hence, \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $x(nT_s)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  can be generated by shifting spectrum slice \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $z_i(f)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  to appropriate position using a low pass filter \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $h_\{LP\}(n)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , and summing up them with zero padding\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2010theory\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}:\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 x[n]=x[n_\{Ts\}]=\\sum_\{i\\in\\Omega\} (z_i[n]*h_\{LP\}[n])e^\{2\\pi if_pnT\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}[!t]\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.5\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ctf\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .pdf\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagram of Continuous to Finite (CTF) for the joint supports detection\}
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{ctf\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\quad\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3   As a result, in practical applications the experimental results indicates that stable recovery of the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  in Figure \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC1\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} requires roughly \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $m \\approx 4Nlog(M/2N)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  channels to estimate the correct support.\
+\
+Moreover, the comparison of a modulated wide-band converter(\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) and a random demodulator(RD) is provided in \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2011xamplingsignal\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} from aspects of hardware complexity, robustness and computational load. As shown in experimental results, the two structure contains the similar hardware complexity, but the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  outperforms the RD in computational load and robustness to model mismatch\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2011xamplingsignal\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Non-Uniform Sampling\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Apart from the modulated based CS architectures such as random demodulators (RD) or modulated wideband converters (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) which uniformly samples the mixed input \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 analog\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  signals at a slow rate, another novel CS architecture is the non-uniform sampling (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 NUS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ), based on the theory of information recovery from random samples \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ragheb2007implementation\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, is driven by a pseudo random clock that produce a sub-Nyquist rate on average. An example of this sampling pattern is shown in Figure \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 RS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -ADC\}, and an instance of \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 NUS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  application implemented by multiplexers is shown in Figure \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 RS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -ADC\}.\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}[!t]\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.5\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 NUS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .pdf\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{A pseudo-randomly sample pattern for single pure tone signal of length 300\}
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{NUS\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Acquisition Model and Reconstruction\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Considering randomly reducing the number of measurements make the signal \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $x$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  under-sampled with a low average sampling rate, we presents the behaviour of the non-uniform sampler (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 NUS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 )\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 candes2008introduction\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} based CS acquisition model can be represented as a matrix representation:\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{align\}\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{non-uniform_sample3\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\left[\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{c\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 | \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 y  \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 |\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\right] =\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\underbrace\{\\left(\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{ccc\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\epsilon_0 && \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 &\\ddots &  \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 &&\\epsilon_\{n-1\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\\right)\}_\{D_\{N \\times N\}\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\underbrace\{\\left(\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{ccc\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 1 & \\ldots & \\omega^\{0 \\cdot (N-1)\} \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\vdots & \\ddots & \\vdots  \\\\   \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 1 & \\ldots & \\omega^\{(N-1)(N-1)\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\\right)\}_\{F_\{N \\times N\}\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\left[\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\begin\{array\}[c]\{c\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 | \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 s  \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 |\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\end\{array\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \\right]\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{align\}\
+, where the matrix multiplication between \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $F$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $s$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  stands for the input signal \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $x$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  which contains sparse spectrum \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $s$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 , and \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $F$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the full discrete time Fourier transform (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 DFT\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) matrix. The diagonal matrix \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $D$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  represents the behaviour of non-uniform sampling, where the value \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\epsilon$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  of diagonal items are chosen pseudo-randomly from \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\\{0,1\\\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 .\
+\
+The \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 NUS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  based CS acquisition model establishes a sensing matrix \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $A$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  which equal \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $DF$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  in \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{non-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 uniform_sample3\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} and can be regarded as a random partial Fourier matrix \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $F_\{T\}$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  which consists of randomly chosen columns of the discrete Fourier matrix(\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 DFT\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) and indexed by \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $T$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . According to \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ragheb2007implementation\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, the matrix \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $A$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  satisfies the RIP in compressive sensing so the acquisition model in (\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{non-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 uniform_sample3\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}) produces a stable reconstruction of \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $\\hat s$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  via \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $l1$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 -minimisation using \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $m \\geq O(slog(N/s))$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  samples\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ragheb2007implementation\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. In addition, many greedy algorithms such as \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 OMP\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  and \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CoSaMP\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  are also implemented as fast reconstruction for this architecture\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 maechler2011random\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Implementation\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Common implementations of the CS based non-uniform sampling architectures varies from \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 laska2006random\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ragheb2007implementation\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 maechler2011random\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 rogers2011compressive\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. Among these implementations, the random sampling compressive sensing ADC (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 RS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -ADC) is likely to be the prevailing design shown in Figure \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 RS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -ADC\}. The implementation uses an input multiplexer driven by a non-uniform clock to switch the signal among several parallel \cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 $S/H$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  based \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 analog\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  queues. A low rate ADC (e.g. Successive Approximation ADC) is used to convert the stored samples, performing at uniform intervals but operating at sub-Nyquist average rate. Greedy pursuit algorithms such as \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 OMP\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  and \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CoSaMP\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  are then used to perform fast reconstruction for this architecture.\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}[!t]\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.5\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 RSADC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .pdf\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\DeclareGraphicsExtensions.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagram of the random sampling CS ADC (RS-ADC). The components includes a pseudo-random sign generator, a low-pass filter, and a sub-Nyquist ADC\}
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{RS-ADC\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+However, the main problem of applying \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 RS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -ADC lies in sampling high frequency signals: since the ADC and input \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MUX\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  perform inherent bandwidth limitations \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 modeled\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  as a \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 lowpass\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  filter preceding the uniform sampling, acquisitions for high frequency signals results in a loss of the spectrum components. Besides, the high switching speed of the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MUX\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  increases noise and reduces the power efficiency.\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Conclusion\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Modern digital signal processing applications deal with a large amount of data, resulting in enormous numbers of observations and requiring high speed sampling in the front-end of systems according to the Nyquist theorem. To overcome this problem, the compressive sensing based ADC (CS-ADC) is studied recently, and in this chapter, we provide a comprehensive survey of the novel CS-ADC designs in terms of architectures. We have traced origins of this technology and presented mathematical and theoretical foundations, as well as implementation instances including RD, \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , and \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 NUS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 . Reconstruction performance are discussed, which shows the computational efficiency and high speeds are achieved in CS-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 . Consequently, CS-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ADCs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  become widely applied as sampling front-ends in many high frequency signal or wideband signal processing systems in many wireless devices such as ultra-wideband communications and cognitive radios that we will mentioned as our CS applications in the following chapters.  \
+\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 %\\subsection\{Related Work\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 %\\subsection\{random convolution\} //OK\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 %As \\ref\{RD\}, when we treated the RD in frequency domain, the sampling behaviour can be ($i$) convoluting sparse signal with pseudo-random chipping sequence and ($ii$) filtering the output by a low pass filter. This is the architecture of random convolution (RC)[]. Hence from this aspect, RD would be very similar to RC.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 %\\subsection\{sublinear FFT\} //OK\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 %In addition, instead of using uniform sub-Nyquist ADC, the algorithm termed sub-linear FFT suggests that one can subsample at a small number of random time from a structured grid. This method avoid jitters from non-uniform sampling and achieve average rate that is significantly lower than the Nyquist rate. This idea is implemented in [][], and will be introduced in the following section of $random\\; sampling$.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 %The use of Toeplitz matrices in CS applications has several potential advantages: (i) they require the generation of only O(n) independent random variables; (ii) multiplication with Toeplitz matrices can be efficiently implemented using fast Fourier transform, resulting in faster acquisition and reconstruction algorithms; and (iii) Toeplitz-structured matrices arise naturally in certain application areas such as system identification\\cite\{bajwa2007toeplitz\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+}

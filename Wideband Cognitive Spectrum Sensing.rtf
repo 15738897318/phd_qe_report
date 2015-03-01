@@ -1,0 +1,1078 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf130
+{\fonttbl\f0\fmodern\fcharset0 Courier-Bold;\f1\fmodern\fcharset0 Courier;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue192;\red0\green0\blue0;\red107\green0\blue1;
+\red15\green112\blue1;\red77\green77\blue77;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\b\fs24 \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\chapter\{Wideband Cognitive Spectrum Sensing\}\\label\{C:wideband_css\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Cognitive Radio (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) has been attracting many attention in recent researches with respect to the potential better utilisation performance of limited spectrum resources. In this chapter, we first propose an overview of cognitive radio networks. Then we focus on the bottleneck in its front-end sampling devices and investigate the typical CS framework for spectrum sensing in \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 . \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Introduction\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+As the wireless techniques keep fast developing, the limited spectrum resource seriously restricts the fast increasing demand for more accessible bandwidth. As a result, the dynamic spectrum access (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 DSA\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) becomes necessary and popular, which enables unused spectrum accessed opportunistically, shown in figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 dsa\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 cr\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -intro\}.(a). \
+\
+Following this idea, the cognitive radio (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) develops aiming at optimizing utilisation of idle bands for communications, without doing harm to the primary users (licensed spectrum) \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 akyildiz2006next\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. Correspondingly, the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  devices have to sense the environment (including spectrum usage, noise level \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 etc\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) quickly and accurately, and reconfigure themselves to adapt the varying circumstance.\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.85\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{figs/\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 cr\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -intro.pdf\}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{(a) The existence of unused spectrum resources; (b) The concept of spectrum holes\}\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{dsa-cr-intro\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+Therefore, in cognitive radios, the first and important procedure is to sense the unused bandwidth, termed as the spectrum holes and shown in figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 dsa\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 cr\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -intro\}.(b). If the band is detected as unused, the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  networks will use it for further communication. Otherwise, the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  moves to find other spectrum holes, or stays in the same band but avoid interference by changing its transmission power or modulation model.\
+\
+However, trends of communicating requires higher frequency and wider bandwidth. As a result, signal acquisition significant is crucial according to the Nyquist sampling theory. What's worse, since \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  should not generates additional interference to the licensed users, \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  must limits its working power to a relatively low level (if \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  do not change its modulation model). The demand for sensing with low power contradicts with the requirement for sensing in high sensitivity. Thus this contradiction makes the signal acquisition much more difficult. \
+\
+In conclusion, spectrum sensing becomes one of the most crucial problem for cognitive radios, and it is still an open issue. Then, compressed sensing will be introduced to be embedded into traditional spectrum sensing algorithms, in order to solve the problem and enhance the overall performance.\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Hypothesis Test Model for Spectrum Sensing\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+The aim of spectrum sensing is to decide whether a particular sub-band of the spectrum is available or not. In other words, the procedure is to discriminate based on two hypotheses in equation \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 detect_hypo\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}: \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{detect_hypo\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\begin\{aligned\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 H0: y[n] = w[n]   \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 H1: y[n] = w[n] + x[n] \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\end\{aligned\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+, where \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $x[n]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the primary user's signal, \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $y[n]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the vectorial observation, \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $w[n]$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  is the noise, and \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $n$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  refers to time slots. The hypothesis 1 suggests that the primary user's signal exists, while hypothesis 0 suggests no. Typically, the decision is made by comparing a predetermined threshold with test statistic \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $\\Lambda(y)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  in equation \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 detect_statistic\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}: \
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 label\{detect_statistic\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \\Lambda(y) \\mathop\{\\lessgtr\}_\{H_1\}^\{H_0\} \\alpha\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{equation\}\
+Then the performance of a detector is quantified by the receiver operating characteristics (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 ROC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) curve, which presents the probability of detection \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $P_D = Prob(\\Lambda(y) > \\alpha, H1)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  and false alarm probability \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $P_fa = Prob(\\Lambda(y) > \\alpha, H0)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 . \
+\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Traditional Detection Method\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Narrowband Detection\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+In this section, typical spectrum sensing approaches are introduced. Narrowband sensing algorithms can be suitably applied when the channel frequency response is flat. The following figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 narr_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} demonstrates most typical architectures in narrowband spectrum sensing.\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.75\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{figs/\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 narr_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 png\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagrams for traditional narrowband detection architectures: \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $a)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  matched filtering detector; \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $b)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  energy detector; \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $c)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  feature detector\}\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{narr_spec_sens\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Matched filter\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+In the figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 narr_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.(a), the matched filtering (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MF\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) detector\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 poor1994introduction\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} is presented. when the signal to be detected is perfectly known (i.e. mean and variance), the optimal test statistic is produced by matched filter by correlating the received signal to a template. However, the signal cannot always be known in practise, so sometimes it's not applicable. Besides, the carrier synchronisation is also a remained difficult problem.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Energy detector\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+In the figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 narr_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.(b), the energy detector (ED) \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 urkowitz1967energy\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} is presented. In the case where the signal to be detected does not present structure template, the ED can produce the optimal test statistic by directly analysis the power and variance of the received signal. The implementation of ED is simple, but it suffers from poor detection results in low \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  environment. Besides, the ED cannot distinguish different primary signals at the same time.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Feature detector\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+In the figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 narr_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.(c), cycle-stationary feature detection (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 FD\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 enserink1994cyclostationary\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} is presented. If discrimination for primary signals and higher detection performance are required, the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 FD\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  exploits the cyclic non-stationary features from primary signals. The cyclic features can be found in many typical modulated signals, for instance, in the orthogonal frequency-division multiplexing (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 OFDM\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) contains cyclic features in correlation structure due to the cyclic prefix (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CP\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) between transmitted data. However, the computational cost is relatively high and long running time delay is always existing. \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Nyquist Wideband Detection\}\\label\{sct:wss\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+In the scenarios where the bandwidth is sufficiently larger than coherence bandwidth of channel, wideband sensing is more suitable than narrowband sensing. For instance, it can be used for sensing the ultra-high-frequency (UHF) TV band, ranging from 300 MHz to 3 GHz, while the narrowband sensing providing single binary decision over whole spectrum is always not suitable for identifying individual spectrum access opportunities. The following figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 nqys_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} demonstrates the typical architectures for wideband spectrum sensing and detection.\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.75\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 nqys_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 png\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagrams for Nyquist wideband detectors architectures: \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $a)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 multiband\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  joint detector; \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $b)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  wavelet detector; \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $c)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  sweep-tune detector; \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $d)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  filter-bank detector\}\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{nqys_spec_sens\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\} \
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 Multiband\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  joint detector\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+In figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 nqys_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.(a), the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 multiband\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  joint detector (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MJD\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 quan2009optimal\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} is presented. The \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MJD\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  first uses serial-to-parallel conversion (S/P) to divide samples into parallel data streams, then it process the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 FFT\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  to divide spectrum X(f) into groups of narrowband spectrum. Then each binary hypothesis detection is performed and joint optimised at last. The high sampling rate and lower speed of joint optimisation is the main bottleneck.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Wavelet detector\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+In figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 nqys_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.(b), the wavelet detector\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 tian2006wavelet\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} is introduced. The wavelet analysis of power spectral density (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 PSD\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) can provide significant border symbols of two neighbour sub-bands, the aim of detection becomes a spectral edge detection problem. However, the high sampling rate is also the bottleneck.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Sweep-tune detector\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+In figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 nqys_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.(c), the sweep-tune detector\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 quan2009optimal\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 farhang2008filter\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} is displayed. This detector uses a special frequency mixing technique that 'sweep' across the frequency range of interest, to down-converts signals to a lower frequency. The adaptive local oscillator (LO) is used for 'sweep' procedure. However, the procedure of 'sweep' mixing generates too much time to wait.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Filter-bank detector\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+Also using the idea of down-conversion, the figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 nqys_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.(d) shows the structure of filter-bank detector \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 farhang2008filter\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. Not only following the technique which 'sweep' mixing the interest of signals, it also applies parallel structure to speed up the processing time by using filter-bank. As a result, the time cost of mixing reduces but the implementation cost largely increase.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Sub-Nyquist Wideband Detection\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Different from Nyquist wideband detection, the sub-Nyquist spectrum sensing applies the multi-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 coset\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) sampling, multi-rate (MR) sampling, or compressed sensing (CS) to reduce the required sampling rate. Before talking about CS based sampling, first we take brief look at \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  and MR sampling.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Multi-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 Coset\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  Sampling\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+The multi-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 coset\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) sampling \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 venkataramani2000perfect\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} applies blocks of parallel consecutive samples with special time offsets to sample, so that each channel has a task of low-rate sampling. Then joint spectrum recovery and further detection can be performed. The main difficulty is how to perform sampling channel synchronisation with highly accurate time offsets. The quality of the specific offsets is crucial for robustness in its spectral reconstruction.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Multi-Rate Sampling\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+The multi-rate (MR) sampling \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 sun2013wideband\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} uses various sampling rates to wrap different sparse spectrum onto individual channels, and then use joint sparse spectrum recovery for further energy detection. Time synchronisation is no longer needed compared to the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 . But instead, the sacrifice is the hardware cost for parallel structure, as well as the increased sampling rate compared to original CS although the \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MR's\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  sampling rate is still less than Nyquist rate. \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{CS based Detection Method\}\\label\{sct:cwd\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Introduction to Compressive Spectrum Sensing \}\\label\{sct:css\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+Cognitive spectrum sensing is another typical application suitable for compressed sensing. The applicability of Compressive spectrum sensing (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CSS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  )mainly lies in two aspects:  \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\paragraph
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Sampling Rate\}\
+The trend of higher frequency transmission is also suitable for cognitive radio, which leads to higher rate sampling rate at receivers. Thus it's reasonable to develop the CS based spectrum sensing techniques to reduce the sampling rate.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\paragraph
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Flexibility and Energy\}\
+The cognitive radio requires flexibility for sensing various  types of signals (TV signal, cell phone, satellites \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 etc\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) in a relatively wide bandwidth. However, normal wideband spectrum detection uses filtering or mixing for down-conversion (then low-rate sampling). This approach require difficult \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 analog\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  implementations such as adaptive local oscillator(LO) for filter-banks(\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 FB\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ). Inversely, if the CS is used, then the system can get wider sensing (frequency) ranges without the hardware of LO or \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 FB\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .\
+\
+Therefore, the CS become popular in cognitive spectrum sensing. The figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 comp_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} demonstrates the typical architectures in wideband spectrum sensing, and briefly analyse CS detectors. The similar CS based architecture can also be viewed in chapter \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{C:\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 compressed_sensing\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Compressive Detectors Overview\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.75\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{figs/\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 comp_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 .\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 png\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagrams for compressive wideband sensing architectures: \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $a)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  random demodulation based detector; \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $b)$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  modulated wideband converter-based detector\}\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{comp_spec_sens\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\} \
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Demodulation based Detector\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3   \
+Figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 comp_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.(a) presents the random demodulation (RD) based detector\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 tropp2010beyond\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, which is an \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 analog\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -to-information converter (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 AIC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) for finite-length and discrete-time signals, and consists of \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 pseudorandom\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  wave generator, a mixer, and a low-rate ADC. The detailed architecture of RD is introduced in chapter \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{C:\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 compressed_sensing\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. The reconstruction of RD sampled data involves \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $l1$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 -norm minimization (e.g. based BP, LASSO) or greedy method (e.g. \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 OMP\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ).\
+This design is simple, but easily affected by model mismatches and design imperfections.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Modulated Wideband Converter based Detector\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+Figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 comp_spec_sens\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.(b) displays the modulated wideband converter (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) based detector \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 mishali2009expected\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} for the case where multichannel signals are designed to be detected. The \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  can be considered as a parallel structure of RD, and its architecture is introduced in chapter \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{C:\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 compressed_sensing\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. The reconstruction of \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  involves the multiple measurement vector (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MMV\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) sparse recovery which exploits the fact that the columns of original spectrum coefficients share the same sparsity pattern. Compared to the RD, \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 MWC\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  provides robustness against the noise and model mismatches.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsubsection\{Cooperative Compressive Spectrum Sensing\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  \
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %re-write\{\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+Cooperative versions of spectrum sensing is an open issue, which aims at solving the hidden terminal problem \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 akyildiz2006next\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} and improve sensing accuracy. The cooperative version of compressive wideband sensing have\
+ been developed \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 tian2008compressed\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 wang2009distributed\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}. Here, individual radios can make a local decision about the presence or absence of a primary user, and these results can then be fused in a centralised or decentralised manner. However, a greater cooperation gain can be achieved by fusing all the compressed measurements, again in a centralised or decentralised manner. In general, such measurement fusion requires that each cognitive radio knows the channel state information (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CSI\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) from all primary users to itself \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 tian2008compressed\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}, which is cumbersome. But recent extensions show that measurement fusion can also be carried out without \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CSI\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  knowledge \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 fanzi2011distributed\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}.\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{An Instance: CS based Cognitive Radar System\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+In \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\cite\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 stinco2014compressed\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \} the CS is embedded to enhance the performance of cognitive radar that use wide operating frequency bandwidths for spectrum sensing and sharing. The compressive cognitive radar  utilises the typical CS techniques, including the random demodulation (RD) for signal acquiring, basis pursuit de-noising (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 BPDN\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) algorithm and discrete cosine basis (\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 DCT\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) for sparse reconstruction, and classical energy detector (ED) for hypothesis analysis. \
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\begin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\centering\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\includegraphics
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 [width=0.75\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\columnwidth\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 ]\{figs/\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 cs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 cogn\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -radar.\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 png\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\caption\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{Block diagrams for mean square error and error detection performance of the proposed compressive cognitive radar systems\}\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\label\{cs-cogn-radar\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\end\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{figure\} \
+\
+The experimental results figure \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 cs\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 cogn\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 -radar\} shows the CS based radar has appealing performance in low sampling rate (using only \cf5 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 $ < 30\\%$\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  of the total samples of the original signal) and low detection error in high \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  cases. But in low \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 SNR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  environment, the proposed system still struggles and suffers. \
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Challenges and Discussion\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\indent\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\indent\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  The compressed sensing based wideband spectrum sensing for cognitive radio provide its outstanding feature in reducing the sampling rate. However, the corresponding drawbacks emerge in real-time ability and energy consumption, mainly due to its computational expensive non-linear reconstruction and energy consuming characters: \
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Long-Time Feedback Delay\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf3 \expnd0\expndtw0\kerning0
+\ul \ulc3 \outl0\strokewidth0 Accuarcy\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  is \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 cruical\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  for primary detection. Hence, if we applies CS for sampling, the convex optimisation (e.g.basis pursuit) is always needed for data recovery since it provides better accuracy and robustness comparing to greedy methods (chapter \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\ref\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \{C:\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 compressed_sensing\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 \}). However, convex optimisation is time consuming, which cause too long time to fast feed-back. Since feed back is very important for \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CR\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 , which is responsible to avoid interference and quick reconfiguration, agility and \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 reconfigurablity\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  may reduce.\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{Mismatch for Traditional Signal Processing\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+The reconstruction algorithms for CS is non-linear, which indicates that the recovered data are not directly suitable for conventional digital signal processing where traditional recovering only requires cardinal \expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 sinc\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0  interpolation (linear process). This brings difficulty in directly reuse the traditional method for sensed data.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\subsection\{High Energy Cost\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+The heavy reconstruction for CS not only brings large time-delay, but also additional energy cost. Compared to linear recovery in traditional approaches, the CS based signal detection additionally required the block for spectrum recovery before further hypothesis detection. \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 \\section\{Conclusion\}
+\f1\b0 \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\indent\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  \cf4 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 \\indent\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3  Cognitive radio has been widely used and attracting many research attentions in its spectrum sensing techniques. In this chapter, traditional sensing approaches such as energy detection and feature detection are introduced. In order to solve the detection task for wideband and high frequency signals, compressed sensing based spectrum sensing (CS-\expnd0\expndtw0\kerning0
+\ul \outl0\strokewidth0 CSS\expnd0\expndtw0\kerning0
+\ulnone \outl0\strokewidth0 ) is introduced and demonstrated. However, the compressively sampled data does not directly match the traditional processing algorithms.\
+\
+Then here comes the question: what if we directly perform hypothesis detection without CS reconstruction? If the idea is achievable, the additional energy cost will be eliminated so that the entire energy reduces. Besides, not only detection, if we can expand this idea to filtering, estimation, then more intelligent-based scheme for cognitive radio can be supported in physical layer. The answer refers to our future research aims that shown in the next chapter.\
+\
+\pard\pardeftab720
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %However, in cognitive radio, most of tasks for spectrum sensing are related to detection, estimation, filtering, classification. This contradiction leads the large additional loss in energy usage and time utilisation when we applies the CS to reduce the sampling limitation in wideband sensing for CR. Then noticing the fully reconstruction is always not needed, we will discuss the future direction in the next chapter, for directly processing compressively sampled data in CR, which aims at extracting effective information without fully recovery so that the entire real-time capability and energy efficiency will be significantly increased. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %--------------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %This is the common problem termed as cognitive spectrum sensing (CSS), that we face in modern signal processing systems, where the ADCs now use CS framework to solve the problem in high sampling rate. Similarly, CR devices recently apply the CS framework, and successfully achieves low-rate wideband signal acquisition while keeping the sensing accuracy in a high level. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %--------------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %re-write\{\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %A fundamental difference between CS and classical sampling is the manner in which the two frameworks deal with signal recovery, i.e., the problem of recovering the signal from the measurements. In the Shannon-Nyquist framework, signal recovery is achieved through sinc interpolation?a linear process that requires little computation and has a simple interpretation. In CS, however, signal recovery is achieved using nonlinear and relatively expensive optimisation-based or iterative algorithms [xx3?5]. Thus, up to this point, most of the CS literature has focused on improving the speed and accuracy of this process [xx6?9].\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %However, signal recovery is not actually necessary in many signal processing applications. Very often we are only interested in solving an inference problem (extracting certain information from measurements) or in filtering out information that is not of interest before further processing. While one could always attempt to re- cover the full signal from the compressive measurements and then solve the inference or filtering problem using traditional DSP techniques, this approach is typically suboptimal in terms of both accuracy and efficiency. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %Our future work takes some initial steps towards a general framework for what we call compressive signal processing (CSP), an alternative approach in which signal processing problems are solved directly in the compressive measurement domain **without** first resorting to a full-scale signal reconstruction.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %--------------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\section\{Cognitive Radio and Spectrum Sensing\}\\label\{sct:cr_and_spectrum_sensing\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\indent \\indent Conventionally, licensed spectrum is allocated in long term and intended to be used only by primary users. However, as the increasing demand for higher data rates for communications, the limitation of the inefficiency usage of licensed spectral resources becomes a great bottleneck. Hence, the idea of opportunistically accessing the unused spectral resources (dynamic spectrum access, DSA) turns to be popular and motivates the develop of cognitive radio (CR). In other words, cognitive radio [2, 3] has become a promising solution to solve the spectrum scarcity problem. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %For each cognitive radio network, the second users (SUs, unlicensed users) are able to reuse idle spectrum for communications without doing harm to the primary users (PUs, licensed users) when PUs are absent. Further more, cognitive radio can be considered as an developed software-defined radio (SDR) %[Wideband spectrum sensing for cognitive radio networks- a survey]that automatically senses its surrounding environment (e.g. noise level, spectrum usage ,RF stimuli etc) and intelligently adapts its configuration (i.e. operation parameters) to varying network infrastructure, in order to meet the quality of service.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %--------------------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %re-write [Wideband spectrum sensing for cognitive radio networks- a survey]\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %\\indent \\indent Cognitive radio is an advanced software-defined radio that automatically detects its surrounding RF stimuli and intelligently adapts its operating parameters to network infrastructure while meeting user demands. Since cognitive radios are considered secondary users for using the licensed spectrum, a crucial requirement of cognitive radio networks is that they must efficiently exploit under-utilised spectrum (referred to as spectral opportunities) without causing harmful interference to the PUs. Furthermore, PUs have no obligation to share and change their operating parameters for sharing spectrum with cognitive radio networks. Hence, cognitive radios should be able to independently detect spectral opportunities without any assistance from PUs; this ability is called spectrum sensing, which is considered one of the most critical components in cognitive radio networks.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\subsubsection\{X-Digital Signal Processing\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % Recent representative applications for CS signal processing focus on establishing interfaces to link the CS recovered data to the traditional signal processing. One of the popular CS based signal processing architectures is the X-DSP in Xampling\\cite\{mishali2011xamplingsignal\}. This architecture is designed for joint sparse support detection and filtering via the samples from the MWC. The multi-band signal can be presented in quadrature representation:\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\label\{eqn_xdsp\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % x(t) = \\sum_\{i=1\}^\{N/2\} I_i(t) cos(2\\pi f_it) + Q_i(t)sin(2\\pi f_it)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{equation\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % , where $I_i (t)$ and $Q_i(t)$ are the real-valued narrow-band signals, and $f_i$ is the unknown carrier frequency. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % In the former section of modulated wide-band converter, recovering the signal $x(t)$ via MWC is achieved by using the MMV based CS reconstruction. However, since the frequency of the carrier $f_i$ is still unknown, although $z[n]$ in (\\ref\{eqn_zn\}) is recovered, it's not approximate for standard DSP algorithms.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % %The subspace algorithm needs to estimate $f_i$ , $I_i(t)$ and $Q_i(t)$.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % %it is insufficient since the fine recovery of the multi-band signal requires \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % %the information $I(t)$ and $Q(t)$ are not contained in the $z[n]$ in (xa), and the carrier frequency is unknown. Therefore, although z[n] is recovered it's not suitable for standard DSP algorithms.  \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % In \\cite\{mishali2011xamplingsignal\}, a refined support detection algorithm, Back-DSP, is proposed by assuming zero cross-correlation between $I_i(t)$ and $Qi(t)$. The Back-DSP algorithm consists of the following steps: %reviseBegin\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % 1. Refining the coarse support estimate $f_i$ to the actual band edges using prior information of the minimal width of a single band and the smallest spacing between bands.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % 2. Obtain a sequence $s_i[n]$ for each $1 \'e2\'89\'a4 i \'e2\'89\'a4 N/2$, such that $s_i[n]$ contains the entire contribution of exactly one band.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % 3. Estimating $f_i$ using a digital version of the balanced quadricorrelator(BQ) from $s_i[n]$. The information signals $I_i(t)$ and $Q_i(t)$ are obtained based on $f_i$.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % With Back-DSP, we can now reconstruct x(t) using \\ref\{eqn_xdsp\}, which requires only N mixers, filters and DACs. In addition, note that once the information signals $I_i(t)$, $Q_i(t)$ are obtained, error correction DSP algorithms can be employed to improve the overall robustness to noise. %reviseEnd\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % %------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\subsection\{Hypothesis Test\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\indent \\indent The aim of spectrum sensing is to decide whether a particular sub-band of the spectrum is available or not. In other words, the procedure is to discriminate based on two hypotheses in equation \\ref\{detect_hypo\}: \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\label\{detect_hypo\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{aligned\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % Hypothesis0 (H0): y[n] = w[n], \\quad n = 1,..., N   \\\\\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % Hypothesis1 (H1): y[n] = w[n] + x[n] , \\quad n = 1,..., N\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{aligned\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % , where $x[n]$ is the primary user's signal, $y[n]$ is the vectorial observation, $w[n]$ is the noise, and $n$ refers to time slots. The hypothesis 1 suggests that the primary user's signal exists, while hypothesis 0 suggests no. Typically, the decision is made by comparing a predetermined threshold with test statistic $\\Lambda(y)$ in equation \\ref\{detect_hypo\}: \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\label\{detect_hypo\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\Lambda(y) \\mathop\{\\lessgtr\}_\{H_1\}^\{H_0\} \\alpha\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % Then the performance of a detector is quantified by the receiver operating characteristics (ROC) curve, which presents the probability of detection $P_D = Prob(\\Lambda(y) > \\alpha, H1)$ and false alarm probability $P_fa = Prob(\\Lambda(y) > \\alpha, H0)$. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % %------------------------------------------------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{itemize\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %   \\item \\textbf\{matched filtering \\cite\{poor1994introduction\}\} In the case where the signal $x$ to be detected is perfectly known (i.e. mean and variance), then the observation $y ~ N(x, \\delta^2 I)$ under $H1$, and the optimal test statistic of the matched filter becomes: \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{equation\}\\label\{match-filter\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\Lambda(y) = Re[x^H y] \\mathop\{\\lessgtr\}_\{H_0\}^\{H_1\} \\alpha\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{equation\}  \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % However, in practice the signal and noise parameters are not always known to the system, and its required carrier synchronization is difficult to implement. The hardware architect is shown in figure \\ref\{narr_spec_sens\}.a.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %   \\item \\textbf\{energy detection \\cite\{urkowitz1967energy\}\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % In many cases, the signal to be detected does not present enough structure information, then energy detector produces the optimal choice of detection by choosing the test statistic $\\Lambda(y)$ as \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\Lambda(y) = \\frac\{y^2\}\{\\delta\} \\mathop\{\\lessgtr\}_\{H_0\}^\{H_1\} \\alpha\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % The implementation are of energy detector is simple shown in \\ref\{narr_spec_sens\}.b. However, it cannot distinguish the different primary users signals, and provides poor detection performance in low SNR scenarios. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %   \\item \\textbf\{feature detection\} cyclostationary feature detection \\cite\{enserink1994cyclostationary\} detects and discriminate between different types of primary signals by exploiting their cyclic non-stationary features. For instance, the orthogonal frequency-division multiplexing (OFDM) signal have a explicit correlation structure due to the cyclic prefix (CP) between transmitted data at the transmitter. The architecture of this detector is presented in \\ref\{narr_spec_sens\}.c. However, the computational cost is relatively high.\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{itemize\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %----------------compressed sens vs filter-bank------------\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %In such case, if we indent to down-convert the signals for lower rate sampling, the analog filter-bank must be very complex design with heavy cost, for instance, large filter bank which covers the whole bandwidth, or adaptive filter but cost long time frequency shifting. If we intend to reduce the design complexity and cost, however, the sampling rate should be relatively high with less filters for down-conversion. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 %----hypothesis model----\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\indent \\indent The aim of spectrum sensing is to decide whether a particular sub-band of the spectrum is available or not. In other words, the procedure is to discriminate based on two hypotheses:\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % H0: y = w \\quad (noise case)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % H1: y = w + x \\quad (primary signal case)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % , where $x$ is the primary user's signal, $y$ is the vectorial observation, $w$ is the noise, and $n$ refers to time slots. Typically, the decision is made by comparing a predetermined threshold with test statistic $\\Lambda(y)$ ideally defined by the likelihood ratio. The performance of a detector is quantified by the receiver operating characteristics (ROC) curve, which presents the probability of detection $P_D$ and false alarm probability $P_fa$. \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\begin\{equation\}\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % P_D = Prob(\\Lambda(y) > \\alpha, H1)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % P_fa = Prob(\\Lambda(y) > \\alpha, H0)\cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\cf6 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 % \\end\{equation\} \cf3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec3 \
+\
+}

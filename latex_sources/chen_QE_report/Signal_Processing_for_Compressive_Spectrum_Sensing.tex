@@ -1,38 +1,53 @@
-\chapter{Compressive CRN Processing} 
+\chapter{Future Work: Novel Signal Processing for CS Spectrum Sensing} 
 \label{C:csp_css}
 
-\indent \indent In the last chapter \ref{C:wideband_css}, we have discussed the main drawback in compressed sensing based spectrum sensing (CS-CSS) which derives from the computational non-linear CS reconstruction. As a fact, the CS framework sacrifices the time and energy performance in reconstruction produce (in return, the sampling rate is reduced). In order to solve this problem, this chapter focuses on exploring the potential approach of directly analysing compressive measurements without fully CS reconstruction. The new approach is termed as compressive signal processing (CSP), and it will be used for compressive spectrum sensing (CSS) in cognitive radio network (CRN), so that the drawback will be overcome. 
+In the last chapter \ref{C:wideband_css}, we have discussed the main drawback in compressed sensing based spectrum sensing (CS-CSS) which derives from the computational non-linear CS reconstruction. As a fact, the CS framework sacrifices the time and energy performance in reconstruction produce (in return, the sampling rate is reduced). In order to solve this problem, this chapter focuses on exploring the potential approach of directly analysing compressive measurements without fully CS reconstruction. The new approach is termed as compressive signal processing (CSP), and it will be used for compressive spectrum sensing (CSS) in cognitive radio network (CRN), so that the drawback may be overcome in our proposed CSP based CSS systems. 
 
-\section{Introduction}
+\section{Introduction to CSP}
 
-\indent \indent The compressed sensing based wideband spectrum sensing for cognitive radio provides its outstanding feature in reducing the sampling rate. However, the corresponding drawbacks emerge in real-time ability and energy cost, mainly due to its computational complex non-linear reconstruction and energy cost in entire cognitive radio systems.  
+The compressed sensing based wideband spectrum sensing for cognitive radio provides its outstanding feature in reducing the sampling rate. However, the corresponding drawbacks emerge in real-time ability and energy cost, mainly due to its computational complex non-linear reconstruction and energy cost in entire cognitive radio systems.  
 
 However, many signal processing applications such as detection, classification, estimation and filtering do NOT require entire signal reconstruction \cite{davenport2010signal}. For instance, cognitive radios are aiming at processing the hypothesis detection rather than fully recovering the primary signals. In these cases, the aim of CS fully recovery is no longer necessary, so processing schemes like 'directly analysis without recovery' or 'partial recovery then analysis' become possible and applicable for cognitive spectrum sensing. 
 
-This novel idea derives from the compressive signal processing (CSP)\cite{davenport2010signal}, which aims at extracting information directly from compressive samples without fully recovery. Further, this idea is developed in both theory and applications. In \cite{ohlsson2013compressive}, the shift retrieval problem for compressive samples is researched. Rather than recovering CS data then analysing the shifted distance, the author develops efficient algorithms and proofs for directly recognising the shift distance from CS data. Valsesia et al \cite{valsesia2014compressive} develops the circulant sensing matrix based processing for compressive measurements, which displays an potential CSP application for convolution based models and is suitable for filtering or channel impulse response involved cases. Especially, for cognitive radio spectrum detection, a CSP based energy detector is designed in \cite{appaiah2013spectrum}. Further, Guo et al develops CSP for feature detector in \cite{guo2013feature} and pattern clustering is achieved.
+This novel idea derives from the compressive signal processing (CSP)\cite{davenport2010signal}, which aims at extracting information directly from compressive samples without fully recovery.  
 
-Since the paper \cite{guo2013feature} in year 2013 GLOBECOM conference says, "So far the CSP concept is only defined in the theory level and has not been applied to CR field", we believe there still exists many worthy research area and cases for CSP based CR spectrum sensing. In conclusion, CSP based cognitive spectrum sensing is still a relative new approach which applies the CS but throw away some CS drawbacks for CR specrum sensing. The following sections are organised as different function introduction for CSP based cognitive radio spectrum sensing, including filtering, detection, estimation. Some related potential application for CS-UWB and CS demodulation are also introduced.
+\subsection{Literature Review}
 
-\section{CSP Filtering for Cognitive Spectrum Sensing}\label{sct:csp_filter}
-\indent \indent In scenarios where cognitive spectrum sensing requires filters, the design cost for analog filters are expensive. Then we can use CSP based filtering to transform the analog filter to digital filter, which omits the implementation of hardware design for filters.
+In \cite{ohlsson2013compressive}, the shift retrieval problem for compressive samples is researched. Rather than recovering CS data then analysing the shifted distance, the author develops efficient algorithms and proofs for directly recognising the shift distance from CS data. Valsesia et al \cite{valsesia2014compressive} develops the circulant sensing matrix based processing for compressive measurements, which displays an potential CSP application for convolution based models and is suitable for filtering or channel impulse response involved cases. Especially, for cognitive radio spectrum detection, a CSP based energy detector is designed in \cite{appaiah2013spectrum}. Further, Guo et al develops CSP for feature detector in \cite{guo2013feature} and pattern clustering is achieved.
 
-\paragraph{Filter domain transform}
-Assume that the filter's impulse response is $h$ (with length of $N_h$) and its corresponding matrix form is $H$, then $H$ is a circulant sensing matrix. Then, according to a CSP related theory in \cite{valsesia2014compressive}, it possible to exchange the $H$ and $\Phi$ (compressed sensing matrix), transform the analog filter into digital domain for filters within CS frameworks. In other words, the compressive measurements $y$ can be directly processed by filtering $H$ without recovery in some cases \ref{csp-filter} as follows:  
+\subsection{Proposed Research}
+
+Since so far the CSP concept is always only defined in the theory level and has not been widely applied to CSS field, we believe there still exists many worthy research area and cases for CSP based spectrum sensing. In other words, CSP based cognitive spectrum sensing is still a relative new approach which applies the CS but throw away some CS drawbacks for CR spectrum sensing. 
+
+\section{Potential CSP Applications In Spectrum Sensing}
+
+The following sections are organised as different function introduction for CSP based cognitive radio spectrum sensing, including filtering, detection, estimation. Some related potential application for CS-UWB and CS demodulation are also introduced.
+
+\subsection{CSP based Filtering}\label{sct:csp_filter}
+
+In scenarios where cognitive spectrum sensing requires filters, the design cost for analog filters are expensive. Here we may use CSP based filtering to transform the analog filter to digital filter, which omits the implementation of hardware design for filters.
+
+\subsubsection{Filter Domain Transform}
+
+Assume that the filter's impulse response is $h$ (with length of $N_h$) and its corresponding matrix form is $H$, then $H$ is a circulant sensing matrix. 
+
+Then, according to a CSP related theory in \cite{valsesia2014compressive}, it possible to exchange the $H$ and $\Phi$ (compressed sensing matrix), sometimes in CS frameworks, the effect of analog filter equals the effect processed by digital filters. The compressive measurements $y$ can be directly processed by filtering $H$ without recovery in some cases \ref{csp-filter} as follows:  
 \begin{equation}
 \label{csp-filter}
 \hat y = \Phi H x = H \Phi x = H y \quad, where \quad i \in [1,m-N_h+1].
 \end{equation}
-, where the $\Phi$ is compressed sensing matrix with size of $m \times N$.  Consequently, by moving the filtering from analog to digital part, large amount of hardware complexity is omitted. 
+, where the $\Phi$ is compressed sensing matrix with size of $m \times N$.  Consequently, by moving the filtering from analog to digital part, large amount of hardware complexity could be omitted. 
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=5.0in]{figs/csp-filter-thm.png}
+\includegraphics[width=0.75\columnwidth]{figs/csp-filter-thm.png}
 \DeclareGraphicsExtensions.
 \caption{Block diagram of exchanging order of circulant matrix. $H$ is corresponding impulse response of filter, $\Phi$ is the compressed sensing matrix. The exchanging sacrifice is the loss of rows in the results (matrix in the right side of equal sign).}\label{csp-filter-thm}
 \end{figure}
 
-\paragraph{Interference filtering}
-In cases where useless information is redundancy for further recovery in CS framework, or specifically where some sub-bands are priorly known in the compressive cognitive spectrum sensing, system using CSP can regard those useless information as interference and apply CSP-filtering to sample-then-filter the compressive data rather than sample-recover-then-filter it. 
+\subsubsection{Interference filtering}
+
+In cases where useless information is redundancy for further recovery in CS framework, or specifically where some sub-bands are priorly known in the compressive cognitive spectrum sensing, system using CSP can regard those useless information as interference, which applies CSP to achieve the procedure of 'sample-then-filter' to compressive data rather than sample-recover-then-filter it. 
 
 Assume a sparse signal $x \in R^N$ which consists of two components:
 \begin{equation}
@@ -49,18 +64,18 @@ P_{\Omega^{\perp}} \Phi x = P_{\Omega^{\perp}} \Phi \hat x ,\quad
 \frac{\delta}{1-\delta} \leq \|P_{\Omega^{\perp}} \Phi \hat x\|_2 \leq 1 + \delta 
 \end{equation}
 \end{theorem}
-The theorem \ref{csp2} proofs that there exists a matrix $P_{\Omega^{\perp}}$ which is nearly orthogonal to the useless information $x_I$ such that $P_{\Omega^{\perp}} x_I \approx 0$. Hence the matrix $P_{\Omega^{\perp}}$ is the filter for selecting the desired signal $x_S$. we can apply this theory to construct a $filtering matrix$ in CS acquisition model if the support of the $x_I$ is known. 
+The theorem \ref{csp2} proofs that there exists a matrix $P_{\Omega^{\perp}}$ which is nearly orthogonal to the useless information $x_I$ such that $P_{\Omega^{\perp}} x_I \approx 0$. Hence the matrix $P_{\Omega^{\perp}}$ is the filter for selecting the desired signal $x_S$. we can apply this theory to construct a filtering matrix in CS acquisition model if the support of the $x_I$ is known. 
 
-\section{CSP Detection for Cognitive Spectrum Sensing}\label{sct:csp_detect}
+\subsection{CSP based Detection}\label{sct:csp_detect}
 \begin{figure}[!t]
 \centering
-\includegraphics[width=4.0in]{figs/csp-detec_vs_ED.png}
+\includegraphics[width=0.5\columnwidth]{figs/csp-detec_vs_ED.png}
 \DeclareGraphicsExtensions.
 \caption{Block diagram of performance comparison between the CSP detector (compressive signal processing based detector) and ED (energy detector) from aspect of signal to noise ratio and detection error.}\label{csp-detec_vs_ED}
 \end{figure}
 
-\paragraph{CSP based energy detector}
-\indent \indent Davenport et al \cite{davenport2010signal} develops the theorem to directly build up hypothesis detection through compressed samples. Assume the detection is based on two hypotheses in 
+\subsubsection{CSP based Energy Detector}
+Davenport et al \cite{davenport2010signal} develops the theorem to directly build up hypothesis detection directly through compressed samples. Assume the detection is based on two hypotheses in 
 \begin{equation}
 \begin{aligned}
 H0: y = \Phi w  \\
@@ -72,58 +87,83 @@ H1: y = \Phi (w + s)
 \label{csp-detect}
 \Lambda(y) = (\Phi \Phi^T)^{-1} \Phi s \quad \mathop{\lessgtr}_{H_1}^{H_0} \quad \alpha
 \end{equation}
-In \cite{appaiah2013spectrum}, the experimental results of comparing CSP-detector and traditional energy detector (ED), which is shown in figure \ref{csp-detec_vs_ED}. One of the defect is that the theorem does not drive other blind sensing techniques for cases where the information of primary signal $s$ is unknown to us. Thus further developing for CSP based blind sensing is a potential direction. 
+In \cite{appaiah2013spectrum}, the experimental results of comparing CSP-detector and traditional energy detector (ED), is shown in figure \ref{csp-detec_vs_ED}. It has been shown that CS based Detector can provide better Error vs SNR performance. 
 
-\paragraph{CSP based cyclic feature detector}
+One defect of this simulation result is that, the paper does not discuss blind sensing techniques for cases where the information of primary signal $s$ is unknown to us. Thus further developing for CSP based blind sensing is a potential direction. 
+
+\subsubsection{CSP based Cyclic Feature Detector}
 %re-write:
-Guo et al develops CSP for feature detector in \cite{guo2013feature} and achieves pattern clustering.
-The work generates the compressive CR spectrum measurement by utilizing both the cyclic-stationary feature and sparsity prior knowledge at the spectrum sensing front end. Then the paper applies the compressive CSP without the need of signal or feature reconstruction. However, as the author says in \cite{guo2013feature}, the CSP feature detection model is still simple. How to analyze the spectrum pattern recognition performance in a more complicated CRN environment is open issue. For instance, with large-scale SUs and non-Poisson PU traffic models. Also, More efficient machine learning schemes (such as information geometry) can be used to recognize the PUs’ signal patterns after obtaining the CS samples via CSP scheme. 
+Guo et al \cite{guo2013feature} develops CSP for feature detector in  and achieves pattern clustering.
+The work generates the compressive spectrum measurement by utilizing both the cyclic-stationary feature and sparsity prior knowledge at the spectrum sensing front end. Then the paper applies the compressive CSP without the need of signal or feature reconstruction. 
 
-\section{CSP Estimation for Cognitive Spectrum Sensing}\label{sct:csp_estim}
-\indent \indent  Since the signal-to-noise-ratio, sparsity order are crucial factors which seriously affects the performance of compressive detectors, CSP based estimation becomes popular for cognitive radio. This technique make CR predict the level of sparsity or noise, so that CR can vary the sampling rate or changing detection algorithms:
+However, as the author states that \cite{guo2013feature}, the CSP feature detection model is still simple. So how to analyze the spectrum pattern recognition performance in a more complicated CRN environment is open issue. For instance, with large-scale SUs and non-Poisson PU traffic models. Also, More efficient machine learning schemes (such as information geometry) can be used to recognize the PUs’ signal patterns after obtaining the CS samples via CSP scheme. 
 
-\paragraph{Sparsity order estimation}
-For instance, the sparsity order of the spectrum occupancy is time-varying in CR networks. If CR intends fully exploit the CS framework, the sampling rate of CS receiver should keeping adjusting to sparsity orders. Then \cite{sharma2014compressive} develops an approach which analysis sparsity order through asymptotic eigenvalue probability distribution function (aepdf) from the covariance matrix of the compressively sampled primary signal. In details, the aepdf is related to the sparsity order via a lookup table in figure \ref{csp-soe}. 
+\subsection{CSP based Estimation}\label{sct:csp_estim}
+
+Since the signal-to-noise-ratio, sparsity order are crucial factors which seriously affects the performance of compressive detectors, CSP based estimation becomes popular for cognitive radio. 
+
+This technique make CR be able to directly predict the level of sparsity or noise, so that CR can vary the sampling rate or change the detection algorithms based on those predicted information.
+
+\subsubsection{Sparsity Order Estimation}
+
+For instance, the sparsity order of the spectrum occupancy is time-varying in CR networks. If CR intends to fully exploit the CS framework, the sampling rate of CS receiver should keeping adjusting to sparsity orders. 
+
+Therefore, estimating the sparsity orders in very important, and the \cite{sharma2014compressive} develops an approach which analysis sparsity order through asymptotic eigenvalue probability distribution function (aepdf) from the covariance matrix of the compressively sampled primary signal. In details, the aepdf is related to the sparsity order via a lookup table in figure \ref{csp-soe}. 
+
+However, this paper does not apply the estimated information into further process in spectrum sensing to pursuit higher efficiency in adaptive sampling rate. So next we can apply the idea to further improvement of sensing efficiency.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=4.0in]{figs/csp-soe.png}
+\includegraphics[width=0.75\columnwidth]{figs/csp-soe.png}
 \DeclareGraphicsExtensions.
 \caption{Block diagram of lookup table for sparsity order estimation through signal-to-noise ratio (SNR) and asymptotic eigenvalue probability distribution function (aepdf). For example, if the value of aepdf = 7.26 for the compressive case in SNR = 2db, it can be estimated that the sparsity order of spectrum occupancy is 0.6}\label{csp-soe}
 \end{figure}
 
-\paragraph{Noise level estimation}
+\subsubsection{Noise Level Estimation}
+
 For CR networks, the signal-to-noise ratio (SNR) affects the performance of spectrum detectors. For example, the energy detector (ED) is simple and fast, but with poor performance in low SNR scenarios; Feature detectors (FD) are complex and slow, but have strong robustness to noise. In \cite{sharma2014compressive_snr}, the author similarily build up a lookup table relating the noise estimation with the eigenvalue probability distribution function in covariance matrix of the compressively sampled primary signal. 
 
-\paragraph{Hybrid spectrum sensing} If we have known the SNR, we can design a more intelligent two stage detector. In the coarse stage, a quick search is done over a wide bandwidth, and in the fine stage, the sensing is done over the individual candidate sub-bands in that bandwidth, one at a time. the coarse stage is based on energy detection due to its fast processing. If the test statistics is larger than a predefined threshold, then the band is considered occupied. Otherwise, a fine stage is performed where a cycle-stationary detector is implemented due to its robustness at the low SNR regime. (For sparsity level, we can judge whether the CS based detector suitable if there exists dense channel occupancy by primary users)
+Then if we have the access to estimate the SNR in CRN, we can achieve the following spectrum sensing approach in the future: 
 
-\paragraph{Adaptive spectrum Sensing} In case when a CR successfully know the primary signals' SNR, the CR can intelligently choose optimal detection algorithms based on SNR related performance of detectors. For instance, if the SNR is detected to be very low, then cycle-stationary detection algorithm can be used due to its robustness at the low SNR regime. Otherwise, the energy detector can be used since it's fast and accurate enough in high SNR regime. Extending this idea of selecting various of detector based on CSP estimation, we can select the optimal detector adaptively. This will provide future cognitive radio more flexibility to the varying environment.
+\paragraph{Hybrid Spectrum Sensing} 
 
-\section{Other Related Wideband Processing with CSP}
+If we have known the SNR, we can design a more intelligent two stage detector. In the coarse stage, a quick search is done over a wide bandwidth, and in the fine stage, the sensing is done over the individual candidate sub-bands in that bandwidth, one at a time. the coarse stage is based on energy detection due to its fast processing. If the test statistics is larger than a predefined threshold, then the band is considered occupied. Otherwise, a fine stage is performed where a cycle-stationary detector is implemented due to its robustness at the low SNR regime. (For sparsity level, we can judge whether the CS based detector suitable if there exists dense channel occupancy by primary users)
 
-\subsection{CSP TOA Algorithm for Ultra-Wideband Positioning}\label{sct:csp_toa}
-\indent \indent Maximizing the cross-correlation between the two signals is one of the key steps in time-of-arrival (TOA) algorithms which have been applied in compressive UWB positioning in chapter \ref{C:compressive_uwb_positioning}. In that system, the procedures at receiving end can be abstracted as (1) low-rate sampling, then (2) CS fully reconstruction, finally (3) TOA algorithm based locationing. However, the (2) CS fully reconstruction may sometimes Not necessary if we borrow the theorem in  \cite{ohlsson2013compressive}, where the shift retrieval problem for compressive samples is investigated. Rather than recovering CS data then analysing the shifted distance, the author develops efficient algorithms and proofs for directly recognising the shift distance from CS data. The paper illustrates the results by running a Monte Carlo simulation shown in figure \ref{csp-shift}. According to this result, the CSP-TOA positioning becomes possible.
+\paragraph{Adaptive spectrum Sensing} 
+
+In case when a CR successfully know the primary signals' SNR, the CR can intelligently choose optimal detection algorithms based on SNR related performance of detectors. For instance, if the SNR is detected to be very low, then cycle-stationary detection algorithm can be used due to its robustness at the low SNR regime. Otherwise, the energy detector can be used since it's fast and accurate enough in high SNR regime. Extending this idea of selecting various of detector based on CSP estimation, we can select the optimal detector adaptively. This will provide future cognitive radio more flexibility to the varying environment.
+
+\subsection{Other Related Wideband Processing with CSP}
+
+\subsubsection{CSP based TOA for UWB Positioning}\label{sct:csp_toa}
+
+Maximizing the cross-correlation between the two signals is one of the key steps in time-of-arrival (TOA) algorithms which have been applied in compressive UWB positioning in chapter \ref{C:compressive_uwb_positioning}. In that system, the procedures at receiving end can be abstracted as (1) low-rate sampling, then (2) CS fully reconstruction, finally (3) TOA algorithm based locationing. However, the (2) CS fully reconstruction may sometimes Not necessary if we borrow the theorem.
+
+According to \cite{ohlsson2013compressive}, where the shift retrieval problem for compressive samples is investigated, we may directly recognising the shift distance from CS data without recovery. Now the thoerem has not been embedded into UWB positioning, so the CSP-TOA positioning is a possible research application in the future.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=5.0in]{figs/csp-shift.png}
+\includegraphics[width=0.75\columnwidth]{figs/csp-shift.png}
 \DeclareGraphicsExtensions.
 \caption{Histogram for the estimated shift in SNR = 2. From left to right, top to bottom, compression ratio = 0.1 ... 1. The true shift was set to 5 in all trials}\label{csp-shift}
 \end{figure}
 
-\subsection{CSP Demodulation}
-\indent \indent A compressive sensing phase-locked loop (CS-PLL) \cite{schnelle2012compressive}, is designed for directly extracting the phase and frequency from compressively sampled modulated signal $without$ sparse recovery. Since the restricted isometry property (RIP) of CS ensures that the standard inner product between $x[n]$ and $u[n]$ is approximately the same as that in the compressively sensed version produced by $y[m]$ and $u[n]$ \cite{davenport2010signal}, hence, the inner products in the standard PLL and that in the CS-PLL are nearly the same, ensuring the consistence between the standard PLL $\theta [n]$ and the CS-PLL's output $\theta [m]$. This idea is similar to the CSP estimation related theorem in section \ref{sct:csp_estim}. The presentation of the $\theta [m]$ can be presented as $\theta [m] = \sum_{k} y[k]v[k]h[m-k]$, where the index $m$ indicates the lower sampling rate compared with the Nyquist rate index $n$. In addition, the compressive sensing operations $\Phi$ which apply the RD's architecture consist of a input pseudo-random sequence, a mixer, a integrator, and a low-rate sampling ADC, which is the same as the RD's architecture shown in Figure \ref{RD}.
+\subsubsection{CSP based Demodulation}
+
+A compressive sensing phase-locked loop (CS-PLL) \cite{schnelle2012compressive}, is designed for directly extracting the phase and frequency from compressively sampled modulated signal $without$ sparse recovery. Since the restricted isometry property (RIP) of CS ensures that the standard inner product between $x[n]$ and $u[n]$ is approximately the same as that in the compressively sensed version produced by $y[m]$ and $u[n]$ \cite{davenport2010signal}, hence, the inner products in the standard PLL and that in the CS-PLL are nearly the same, ensuring the consistence between the standard PLL $\theta [n]$ and the CS-PLL's output $\theta [m]$. The presentation of the $\theta [m]$ can be presented as $\theta [m] = \sum_{k} y[k]v[k]h[m-k]$, where the index $m$ indicates the lower sampling rate compared with the Nyquist rate index $n$. In addition, the compressive sensing operations $\Phi$ which apply the RD's architecture consist of a input pseudo-random sequence, a mixer, a integrator, and a low-rate sampling ADC, which is the same as the random demodulator's architecture in chapter 2.
+
+This CS-PLL has many application fields if the FM demodulation is necessary in compressive sensed data. When we successfully apply this technique, we don not need recovery, but directly demodulate original information from the received modulated signals.
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=2.6in]{figs/pll2.pdf}
+\includegraphics[width=0.5\columnwidth]{figs/pll2.pdf}
 \DeclareGraphicsExtensions.
 \caption{Block diagram of the compressive sensing phase-locked loop (CS-PLL). The components includes the pre-CS sampler, phase detector, loop filter, oscillator and the feed-back CS multiplier}\label{CS-PLL}
 \end{figure}
 
 \section{Conclusion}
 
-\indent \indent In the this chapter, we have followed the discussion of the main drawback in compressed sensing based spectrum sensing (CS-CSS) which derives from the computational non-linear CS reconstruction, and propose the idea of signal processing directly on compressively sampled data (CSP). Then we introduced our future potential works for cognitive spectrum sensing with CSP, including CSP filtering, CSP detection, CSP estimation. Also, potential CSP TOA Algorithm for Ultra-Wideband Positioning is introduced. We hope that by utilise the CSP in spectrum sensing, energy efficient hardware with high flexibility can be achieved in the future. 
+In the this chapter, we have followed the discussion of the main drawback in compressed sensing based spectrum sensing (CS-CSS) which derives from the computational non-linear CS reconstruction, and then propose the idea of signal processing directly on compressively sampled data (CSP) without fully recovery. Then we introduce our future potential work which will embed CSP into cognitive spectrum sensing, including CSP based filtering, CSP based detection, and CSP based estimation. Some other possible CSP applications in UWB positioning and signal demodulation are also introduced. We hope that by utilise the CSP in spectrum sensing, a high real-time performance, high flexible ,energy efficient hardware could be achieved in the future. 
 
 %--------------------------------------------------------------
 
@@ -170,7 +210,7 @@ For CR networks, the signal-to-noise ratio (SNR) affects the performance of spec
 % \paragraph{Requirement for real time ability in CS}
 % \section{Compressive Estimation}
 % \subsection{Compressive Phase-Locked Loop}
-% \indent \indent Since computationally expensive for accurate sparse recovery is relatively high which reduces the real-time processing ability of CS devices, a compressive sensing phase-locked loop (CS-PLL)  \cite{schnelle2012compressive}, is designed for directly extracting the phase and frequency from compressively sampled modulated signal $without$ sparse recovery. This novel architecture brings computational advantages that improves the real-time processing capability in CS devices such as FM receivers\cite{davenport2010wideband} and widely implemented in wireless communication. 
+% Since computationally expensive for accurate sparse recovery is relatively high which reduces the real-time processing ability of CS devices, a compressive sensing phase-locked loop (CS-PLL)  \cite{schnelle2012compressive}, is designed for directly extracting the phase and frequency from compressively sampled modulated signal $without$ sparse recovery. This novel architecture brings computational advantages that improves the real-time processing capability in CS devices such as FM receivers\cite{davenport2010wideband} and widely implemented in wireless communication. 
 % 
 % %It applies a revised PLL structure by adding two compressive sensing (CS) operations $\Phi$ to the original standard architecture of PLLs: one operation is the pre-CS sampler representing the random demodulator (RD) for modulated signal acquisition; another one is the feed-back multiplier which has the same structure as the first, which locates between the oscillator and the phase detector. Then the new architecture of the CS-PLL is shown in Figure \ref{CS-PLL}, comprised of a pre-CS sampler, phase detector, loop filter, oscillator and a feed-back CS multiplier.
 % 
@@ -194,23 +234,23 @@ For CR networks, the signal-to-noise ratio (SNR) affects the performance of spec
 
 %\subsection{Applications: CSP Detector}
 
-%\indent \indent the CSP-detector which estimates the existence of primary users directly from CS samples before recovery, so running time is significantly saved. Further, CS-filters, CS-estimators etc can also embedded for other scenarios in cognitive spectrum sensing, in order to improve the real-time capability direction, or further adaptive sensing schemes. Also, our future research direction will follow this idea.
+%the CSP-detector which estimates the existence of primary users directly from CS samples before recovery, so running time is significantly saved. Further, CS-filters, CS-estimators etc can also embedded for other scenarios in cognitive spectrum sensing, in order to improve the real-time capability direction, or further adaptive sensing schemes. Also, our future research direction will follow this idea.
 
 %In this section, compressed sensing based spectrum sensing techniques for cognitive radio are introduced and compared. As a result, traditional sensing techniques of CR such as energy detector, feature detector can improve their detection performance if they implement the CS technique under the assumption that sensed spectrum are sparse. However, as the CS reconstruction requires non-linear processing which is much complex than traditional linear sinc based recovery, the real-time capability loss becomes the main payment for reducing the high sampling rate problem aforementioned in this chapter. Besides, the CS techniques highly relies on the assumption that object (spectrum) are sparse, in other words, CS is not  suitable for dense wireless communication environment. These two problems lead the following discussion in the next chapter, which shows our proposed research directions. 
 
 %\section{Compressed Signal Processing for Cognitive Radio}\label{C:csp_cr}
 
-%\indent \indent In aforementioned sections, compressed sensing based spectrum sensing techniques for cognitive radio are introduced and compared. As a result, traditional sensing techniques of CR such as energy detector (ED), coherent detector (CD) can improve their detection performance if they implement the CS technique under the assumption that sensed spectrum are sparse. However, as the CS reconstruction requires non-linear processing which is much complex than traditional linear sinc based recovery [xx-yy], the real-time capability loss becomes the main payment for reducing the high sampling rate problem aforementioned in this chapter. Besides, the CS techniques highly relies on the assumption that object (spectrum) are sparse, in other words, CS is not  suitable for dense wireless communication environment. These two problems lead the following discussion in the next chapter, which shows our proposed research directions. 
+%In aforementioned sections, compressed sensing based spectrum sensing techniques for cognitive radio are introduced and compared. As a result, traditional sensing techniques of CR such as energy detector (ED), coherent detector (CD) can improve their detection performance if they implement the CS technique under the assumption that sensed spectrum are sparse. However, as the CS reconstruction requires non-linear processing which is much complex than traditional linear sinc based recovery [xx-yy], the real-time capability loss becomes the main payment for reducing the high sampling rate problem aforementioned in this chapter. Besides, the CS techniques highly relies on the assumption that object (spectrum) are sparse, in other words, CS is not  suitable for dense wireless communication environment. These two problems lead the following discussion in the next chapter, which shows our proposed research directions. 
 
-%\indent \indent In this chapter, we propose a potential approach, term as the compressive signal processing (CSP) [x], to enhance the real-time capability of compressed sensing based cognitive sensing framework under the assumption that in many cases fully recovery is NOT necessary. Followed by this idea, [xx-yy] successfully reduce the executive time since the magnitude of recovered signal length is significantly decreased. On the other hand, since cognitive spectrum sensing (CSS) only requires detecting the 'existence' of spectrum, so fine recovery is no need. From this aspect, the idea of CSP is well suited for CSS. In this chapter, an overview of the compressed signal processing (CSP) theory is presented, as well as the CSP-based applications in wireless communications. 
+%In this chapter, we propose a potential approach, term as the compressive signal processing (CSP) [x], to enhance the real-time capability of compressed sensing based cognitive sensing framework under the assumption that in many cases fully recovery is NOT necessary. Followed by this idea, [xx-yy] successfully reduce the executive time since the magnitude of recovered signal length is significantly decreased. On the other hand, since cognitive spectrum sensing (CSS) only requires detecting the 'existence' of spectrum, so fine recovery is no need. From this aspect, the idea of CSP is well suited for CSS. In this chapter, an overview of the compressed signal processing (CSP) theory is presented, as well as the CSP-based applications in wireless communications. 
 
-%\indent \indent In this chapter, we propose an overview of cognitive radio (CR) networks and then focus on the bottleneck in its front-end sampling devices. Due to the wideband sensing task in CR, the required sampling rate becomes extremely high. Although various approaches [xx-yy] are recently developed to solve this problem, it's shown that in many scenarios, the compressed sensing is the optimal method to solve the problem [xx-yy]. This chapter presents the recent work of compressed spectrum sensing for cognitive radio.
+%In this chapter, we propose an overview of cognitive radio (CR) networks and then focus on the bottleneck in its front-end sampling devices. Due to the wideband sensing task in CR, the required sampling rate becomes extremely high. Although various approaches [xx-yy] are recently developed to solve this problem, it's shown that in many scenarios, the compressed sensing is the optimal method to solve the problem [xx-yy]. This chapter presents the recent work of compressed spectrum sensing for cognitive radio.
 
 %-------------------------------------------------------------------------------------------------------------
 
 %\section{Motivation}\label{sct:csp_moti}
 
-%\indent \indent In the last chapter, compressed sensing based spectrum sensing techniques for cognitive radio are puzzled by the heavy burden from non-linear CS reconstruction procedure [xx-yy]. Previous approaches such as greedy recovery [xx-yy] aims at fast reconstruction while keeping considerable robustness, and they achieve to present enough contributions. 
+%In the last chapter, compressed sensing based spectrum sensing techniques for cognitive radio are puzzled by the heavy burden from non-linear CS reconstruction procedure [xx-yy]. Previous approaches such as greedy recovery [xx-yy] aims at fast reconstruction while keeping considerable robustness, and they achieve to present enough contributions. 
 
 %Besides, the CS techniques highly relies on the assumption that object (spectrum) are sparse, in other words, CS is not  suitable for dense wireless communication environment. These two problems lead the following discussion in the next chapter, which shows our proposed research directions. 
 
@@ -246,7 +286,7 @@ For CR networks, the signal-to-noise ratio (SNR) affects the performance of spec
 %Our aims for following the CSP are (1) find energy-efficient solution for cognitive spectrum sensing, and (2) solve the real-time capacity to enhance the overall performance of compressive CRs. Since the CSP applications are still relying on various conditions, such SNR, Taps of filters, length of original signal, 
 
 %\section{CSP Theory for Cognitive Spectrum Sensing}\label{sct:csp_theory}
-%\indent \indent In many scenarios, the aim of CS fully recovery is no longer necessary, and directly analysis or partial recovery then analysis become possible and applicable. This section briefly presents CSP theory by various topics relating to our research area of cognitive radio spectrum sensing. Theories for CSP based filtering, estimation, interference avoidance, classification, shift retrieval, sparsity order prediction are briefly introduced.
+%In many scenarios, the aim of CS fully recovery is no longer necessary, and directly analysis or partial recovery then analysis become possible and applicable. This section briefly presents CSP theory by various topics relating to our research area of cognitive radio spectrum sensing. Theories for CSP based filtering, estimation, interference avoidance, classification, shift retrieval, sparsity order prediction are briefly introduced.
 
 %--------------------------------------------------------------
 
@@ -254,4 +294,4 @@ For CR networks, the signal-to-noise ratio (SNR) affects the performance of spec
 
 %--------------------------------------------------------------
 
-%\indent \indent In some noise cases, only parts of certain information from measurements are needed, and thus we prefer to filter out the useless information before further signal processing. Therefore, if we could estimate the useless information corresponding to some observations, and then $throw$ them $away$ before CS based signal recovery, we can avoid a high computational complexity and thus save the power efficiency significantly. According to \cite{Theorem 1, davenport2010signal}. 
+%In some noise cases, only parts of certain information from measurements are needed, and thus we prefer to filter out the useless information before further signal processing. Therefore, if we could estimate the useless information corresponding to some observations, and then $throw$ them $away$ before CS based signal recovery, we can avoid a high computational complexity and thus save the power efficiency significantly. According to \cite{Theorem 1, davenport2010signal}. 

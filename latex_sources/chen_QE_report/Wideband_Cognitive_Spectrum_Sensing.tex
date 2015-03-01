@@ -1,10 +1,10 @@
 \chapter{Wideband Cognitive Spectrum Sensing}\label{C:wideband_css}
 
-\indent \indent Cognitive Radio (CR) has been attracting many attention in recent researches with respect to the potential better utilisation performance of limited spectrum resources. In this chapter, we first propose an overview of cognitive radio networks. Then we focus on the bottleneck in its front-end sampling devices and investigate the typical CS framework for spectrum sensing in CR. 
+Cognitive Radio (CR) has been attracting many attention in recent researches with respect to the potential better utilisation performance of limited spectrum resources. In this chapter, we first propose an overview of cognitive radio networks. Then we focus on the bottleneck in its front-end sampling devices and investigate the typical CS framework for spectrum sensing in CR. 
 
 \section{Introduction}
 
-\indent \indent As the wireless techniques keep fast developing, the limited spectrum resource seriously restricts the fast increasing demand for more accessible bandwidth. As a result, the dynamic spectrum access (DSA) becomes necessary and popular, which enables unused spectrum accessed opportunistically, shown in figure \ref{dsa-cr-intro}.(a). 
+As the wireless techniques keep fast developing, the limited spectrum resource seriously restricts the fast increasing demand for more accessible bandwidth. As a result, the dynamic spectrum access (DSA) becomes necessary and popular, which enables unused spectrum accessed opportunistically, shown in figure \ref{dsa-cr-intro}.(a). 
 
 Following this idea, the cognitive radio (CR) develops aiming at optimizing utilisation of idle bands for communications, without doing harm to the primary users (licensed spectrum) \cite{akyildiz2006next}. Correspondingly, the CR devices have to sense the environment (including spectrum usage, noise level etc) quickly and accurately, and reconfigure themselves to adapt the varying circumstance.
 
@@ -15,14 +15,31 @@ Following this idea, the cognitive radio (CR) develops aiming at optimizing util
 \label{dsa-cr-intro}
 \end{figure}
 
-In cognitive radios, the first step is to sense the unused bandwidth, termed as the spectrum holes and shown in figure \ref{dsa-cr-intro}.(b). If the band is detected as unused, the CR networks will use it for further communication. Otherwise, the CR moves to find other spectrum holes, or stays in the same band but avoid interference by changing its transmission power or modulation model.
+Therefore, in cognitive radios, the first and important procedure is to sense the unused bandwidth, termed as the spectrum holes and shown in figure \ref{dsa-cr-intro}.(b). If the band is detected as unused, the CR networks will use it for further communication. Otherwise, the CR moves to find other spectrum holes, or stays in the same band but avoid interference by changing its transmission power or modulation model.
 
 However, trends of communicating requires higher frequency and wider bandwidth. As a result, signal acquisition significant is crucial according to the Nyquist sampling theory. What's worse, since CR should not generates additional interference to the licensed users, CR must limits its working power to a relatively low level (if CR do not change its modulation model). The demand for sensing with low power contradicts with the requirement for sensing in high sensitivity. Thus this contradiction makes the signal acquisition much more difficult. 
 
-In conclusion, spectrum sensing becomes one of the most crucial problem for cognitive radios, and it is still an open issue. Later, compressed sensing will be introduced to be embedded into traditional spectrum sensing algorithms, in order to solve the problem and enhance the overall performance.
+In conclusion, spectrum sensing becomes one of the most crucial problem for cognitive radios, and it is still an open issue. Then, compressed sensing will be introduced to be embedded into traditional spectrum sensing algorithms, in order to solve the problem and enhance the overall performance.
 
-\section{Hypothesis Test Model}
-\indent \indent The aim of spectrum sensing is to decide whether a particular sub-band of the spectrum is available or not. In other words, the procedure is to discriminate based on two hypotheses in equation \ref{detect_hypo}: 
+\section{Spectrum Sensing}\label{sct:ssm}
+
+%re-wr:
+A cognitive radio supports the capability to select the best available channel \cite{akyildiz2006next}, and the main functions for cognitive radios in xG networks can be summarized as \cite{haykin2005cognitive}, where the spectrum sensing to decide whether a particular sub-band of the spectrum is available or not, without harmful interference with primary users. It is the first procedure in cognitive radio networks where various parameters are detected for further spectrum management, spectrum mobility and spectrum sharing. 
+
+%\begin{itemize}
+%\item{Spectrum sensing:} detecting unused spectrum without harmful interference to primary users.
+%\item{Spectrum management:} capturing the best available spectrum to meet user communication requirements.
+%\item{Spectrum mobility:} maintaining seamless communication requirements during the transition to better spectrum.
+%\item{Spectrum sharing:} providing the fair spectrum scheduling method among second users.
+%\end{itemize}
+
+\subsection{Aim: Spectrum Usage Detection}\label{sct:aim_ss}
+
+According to the aim of spectrum sensing, the main task becomes to decide whether a particular sub-band of the spectrum is available or not, namely, to detect spectrum usage situation. A widely accepted idea is to detect the signal existence from licensed users' (primary users, PUs) communication at cognitive radio's receivers: if the PU's signal (in the particular sub-band) are not detected, cognitive radios can access the band for further communication; otherwise, CR cannot use the band. 
+
+\subsection{Hypothesis Detection Model}
+
+In this subsection, the problem of detecting the signal existence from PUs is modelled by two hypotheses in equation \ref{detect_hypo}: 
 \begin{equation}
 \label{detect_hypo}
 \begin{aligned}
@@ -37,11 +54,11 @@ H1: y[n] = w[n] + x[n]
 \end{equation}
 Then the performance of a detector is quantified by the receiver operating characteristics (ROC) curve, which presents the probability of detection $P_D = Prob(\Lambda(y) > \alpha, H1)$ and false alarm probability $P_fa = Prob(\Lambda(y) > \alpha, H0)$. 
 
+\section{Traditional Detection Method}
 
+\subsection{Narrowband Detection}
 
-\section{Narrowband Detection}
-
-\indent \indent In this section, typical spectrum sensing approaches are introduced. Narrowband sensing algorithms can be suitably applied when the channel frequency response is flat. The following figure \ref{narr_spec_sens} demonstrates most typical architectures in narrowband spectrum sensing.
+In this section, typical spectrum sensing approaches are introduced. Narrowband sensing algorithms can be suitably applied when the channel frequency response is flat. The following figure \ref{narr_spec_sens} demonstrates most typical architectures in narrowband spectrum sensing.
 
 \begin{figure}
 \centering
@@ -50,18 +67,18 @@ Then the performance of a detector is quantified by the receiver operating chara
 \label{narr_spec_sens}
 \end{figure}
 
-\paragraph{Matched filter}
+\subsubsection{Matched filter}
 In the figure \ref{narr_spec_sens}.(a), the matched filtering (MF) detector\cite{poor1994introduction} is presented. when the signal to be detected is perfectly known (i.e. mean and variance), the optimal test statistic is produced by matched filter by correlating the received signal to a template. However, the signal cannot always be known in practise, so sometimes it's not applicable. Besides, the carrier synchronisation is also a remained difficult problem.
 
-\paragraph{Energy detector}
+\subsubsection{Energy detector}
 In the figure \ref{narr_spec_sens}.(b), the energy detector (ED) \cite{urkowitz1967energy} is presented. In the case where the signal to be detected does not present structure template, the ED can produce the optimal test statistic by directly analysis the power and variance of the received signal. The implementation of ED is simple, but it suffers from poor detection results in low SNR environment. Besides, the ED cannot distinguish different primary signals at the same time.
 
-\paragraph{Feature detector}
+\subsubsection{Feature detector}
 In the figure \ref{narr_spec_sens}.(c), cycle-stationary feature detection (FD) \cite{enserink1994cyclostationary} is presented. If discrimination for primary signals and higher detection performance are required, the FD exploits the cyclic non-stationary features from primary signals. The cyclic features can be found in many typical modulated signals, for instance, in the orthogonal frequency-division multiplexing (OFDM) contains cyclic features in correlation structure due to the cyclic prefix (CP) between transmitted data. However, the computational cost is relatively high and long running time delay is always existing. 
 
-\section{Nyquist Wideband Detection}\label{sct:wss}
+\subsection{Nyquist Wideband Detection}\label{sct:wss}
 
-\indent \indent In the scenarios where the bandwidth is sufficiently larger than coherence bandwidth of channel, wideband sensing is more suitable than narrowband sensing. For instance, it can be used for sensing the ultra-high-frequency (UHF) TV band, ranging from 300 MHz to 3 GHz, while the narrowband sensing providing single binary decision over whole spectrum is always not suitable for identifying individual spectrum access opportunities. The following figure \ref{nqys_spec_sens} demonstrates the typical architectures for wideband spectrum sensing and detection.
+In the scenarios where the bandwidth is sufficiently larger than coherence bandwidth of channel, wideband sensing is more suitable than narrowband sensing. For instance, it can be used for sensing the ultra-high-frequency (UHF) TV band, ranging from 300 MHz to 3 GHz, while the narrowband sensing providing single binary decision over whole spectrum is always not suitable for identifying individual spectrum access opportunities. The following figure \ref{nqys_spec_sens} demonstrates the typical architectures for wideband spectrum sensing and detection.
 
 \begin{figure}
 \centering
@@ -70,39 +87,45 @@ In the figure \ref{narr_spec_sens}.(c), cycle-stationary feature detection (FD) 
 \label{nqys_spec_sens}
 \end{figure} 
 
-\paragraph{Multiband joint detector}
+\subsubsection{Multiband joint detector}
 In figure \ref{nqys_spec_sens}.(a), the multiband joint detector (MJD) \cite{quan2009optimal} is presented. The MJD first uses serial-to-parallel conversion (S/P) to divide samples into parallel data streams, then it process the FFT to divide spectrum X(f) into groups of narrowband spectrum. Then each binary hypothesis detection is performed and joint optimised at last. The high sampling rate and lower speed of joint optimisation is the main bottleneck.
 
-\paragraph{Wavelet detector}
+\subsubsection{Wavelet detector}
 In figure \ref{nqys_spec_sens}.(b), the wavelet detector\cite{tian2006wavelet} is introduced. The wavelet analysis of power spectral density (PSD) can provide significant border symbols of two neighbour sub-bands, the aim of detection becomes a spectral edge detection problem. However, the high sampling rate is also the bottleneck.
 
-\paragraph{Sweep-tune detector}
+\subsubsection{Sweep-tune detector}
 In figure \ref{nqys_spec_sens}.(c), the sweep-tune detector\cite{quan2009optimal, farhang2008filter} is displayed. This detector uses a special frequency mixing technique that 'sweep' across the frequency range of interest, to down-converts signals to a lower frequency. The adaptive local oscillator (LO) is used for 'sweep' procedure. However, the procedure of 'sweep' mixing generates too much time to wait.
 
-\paragraph{Filter-bank detector}
+\subsubsection{Filter-bank detector}
 Also using the idea of down-conversion, the figure \ref{nqys_spec_sens}.(d) shows the structure of filter-bank detector \cite{farhang2008filter}. Not only following the technique which 'sweep' mixing the interest of signals, it also applies parallel structure to speed up the processing time by using filter-bank. As a result, the time cost of mixing reduces but the implementation cost largely increase.
 
-\section{Compressive Wideband Detection}\label{sct:cwd}
+\section{Sub-Nyquist Wideband Detection}
 
-\indent	\indent Different from Nyquist wideband detection, the sub-Nyquist spectrum sensing applies the multi-coset (MC) sampling, multi-rate (MR) sampling, or compressed sensing (CS) to reduce the required sampling rate. Before talking about CS based sampling, first we take brief look at MC and MR sampling.
+Different from Nyquist wideband detection, the sub-Nyquist spectrum sensing applies the multi-coset (MC) sampling, multi-rate (MR) sampling, or compressed sensing (CS) to reduce the required sampling rate. Before talking about CS based sampling, first we take brief look at MC and MR sampling.
+
+\subsubsection{Multi-Coset Sampling}
 
 The multi-coset (MC) sampling \cite{venkataramani2000perfect} applies blocks of parallel consecutive samples with special time offsets to sample, so that each channel has a task of low-rate sampling. Then joint spectrum recovery and further detection can be performed. The main difficulty is how to perform sampling channel synchronisation with highly accurate time offsets. The quality of the specific offsets is crucial for robustness in its spectral reconstruction.
 
+\subsubsection{Multi-Rate Sampling}
+
 The multi-rate (MR) sampling \cite{sun2013wideband} uses various sampling rates to wrap different sparse spectrum onto individual channels, and then use joint sparse spectrum recovery for further energy detection. Time synchronisation is no longer needed compared to the MC. But instead, the sacrifice is the hardware cost for parallel structure, as well as the increased sampling rate compared to original CS although the MR's sampling rate is still less than Nyquist rate. 
 
-\subsection{Compressive Spectrum Sensing}\label{sct:css}
+\section{CS based Detection Method}\label{sct:cwd}
 
-\indent \indent Cognitive spectrum sensing is another typical application suitable for compressed sensing. The applicability mainly lies in two aspects:  
+\subsection{Introduction to Compressive Spectrum Sensing }\label{sct:css}
+
+Cognitive spectrum sensing is another typical application suitable for compressed sensing. The applicability of Compressive spectrum sensing (CSS )mainly lies in two aspects:  
 
 \paragraph{Sampling Rate}
 The trend of higher frequency transmission is also suitable for cognitive radio, which leads to higher rate sampling rate at receivers. Thus it's reasonable to develop the CS based spectrum sensing techniques to reduce the sampling rate.
 
 \paragraph{Flexibility and Energy}
-\indent \indent The cognitive radio requires flexibility for sensing various  types of signals (TV signal, cell phone, satellites etc) in a relatively wide bandwidth. However, normal wideband spectrum detection uses filtering or mixing for down-conversion (then low-rate sampling). This approach require difficult analog implementations such as adaptive local oscillator(LO) for filter-banks(FB). Inversely, if the CS is used, then the system can get wider sensing (frequency) ranges without the hardware of LO or FB.
+The cognitive radio requires flexibility for sensing various  types of signals (TV signal, cell phone, satellites etc) in a relatively wide bandwidth. However, normal wideband spectrum detection uses filtering or mixing for down-conversion (then low-rate sampling). This approach require difficult analog implementations such as adaptive local oscillator(LO) for filter-banks(FB). Inversely, if the CS is used, then the system can get wider sensing (frequency) ranges without the hardware of LO or FB.
 
-\subsection{Compressive Detectors Overview}
 Therefore, the CS become popular in cognitive spectrum sensing. The figure \ref{comp_spec_sens} demonstrates the typical architectures in wideband spectrum sensing, and briefly analyse CS detectors. The similar CS based architecture can also be viewed in chapter \ref{C:compressed_sensing}.
 
+\subsection{Compressive Detectors Overview}
 \begin{figure}
 \centering
 \includegraphics[width=0.75\columnwidth]{figs/comp_spec_sens.png}
@@ -110,19 +133,20 @@ Therefore, the CS become popular in cognitive spectrum sensing. The figure \ref{
 \label{comp_spec_sens}
 \end{figure} 
 
-\paragraph{Random Demodulation based Detector}  Figure \ref{comp_spec_sens}.(a) presents the random demodulation (RD) based detector\cite{tropp2010beyond}, which is an analog-to-information converter (AIC) for finite-length and discrete-time signals, and consists of pseudorandom wave generator, a mixer, and a low-rate ADC. The detailed architecture of RD is introduced in chapter \ref{C:compressed_sensing}. The reconstruction of RD sampled data involves $l1$-norm minimization (e.g. based BP, LASSO) or greedy method (e.g. OMP).
+\subsubsection{Demodulation based Detector}  
+Figure \ref{comp_spec_sens}.(a) presents the random demodulation (RD) based detector\cite{tropp2010beyond}, which is an analog-to-information converter (AIC) for finite-length and discrete-time signals, and consists of pseudorandom wave generator, a mixer, and a low-rate ADC. The detailed architecture of RD is introduced in chapter \ref{C:compressed_sensing}. The reconstruction of RD sampled data involves $l1$-norm minimization (e.g. based BP, LASSO) or greedy method (e.g. OMP).
 This design is simple, but easily affected by model mismatches and design imperfections.
 
-\paragraph{Modulated Wideband Converter based Detector}
+\subsubsection{Modulated Wideband Converter based Detector}
 Figure \ref{comp_spec_sens}.(b) displays the modulated wideband converter (MWC) based detector \cite{mishali2009expected} for the case where multichannel signals are designed to be detected. The MWC can be considered as a parallel structure of RD, and its architecture is introduced in chapter \ref{C:compressed_sensing}. The reconstruction of MWC involves the multiple measurement vector (MMV) sparse recovery which exploits the fact that the columns of original spectrum coefficients share the same sparsity pattern. Compared to the RD, MWC provides robustness against the noise and model mismatches.
 
-\paragraph{Cooperative Compressive Spectrum Sensing} 
+\subsubsection{Cooperative Compressive Spectrum Sensing} 
 %re-write{
 Cooperative versions of spectrum sensing is an open issue, which aims at solving the hidden terminal problem \cite{akyildiz2006next} and improve sensing accuracy. The cooperative version of compressive wideband sensing have
  been developed \cite{tian2008compressed, wang2009distributed}. Here, individual radios can make a local decision about the presence or absence of a primary user, and these results can then be fused in a centralised or decentralised manner. However, a greater cooperation gain can be achieved by fusing all the compressed measurements, again in a centralised or decentralised manner. In general, such measurement fusion requires that each cognitive radio knows the channel state information (CSI) from all primary users to itself \cite{tian2008compressed}, which is cumbersome. But recent extensions show that measurement fusion can also be carried out without CSI knowledge \cite{fanzi2011distributed}.
 %}
 
-\paragraph{Compressive Radar System}
+\subsection{An Instance: CS based Cognitive Radar System}
 In \cite{stinco2014compressed} the CS is embedded to enhance the performance of cognitive radar that use wide operating frequency bandwidths for spectrum sensing and sharing. The compressive cognitive radar  utilises the typical CS techniques, including the random demodulation (RD) for signal acquiring, basis pursuit de-noising (BPDN) algorithm and discrete cosine basis (DCT) for sparse reconstruction, and classical energy detector (ED) for hypothesis analysis. 
 
 \begin{figure}
@@ -134,21 +158,51 @@ In \cite{stinco2014compressed} the CS is embedded to enhance the performance of 
 
 The experimental results figure \ref{cs-cogn-radar} shows the CS based radar has appealing performance in low sampling rate (using only $ < 30\%$ of the total samples of the original signal) and low detection error in high SNR cases. But in low SNR environment, the proposed system still struggles and suffers. 
 
+\newpage
+
+\section{Further Sensing Task: Hybrid Signal Processing}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\columnwidth]{figs/hybrid_dsp.pdf}
+\caption{Block diagram of hybrid signal sensing, processing and detection in cognitive spectrum sensing}
+\label{hybrid_dsp}
+\end{figure} 
+
+According to the aim of spectrum sensing that we have talked in section \ref{sct:aim_ss}, the main task is to detect the signal existence of licensed users' (primary users, PUs) from cognitive radio's receivers.
+
+Practically, in order to obtain high accurate detection result, a cognitive radio must keep monitoring almost every useful 'clues' to prove whether a spectrum band is used or not. Such clues (in physical layer) contains various information such as
+signal to noise ratio (SNR), modulation mode, primary signal bandwidth, and primary signal power etc. 
+
+As listed, there are too many informations to monitor at cognitive radios' receivers, so most of spectrum sensing algorithm only detect parts of the listed information, some detect power (energy detection), some detect partial signal (matched filtering detection), and others detect cyclic symbols (feature detection). 
+
+As many of those method successfully accomplish the task in different scenarios, such as ED works well in high SNR cases, feature detection performs well in cases where primary signals contains strong periodic information, however, one of the key aims of designing a modern networks, is to make the network flexible enough, where hybrid types of primary signals communications (e.g. TV, mobile phone, radar) are mixed, and time-varying parameters (SNR, noise, power modulation type) based communications are allowed, shown as Figure \ref{hybrid_dsp}. This demand gives rise to a significant uncertainty in signals' appearance, and communication quality. As a result, in most practical cases, hybrid signal communication will co-exist, and for a higher detection results, pre-procedure such as filtering and classification for detection should be considered.
+
+As a result, in cognitive radio, although detection is still a main task, but 
+in order to efficiently detect co-existed primary signals, filtering (e.g. interference cancelling),  classification (e.g. hybrid signal separation), and estimation (e.g. SNR prediction) are also needed and regarded as useful auxiliary methods for further complex detection algorithms. 
+
+Therefore, those assistant methods involves many traditional signal processing methods, and how to suitably apply them to process CS sampled data is a big deal because those data are non-linearly sample while traditional DSP algorithms are aiming at linear samples. In this sense, CS reconstruction are
+needed, but it is time-consuming.
+
+The problem shows us a further important issue for hybrid signal's processing in CS based cognitive radio, and more details will be introduced as our future research directions in chapter 6. 
+
 \section{Challenges and Discussion}
 
-\indent \indent The compressed sensing based wideband spectrum sensing for cognitive radio provide its outstanding feature in reducing the sampling rate. However, the corresponding drawbacks emerge in real-time ability and energy consumption, mainly due to its computational expensive non-linear reconstruction and energy consuming characters: 
+The compressed sensing based wideband spectrum sensing for cognitive radio provide its outstanding feature in reducing the sampling rate. However, the corresponding drawbacks emerge in real-time ability and energy consumption, mainly due to its computational expensive non-linear reconstruction and energy consuming characters: 
 
-\paragraph{Long time feedback delay}
+\subsection{Long-Time Feedback Delay}
 Accuarcy is cruical for primary detection. Hence, if we applies CS for sampling, the convex optimisation (e.g.basis pursuit) is always needed for data recovery since it provides better accuracy and robustness comparing to greedy methods (chapter \ref{C:compressed_sensing}). However, convex optimisation is time consuming, which cause too long time to fast feed-back. Since feed back is very important for CR, which is responsible to avoid interference and quick reconfiguration, agility and reconfigurablity may reduce.
 
-\paragraph{Mismatch for signal processing}
+\subsection{Mismatch for Traditional Signal Processing}
 The reconstruction algorithms for CS is non-linear, which indicates that the recovered data are not directly suitable for conventional digital signal processing where traditional recovering only requires cardinal sinc interpolation (linear process). This brings difficulty in directly reuse the traditional method for sensed data.
 
-\paragraph{high energy cost}
+\subsection{High Energy Cost}
 The heavy reconstruction for CS not only brings large time-delay, but also additional energy cost. Compared to linear recovery in traditional approaches, the CS based signal detection additionally required the block for spectrum recovery before further hypothesis detection. 
 
 \section{Conclusion}
-\indent \indent Cognitive radio has been widely used and attracting many research attentions in its spectrum sensing techniques. In this chapter, traditional sensing approaches such as energy detection and feature detection are introduced. In order to solve the detection task for wideband and high frequency signals, compressed sensing based spectrum sensing (CS-CSS) is introduced and demonstrated. However, the compressively sampled data does not directly match the traditional processing algorithms (section \ref{sct:problem_state}). Then here comes the question: what if we directly perform hypothesis detection without CS reconstruction? If the idea is achievable, the additional energy cost will be eliminated so that the entire energy reduces. Besides, not only detection, if we can expand this idea to filtering, estimation, then more intelligent-based scheme for cognitive radio can be supported in physical layer. The answer refers to our future research aims that shown in the next chapter.
+Cognitive radio has been widely used and attracting many research attentions in its spectrum sensing techniques. In this chapter, traditional sensing approaches such as energy detection and feature detection are introduced. In order to solve the detection task for wideband and high frequency signals, compressed sensing based spectrum sensing (CS-CSS) is introduced and demonstrated. However, the compressively sampled data does not directly match the traditional processing algorithms.
+
+Then here comes the question: what if we directly perform hypothesis detection without CS reconstruction? If the idea is achievable, the additional energy cost will be eliminated so that the entire energy reduces. Besides, not only detection, if we can expand this idea to filtering, estimation, then more intelligent-based scheme for cognitive radio can be supported in physical layer. The answer refers to our future research aims that shown in the next chapter.
 
 %However, in cognitive radio, most of tasks for spectrum sensing are related to detection, estimation, filtering, classification. This contradiction leads the large additional loss in energy usage and time utilisation when we applies the CS to reduce the sampling limitation in wideband sensing for CR. Then noticing the fully reconstruction is always not needed, we will discuss the future direction in the next chapter, for directly processing compressively sampled data in CR, which aims at extracting effective information without fully recovery so that the entire real-time capability and energy efficiency will be significantly increased. 
 
@@ -168,14 +222,14 @@ The heavy reconstruction for CS not only brings large time-delay, but also addit
 %--------------------------------------------------------------------
 %\section{Cognitive Radio and Spectrum Sensing}\label{sct:cr_and_spectrum_sensing}
 
-%\indent \indent Conventionally, licensed spectrum is allocated in long term and intended to be used only by primary users. However, as the increasing demand for higher data rates for communications, the limitation of the inefficiency usage of licensed spectral resources becomes a great bottleneck. Hence, the idea of opportunistically accessing the unused spectral resources (dynamic spectrum access, DSA) turns to be popular and motivates the develop of cognitive radio (CR). In other words, cognitive radio [2, 3] has become a promising solution to solve the spectrum scarcity problem. 
+%Conventionally, licensed spectrum is allocated in long term and intended to be used only by primary users. However, as the increasing demand for higher data rates for communications, the limitation of the inefficiency usage of licensed spectral resources becomes a great bottleneck. Hence, the idea of opportunistically accessing the unused spectral resources (dynamic spectrum access, DSA) turns to be popular and motivates the develop of cognitive radio (CR). In other words, cognitive radio [2, 3] has become a promising solution to solve the spectrum scarcity problem. 
 
 %For each cognitive radio network, the second users (SUs, unlicensed users) are able to reuse idle spectrum for communications without doing harm to the primary users (PUs, licensed users) when PUs are absent. Further more, cognitive radio can be considered as an developed software-defined radio (SDR) %[Wideband spectrum sensing for cognitive radio networks- a survey]that automatically senses its surrounding environment (e.g. noise level, spectrum usage ,RF stimuli etc) and intelligently adapts its configuration (i.e. operation parameters) to varying network infrastructure, in order to meet the quality of service.
 
 %--------------------------------------------------------------------
 
 %re-write [Wideband spectrum sensing for cognitive radio networks- a survey]
-%\indent \indent Cognitive radio is an advanced software-defined radio that automatically detects its surrounding RF stimuli and intelligently adapts its operating parameters to network infrastructure while meeting user demands. Since cognitive radios are considered secondary users for using the licensed spectrum, a crucial requirement of cognitive radio networks is that they must efficiently exploit under-utilised spectrum (referred to as spectral opportunities) without causing harmful interference to the PUs. Furthermore, PUs have no obligation to share and change their operating parameters for sharing spectrum with cognitive radio networks. Hence, cognitive radios should be able to independently detect spectral opportunities without any assistance from PUs; this ability is called spectrum sensing, which is considered one of the most critical components in cognitive radio networks.
+%Cognitive radio is an advanced software-defined radio that automatically detects its surrounding RF stimuli and intelligently adapts its operating parameters to network infrastructure while meeting user demands. Since cognitive radios are considered secondary users for using the licensed spectrum, a crucial requirement of cognitive radio networks is that they must efficiently exploit under-utilised spectrum (referred to as spectral opportunities) without causing harmful interference to the PUs. Furthermore, PUs have no obligation to share and change their operating parameters for sharing spectrum with cognitive radio networks. Hence, cognitive radios should be able to independently detect spectral opportunities without any assistance from PUs; this ability is called spectrum sensing, which is considered one of the most critical components in cognitive radio networks.
 
 %------------
 
@@ -202,7 +256,7 @@ The heavy reconstruction for CS not only brings large time-delay, but also addit
 % 
 % \subsection{Hypothesis Test}
 % 
-% \indent \indent The aim of spectrum sensing is to decide whether a particular sub-band of the spectrum is available or not. In other words, the procedure is to discriminate based on two hypotheses in equation \ref{detect_hypo}: 
+% The aim of spectrum sensing is to decide whether a particular sub-band of the spectrum is available or not. In other words, the procedure is to discriminate based on two hypotheses in equation \ref{detect_hypo}: 
 % \begin{equation}
 % \label{detect_hypo}
 % \begin{aligned}
@@ -238,10 +292,10 @@ The heavy reconstruction for CS not only brings large time-delay, but also addit
 
 %----------------compressed sens vs filter-bank------------
 
-%In such case, if we indent to down-convert the signals for lower rate sampling, the analog filter-bank must be very complex design with heavy cost, for instance, large filter bank which covers the whole bandwidth, or adaptive filter but cost long time frequency shifting. If we intend to reduce the design complexity and cost, however, the sampling rate should be relatively high with less filters for down-conversion. 
+%In such case, if weconvert the signals for lower rate sampling, the analog filter-bank must be very complex design with heavy cost, for instance, large filter bank which covers the whole bandwidth, or adaptive filter but cost long time frequency shifting. If we intend to reduce the design complexity and cost, however, the sampling rate should be relatively high with less filters for down-conversion. 
 
 %----hypothesis model----
-% \indent \indent The aim of spectrum sensing is to decide whether a particular sub-band of the spectrum is available or not. In other words, the procedure is to discriminate based on two hypotheses:
+% The aim of spectrum sensing is to decide whether a particular sub-band of the spectrum is available or not. In other words, the procedure is to discriminate based on two hypotheses:
 % \begin{equation}
 % H0: y = w \quad (noise case)
 % H1: y = w + x \quad (primary signal case)

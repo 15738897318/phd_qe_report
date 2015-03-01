@@ -1,0 +1,877 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1347\cocoasubrtf130
+{\fonttbl\f0\fmodern\fcharset0 Courier-Bold;\f1\fmodern\fcharset0 Courier;\f2\froman\fcharset0 Times-Roman;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue192;\red107\green0\blue1;\red15\green112\blue1;
+\red77\green77\blue77;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\b\fs24 \cf2 \expnd0\expndtw0\kerning0
+\\chapter\{Compressive Ultra Wideband Positioning\}\\label\{C:compressive_uwb_positioning\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+In this chapter, we focus on one of the popular ultra wideband (\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone ) wireless application -- impulse-radio ultra-wideband (\expnd0\expndtw0\kerning0
+\ul IR\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone ) positioning system. The proposed \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning system shows the potential advantages if we implement CS projection in the transmitter of the \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning system according to the experiment result. Besides, Our proposed compressive \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning presents a novel view of energy trade-off design, which is implemented by a low-rate random-projection at transmitters and low rate \expnd0\expndtw0\kerning0
+\ul ADCs\expnd0\expndtw0\kerning0
+\ulnone  at receivers. It is clear that this design significantly reduce the peak frequency in the system with acceptable rate increase in receivers' ADC sampling rate.\'a0\'a0 \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\section\{Introduction\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+Ultra-wide band (\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone ) communication is widely used in wireless communication and associated with features as extreme wide transmission bandwidth, low-power consumption, shared spectrum resources in wide ranges \expnd0\expndtw0\kerning0
+\ul etc\expnd0\expndtw0\kerning0
+\ulnone  \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul paredes2007ultra\expnd0\expndtw0\kerning0
+\ulnone \}. Among all applicable areas, \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  based accurate positioning and tracking in short range communication become popular since it provides resilient to multipath fading in hostile environment and outstanding robustness even in low signal-to-noise (\expnd0\expndtw0\kerning0
+\ul SNR\expnd0\expndtw0\kerning0
+\ulnone ) situations \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul cassioli2002ultra\expnd0\expndtw0\kerning0
+\ulnone \}. In addition, the requirements of high data rate and limitations of battery supply lead the impulse-radio ultra-wide band (\expnd0\expndtw0\kerning0
+\ul IR\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone ) to become a suitable communication technique in short range high data rate communication. As a result, applications based short-distance wireless sensor networks (\expnd0\expndtw0\kerning0
+\ul WSNs\expnd0\expndtw0\kerning0
+\ulnone ) where large numbers of portable instrument, are widely deployed such as indoor positioning, surveillance, home automation, \expnd0\expndtw0\kerning0
+\ul etc\expnd0\expndtw0\kerning0
+\ulnone . \
+\
+However, high data rate transmission puts huge pressure on signal detection at \expnd0\expndtw0\kerning0
+\ul ADCs\expnd0\expndtw0\kerning0
+\ulnone  at receivers, which indicates the sampling rate becomes a main bottleneck to the \expnd0\expndtw0\kerning0
+\ul IR\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  system. This paper focuses on the \expnd0\expndtw0\kerning0
+\ul IR\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  indoor positioning, aims at solving the bottleneck of sampling rate by using a recent novel technique termed compressed sensing (CS), aforementioned in Chapter \cf3 \expnd0\expndtw0\kerning0
+\\ref\cf0 \expnd0\expndtw0\kerning0
+\{C:\expnd0\expndtw0\kerning0
+\ul compressed_sensing\expnd0\expndtw0\kerning0
+\ulnone \}. It indicates that CS based \expnd0\expndtw0\kerning0
+\ul IR\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  systems can possibly detect high frequency sparse signals under a sub-Nyquist sampling rates that far below the Nyquist rate (twice the \expnd0\expndtw0\kerning0
+\ul IR\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  bandwidth). This result is advantageous which releases the bottleneck of the large bandwidth constraints on ADC at \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  receivers, and consequently reduces storage limits and improves energy efficiency in \expnd0\expndtw0\kerning0
+\ul IR\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning systems.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\subsection\{Literature Review\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+Recently some researches manage to embed CS reconstruction algorithms, e.g. revised orthogonal matching pursuit, at \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  receivers. These algorithms successfully improve the \expnd0\expndtw0\kerning0
+\ul SNR\expnd0\expndtw0\kerning0
+\ulnone  of the received signal before they are sent to the stages of time of arrival (\expnd0\expndtw0\kerning0
+\ul TOA\expnd0\expndtw0\kerning0
+\ulnone ) based positioning algorithm. Consequently, this method increases the performance of entire positioning accuracy \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul banitalebi2014compressive\expnd0\expndtw0\kerning0
+\ulnone \}. For hardware implementation of the new CS based \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  receivers, most of them apply the hardware structure termed the random demodulator (RD) \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul kirolos2006analog\expnd0\expndtw0\kerning0
+\ulnone \}, and consequently this new CS-\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  receiver successfully reduces the sampling rate significantly compared to the Nyquist rate \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul yang2011compressive\expnd0\expndtw0\kerning0
+\ulnone \}.\
+\
+On the other hand, some researches embed the CS technique mainly at \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  transmitters. They develop a waveform-based \expnd0\expndtw0\kerning0
+\ul precoding\expnd0\expndtw0\kerning0
+\ulnone  transmitter, in order to fulfil a random projection of the \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  generated pulses \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul zhang2009compressed\expnd0\expndtw0\kerning0
+\ulnone \}. Followed by sub-Nyquist sampling \expnd0\expndtw0\kerning0
+\ul ADCs\expnd0\expndtw0\kerning0
+\ulnone  at receivers, the sampled signals are sent to \expnd0\expndtw0\kerning0
+\ul TOA\expnd0\expndtw0\kerning0
+\ulnone  based algorithm for calculating the location of the \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  transmitter. Simulation results show that the new CS-\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  transmitter manage to significantly decrease the sampling rate of receivers successfully improves accuracy of traditional \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning system. \
+\
+However, both CS-\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  receivers and CS-\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  transmitters suffer from high-data rate random mixing operation, where \expnd0\expndtw0\kerning0
+\ul PN\expnd0\expndtw0\kerning0
+\ulnone  sequence at mixers is required to reach the extremely high Nyquist rate ( e.g. beyond 10 GHz). This requirement generates heavy burden on bandwidth of hardware mixers and additionally increases a high frequency noise. \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\subsection\{Contribution\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+To solve this problem, our proposed work proposes an advanced low-rate CS-\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning system: For the CS-\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  transmitter, it implements a relatively low-rate random projection matrix to slow down the mixing rate. For CS-\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  receivers, they sacrifices a small degree of compression ratio to keep equivalent performance as those positioning system using traditional CS-\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  transmitters. As a result, the trade-off between the random mixing rate and the sub-Nyquist sampling rate makes our system to become a more energy balanced, and consequently gains a better performance in entire power consumption and energy efficiency.\'a0 \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\section\{Model of Traditional \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  Positioning\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf3 \expnd0\expndtw0\kerning0
+\\indent\cf0 \expnd0\expndtw0\kerning0
+ \cf3 \expnd0\expndtw0\kerning0
+\\indent\cf0 \expnd0\expndtw0\kerning0
+ Extremely wide transmission bandwidths of the \expnd0\expndtw0\kerning0
+\ul IR\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  offers outstanding multipath resolutions for accurate positioning in indoor environment. Consider a typical \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  indoor communication model where distributed \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  receivers (base stations) are placed in an area to detect the location of a moving \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  transmitter (tag). The transmitter periodically broadcasts Gaussian shaped pulse \cf4 \expnd0\expndtw0\kerning0
+$p(t)$\cf0 \expnd0\expndtw0\kerning0
+ through an indoor multipath channel, and receivers detect signals for time of arrival (\expnd0\expndtw0\kerning0
+\ul TOA\expnd0\expndtw0\kerning0
+\ulnone ) based positioning calculation. The received signals can be described as (\cf3 \expnd0\expndtw0\kerning0
+\\ref\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul eq_recv\expnd0\expndtw0\kerning0
+\ulnone \}):\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\begin\cf0 \expnd0\expndtw0\kerning0
+\{equation\}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+label\{eq_recv\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\cf4 \expnd0\expndtw0\kerning0
+r(t) = p(t) * h(t) + n(t) = \\sum_\{l=1\}^\{L\} a_l p(t-\\tau_l) + n(t) \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\end\cf0 \expnd0\expndtw0\kerning0
+\{equation\}\
+where \cf4 \expnd0\expndtw0\kerning0
+$p(t)$\cf0 \expnd0\expndtw0\kerning0
+ is the transmitted Gaussian pulse, \cf4 \expnd0\expndtw0\kerning0
+$n(t)$\cf0 \expnd0\expndtw0\kerning0
+ stands for zero-mean additive white Gaussian noise (\expnd0\expndtw0\kerning0
+\ul AWGN\expnd0\expndtw0\kerning0
+\ulnone ), and \cf4 \expnd0\expndtw0\kerning0
+$h(t)$\cf0 \expnd0\expndtw0\kerning0
+ refers to the standard \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  channel model denoted by IEEE 802.15.\expnd0\expndtw0\kerning0
+\ul 4a\expnd0\expndtw0\kerning0
+\ulnone  (\cf3 \expnd0\expndtw0\kerning0
+\\ref\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul eq_chan\expnd0\expndtw0\kerning0
+\ulnone \}):\
+\cf2 \expnd0\expndtw0\kerning0
+\\begin\cf0 \expnd0\expndtw0\kerning0
+\{equation\}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+label\{eq_chan\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\cf4 \expnd0\expndtw0\kerning0
+h(t) = \\sum_\{l=1\}^\{L\} a_l \\delta(t-\\tau_l)\cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\end\cf0 \expnd0\expndtw0\kerning0
+\{equation\}\
+Here \cf4 \expnd0\expndtw0\kerning0
+$a_l$\cf0 \expnd0\expndtw0\kerning0
+ and \cf4 \expnd0\expndtw0\kerning0
+$\\tau_l$\cf0 \expnd0\expndtw0\kerning0
+ are the gain and delay corresponding to the \cf4 \expnd0\expndtw0\kerning0
+$i$\cf0 \expnd0\expndtw0\kerning0
+-\expnd0\expndtw0\kerning0
+\ul th\expnd0\expndtw0\kerning0
+\ulnone  path in the channel model. The \cf4 \expnd0\expndtw0\kerning0
+$L$\cf0 \expnd0\expndtw0\kerning0
+ defines the total number of propagation paths, and \cf4 \expnd0\expndtw0\kerning0
+$\\delta(t)$\cf0 \expnd0\expndtw0\kerning0
+ is the Dirac delta function. Based on the fact that geometrical difference yields different time of arrivals, the received signals at the different receivers are collected for \expnd0\expndtw0\kerning0
+\ul TOA\expnd0\expndtw0\kerning0
+\ulnone  based algorithm. At last accurate position of the transmitter is calculated based on \expnd0\expndtw0\kerning0
+\ul TOA\expnd0\expndtw0\kerning0
+\ulnone  \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul d2010toa\expnd0\expndtw0\kerning0
+\ulnone \}. In addition, since both transmitted pulses and components of multipath channel can be regarded as approximately sparse, the received \expnd0\expndtw0\kerning0
+\ul IR\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  signals becomes sparse, and consequently the CS framework is applicable for \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul yang2011compressive\expnd0\expndtw0\kerning0
+\ulnone \}. \
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\subsection\{Compressive Receivers\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\begin\cf0 \expnd0\expndtw0\kerning0
+\{figure\}[!t]\
+\pard\pardeftab720
+\cf3 \expnd0\expndtw0\kerning0
+\\centering\cf0 \expnd0\expndtw0\kerning0
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\includegraphics
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+[width=0.5\cf3 \expnd0\expndtw0\kerning0
+\\columnwidth\cf0 \expnd0\expndtw0\kerning0
+]\{\expnd0\expndtw0\kerning0
+\ul cs\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul uwb\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul design1\expnd0\expndtw0\kerning0
+\ulnone .pdf\}\
+\cf3 \expnd0\expndtw0\kerning0
+\\DeclareGraphicsExtensions.\cf0 \expnd0\expndtw0\kerning0
+\
+\cf3 \expnd0\expndtw0\kerning0
+\\caption\cf0 \expnd0\expndtw0\kerning0
+\{Block diagram of compressive receiver implemented by random demodulator (RD). The components of RD includes a pseudo-random sign generator (\expnd0\expndtw0\kerning0
+\ul PRSG\expnd0\expndtw0\kerning0
+\ulnone ), a low-pass filter (\expnd0\expndtw0\kerning0
+\ul LPF\expnd0\expndtw0\kerning0
+\ulnone ), and a sub-Nyquist ADC\}\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\label\{cs-uwb-design1\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\end\cf0 \expnd0\expndtw0\kerning0
+\{figure\}\
+\
+Typical recent researches embed the CS reconstruction algorithm at \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  receivers to improve the \expnd0\expndtw0\kerning0
+\ul SNR\expnd0\expndtw0\kerning0
+\ulnone  of the received signal. As a result, it not only increases the performance of the positioning accuracy \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul banitalebi2014compressive\expnd0\expndtw0\kerning0
+\ulnone \}, but also reduces the sampling rate to a relatively low level compared to the Nyquist rate. Among these compressive receivers, most of them develop the random demodulator (RD) \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul kirolos2006analog\expnd0\expndtw0\kerning0
+\ulnone \} as the main structure of CS based \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  receivers \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul yang2011compressive\expnd0\expndtw0\kerning0
+\ulnone \}. \
+\
+In this system, each compressive receiver realises the RD architecture that composed of a pseudo-random sign generator (\expnd0\expndtw0\kerning0
+\ul PRSG\expnd0\expndtw0\kerning0
+\ulnone ), a low pass filter (\expnd0\expndtw0\kerning0
+\ul LPF\expnd0\expndtw0\kerning0
+\ulnone ), and a sub-Nyquist rate \expnd0\expndtw0\kerning0
+\ul analog\expnd0\expndtw0\kerning0
+\ulnone -to-digital converter (ADC), shown in Fig.\cf3 \expnd0\expndtw0\kerning0
+\\ref\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul cs\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul uwb\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul design1\expnd0\expndtw0\kerning0
+\ulnone \}. \
+\
+Then the transmitted \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  signals are collected by group of low-rate distributed \expnd0\expndtw0\kerning0
+\ul ADCs\expnd0\expndtw0\kerning0
+\ulnone  only using a minimal sampling rate of \cf4 \expnd0\expndtw0\kerning0
+$1.7K(log(N/K))$\cf0 \expnd0\expndtw0\kerning0
+ \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul kirolos2006analog\expnd0\expndtw0\kerning0
+\ulnone \}, where \cf4 \expnd0\expndtw0\kerning0
+$N$\cf0 \expnd0\expndtw0\kerning0
+ stands for Nyquist rate and \cf4 \expnd0\expndtw0\kerning0
+$K$\cf0 \expnd0\expndtw0\kerning0
+ is the sparsity in transmitted \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  signals. Results in \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul yang2013compressive\expnd0\expndtw0\kerning0
+\ulnone \} demonstrates that the new system successfully improves positioning accuracy. \
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\subsection\{Compressive Transmitters\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf3 \expnd0\expndtw0\kerning0
+\\indent\cf0 \expnd0\expndtw0\kerning0
+ \cf3 \expnd0\expndtw0\kerning0
+\\indent\cf0 \expnd0\expndtw0\kerning0
+ On the other hand, some researches embed the CS technique at the \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  transmitter and regarded it as a better solution than compressive receivers in terms of system hardware power efficiency. The new architecture contains a random tap FIR at the transmitter, which accomplishes the CS random projection before \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  signals are transmitted \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul zhang2009compressed\expnd0\expndtw0\kerning0
+\ulnone \}. Followed by distributed sub-Nyquist rate \expnd0\expndtw0\kerning0
+\ul ADCs\expnd0\expndtw0\kerning0
+\ulnone , the down-sampled signals are collected for \expnd0\expndtw0\kerning0
+\ul TOA\expnd0\expndtw0\kerning0
+\ulnone  based algorithm. Simulation result \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul zhang2009compressed\expnd0\expndtw0\kerning0
+\ulnone \} shows that the new compressive transmitter is suitable for detecting the indoor channel model with higher accuracy than traditional \expnd0\expndtw0\kerning0
+\ul TOA\expnd0\expndtw0\kerning0
+\ulnone  based method. This architecture is also suitable for indoor positioning because the transmitted signal pulse and channel model keep the same. Besides, it meanwhile saves more energy cost since it contains less hardware mixers than compressive receiver based \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  system. However, the complexity of implementation a high data rate random tap FIR filters brings additional cost and becomes a main difficulty in applications.\
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\section\{Proposed Work: Energy Aware Random Mixing Transmitters\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+In this section, we follows the architecture of waveform-based pre-coding at the transmitter\cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul zhang2009compressed\expnd0\expndtw0\kerning0
+\ulnone \}, we proposed a new compressive random mixing transmitters for \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning. The main purpose of this system is to slow down the high rate mixing operation when building CS framework at transmitters. Simulation results demonstrate that our proposed CS-based \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning scheme successfully decreases the high rate mixing operation by sacrificing a slight compression ratio (\cf4 \expnd0\expndtw0\kerning0
+$<$\cf0 \expnd0\expndtw0\kerning0
+ 10\cf3 \expnd0\expndtw0\kerning0
+\\\cf0 \expnd0\expndtw0\kerning0
+%) or small increase on average error (\cf4 \expnd0\expndtw0\kerning0
+$<$\cf0 \expnd0\expndtw0\kerning0
+ \expnd0\expndtw0\kerning0
+\ul 1mm\expnd0\expndtw0\kerning0
+\ulnone ). The new CS-\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  \expnd0\expndtw0\kerning0
+\ul TOA\expnd0\expndtw0\kerning0
+\ulnone  positioning system can achieve a much higher positioning accuracy than the traditional system in mm level. Future research will focus on how to reduce the reconstruction running time so that the real-time performance can be enhanced. This aim relates to the compressive signal processing that will be mentioned in the next chapter.\
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\begin\cf0 \expnd0\expndtw0\kerning0
+\{figure\}[!t]\
+\pard\pardeftab720
+\cf3 \expnd0\expndtw0\kerning0
+\\centering\cf0 \expnd0\expndtw0\kerning0
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\includegraphics
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+[width=0.85\cf3 \expnd0\expndtw0\kerning0
+\\columnwidth\cf0 \expnd0\expndtw0\kerning0
+]\{\expnd0\expndtw0\kerning0
+\ul cs\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul uwb\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul design2\expnd0\expndtw0\kerning0
+\ulnone .pdf\}\
+\cf3 \expnd0\expndtw0\kerning0
+\\DeclareGraphicsExtensions.\cf0 \expnd0\expndtw0\kerning0
+\
+\cf3 \expnd0\expndtw0\kerning0
+\\caption\cf0 \expnd0\expndtw0\kerning0
+\{Block diagram of low-rate compressive random mixing \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning system.\}\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\label\{cs-uwb-design2\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\end\cf0 \expnd0\expndtw0\kerning0
+\{figure\}\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\subsection\{Introduction\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+As mentioned, both compressive receivers and compressive transmitters suffer from high-data rate random projection operation, where the alternative rate of pseudo-random sequence is required (often equal or above 5 GHz in such cases). This requirement generates a heavy burden on bandwidth of hardware mixers and high frequency noise. \
+\
+In order to solve this problem but meanwhile preserve the energy efficient feature in compressive transmitters, this paper propose an low-rate compressive random mixing (\expnd0\expndtw0\kerning0
+\ul CRM\expnd0\expndtw0\kerning0
+\ulnone ) \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning system shown in Fig.\cf3 \expnd0\expndtw0\kerning0
+\\ref\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul cs\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul uwb\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul design2\expnd0\expndtw0\kerning0
+\ulnone \}: At the transmitter side, the new system provides a relatively low-rate pseudo-random sequence to mix the generated Gaussian pulses. At the receivers side, it sacrifices the compression ratio (or sampling rate) to catch up with the equivalent performance as that in the compressive receivers based \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  system. As a result, the trade-off between the random projection rate and the sub-Nyquist sampling rate offers a more energetic balanced system, where no hardware devices suffers from the limitation brought from the high data rate sequence. In addition, the positioning accuracy is successfully improved compared to the original \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  system. \
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\subsection\{System Model\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+Based on the \expnd0\expndtw0\kerning0
+\ul IR\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  indoor positioning system model in (\cf3 \expnd0\expndtw0\kerning0
+\\ref\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul eq_recv\expnd0\expndtw0\kerning0
+\ulnone \}), the new structure of our system can be regarded as shown in Fig.\cf3 \expnd0\expndtw0\kerning0
+\\ref\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul cs\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul uwb\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul design2\expnd0\expndtw0\kerning0
+\ulnone \}. At the transmitter, the a pseudo-random sequence (\expnd0\expndtw0\kerning0
+\ul PRS\expnd0\expndtw0\kerning0
+\ulnone ) whose variables are chosen from \cf4 \expnd0\expndtw0\kerning0
+$\{-1,+1\}$\cf0 \expnd0\expndtw0\kerning0
+ are generated using a relatively low sub-Nyquist alternative rate. When a \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  pulse generated, first it will be randomly mixed by the pseudo-random sequence, and then \expnd0\expndtw0\kerning0
+\ul broadcasted\expnd0\expndtw0\kerning0
+\ulnone  to indoor environment from the transmitter. Afterwards, receivers directly down-sample the signals at a relatively low rate. Finally, after processing the sparse reconstruction (i.e \expnd0\expndtw0\kerning0
+\ul OMP\expnd0\expndtw0\kerning0
+\ulnone  or BP), the original \expnd0\expndtw0\kerning0
+\ul TOA\expnd0\expndtw0\kerning0
+\ulnone  based algorithm can work for indoor positioning. In addition, these steps at receivers can be executed pipelined as \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul yang2011compressive\expnd0\expndtw0\kerning0
+\ulnone \}. Hence, based on the \expnd0\expndtw0\kerning0
+\ul workflow\expnd0\expndtw0\kerning0
+\ulnone  of the new architecture, the math model of this system can be represented as following matrix form (\cf3 \expnd0\expndtw0\kerning0
+\\ref\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul eq_sys_m\expnd0\expndtw0\kerning0
+\ulnone \}):\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\begin\cf0 \expnd0\expndtw0\kerning0
+\{equation\}\
+\pard\pardeftab720
+\cf4 \expnd0\expndtw0\kerning0
+\\
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+label\{eq_sys_m\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\cf4 \expnd0\expndtw0\kerning0
+y = D * H * P * x\cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\end\cf0 \expnd0\expndtw0\kerning0
+\{equation\}\
+where \cf4 \expnd0\expndtw0\kerning0
+$y$\cf0 \expnd0\expndtw0\kerning0
+ are discrete sampled observations from low rate \expnd0\expndtw0\kerning0
+\ul ADCs\expnd0\expndtw0\kerning0
+\ulnone  at receivers, and \cf4 \expnd0\expndtw0\kerning0
+$x$\cf0 \expnd0\expndtw0\kerning0
+ is the generated \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  Gaussian pulses at traditional transmitters. Here \cf4 \expnd0\expndtw0\kerning0
+$H$\cf0 \expnd0\expndtw0\kerning0
+ is the correspondingly \expnd0\expndtw0\kerning0
+\ul Toeplitz\expnd0\expndtw0\kerning0
+\ulnone  matrix which presents the signal convolution using IEEE 802.15.\expnd0\expndtw0\kerning0
+\ul 4a\expnd0\expndtw0\kerning0
+\ulnone  model in (\cf3 \expnd0\expndtw0\kerning0
+\\ref\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul eq_chan\expnd0\expndtw0\kerning0
+\ulnone \}), and \cf4 \expnd0\expndtw0\kerning0
+$F$\cf0 \expnd0\expndtw0\kerning0
+ stands for the random projection step, which is a diagnose matrix whose variables are randomly chosen from \cf4 \expnd0\expndtw0\kerning0
+$\\\{-1,+1\\\}$\cf0 \expnd0\expndtw0\kerning0
+ but alternatives at a sub-Nyquist low rate. The \cf4 \expnd0\expndtw0\kerning0
+$D$\cf0 \expnd0\expndtw0\kerning0
+ represents the \expnd0\expndtw0\kerning0
+\ul downsampling\expnd0\expndtw0\kerning0
+\ulnone  behaviour. It is a \cf4 \expnd0\expndtw0\kerning0
+$m\\times N$\cf0 \expnd0\expndtw0\kerning0
+ matrix (\cf4 \expnd0\expndtw0\kerning0
+$m << N$\cf0 \expnd0\expndtw0\kerning0
+) with 0-1 entries , and each of its rows contains a block of \cf4 \expnd0\expndtw0\kerning0
+$\\frac\{m\}/\{N\}$\cf0 \expnd0\expndtw0\kerning0
+ contiguous ones, which has been used for simulation in \cf3 \expnd0\expndtw0\kerning0
+\\cite\cf0 \expnd0\expndtw0\kerning0
+\{\expnd0\expndtw0\kerning0
+\ul tropp2010beyond\expnd0\expndtw0\kerning0
+\ulnone \}. Then \cf4 \expnd0\expndtw0\kerning0
+$\\hat x$\cf0 \expnd0\expndtw0\kerning0
+ can be reconstructed from various sparse reconstruction algorithm such as BP, \expnd0\expndtw0\kerning0
+\ul OMP\expnd0\expndtw0\kerning0
+\ulnone  and \expnd0\expndtw0\kerning0
+\ul CoSaMP\expnd0\expndtw0\kerning0
+\ulnone . At last, the recovered signal \cf4 \expnd0\expndtw0\kerning0
+$\\hat x$\cf0 \expnd0\expndtw0\kerning0
+ is applied for \expnd0\expndtw0\kerning0
+\ul TOA\expnd0\expndtw0\kerning0
+\ulnone  based positioning estimation.\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\subsection\{Simulation Results\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf3 \expnd0\expndtw0\kerning0
+\\indent\cf0 \expnd0\expndtw0\kerning0
+ \cf3 \expnd0\expndtw0\kerning0
+\\indent\cf0 \expnd0\expndtw0\kerning0
+ This experiment uses Matlab to evaluate the performance of the proposed system. In the simulation, the \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  waveform is a periodic simple pulse which is shaped by the second derivative Gaussian wave with a pulse duration of \expnd0\expndtw0\kerning0
+\ul 1ns\expnd0\expndtw0\kerning0
+\ulnone . The bandwidth of this signal is \expnd0\expndtw0\kerning0
+\ul 8GHz\expnd0\expndtw0\kerning0
+\ulnone . The \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  channel model is based on the IEEE 802.15.\expnd0\expndtw0\kerning0
+\ul 4a\expnd0\expndtw0\kerning0
+\ulnone  \expnd0\expndtw0\kerning0
+\ul CM1\expnd0\expndtw0\kerning0
+\ulnone  model for line of sight (\expnd0\expndtw0\kerning0
+\ul LOS\expnd0\expndtw0\kerning0
+\ulnone ) indoor environment, and zero-mean additive white Gaussian noise (\expnd0\expndtw0\kerning0
+\ul AWGN\expnd0\expndtw0\kerning0
+\ulnone ) is added to generate an average \expnd0\expndtw0\kerning0
+\ul SNR\expnd0\expndtw0\kerning0
+\ulnone  of \expnd0\expndtw0\kerning0
+\ul 10dB\expnd0\expndtw0\kerning0
+\ulnone . The simulation results cover random points in an area of \expnd0\expndtw0\kerning0
+\ul 10m\expnd0\expndtw0\kerning0
+\ulnone  \cf4 \expnd0\expndtw0\kerning0
+$\\times$\cf0 \expnd0\expndtw0\kerning0
+ \expnd0\expndtw0\kerning0
+\ul 10m\expnd0\expndtw0\kerning0
+\ulnone  \cf4 \expnd0\expndtw0\kerning0
+$\\times$\cf0 \expnd0\expndtw0\kerning0
+ \expnd0\expndtw0\kerning0
+\ul 10m\expnd0\expndtw0\kerning0
+\ulnone  space.\
+\
+CS Basis pursuit \expnd0\expndtw0\kerning0
+\ul denoising\expnd0\expndtw0\kerning0
+\ulnone  (\expnd0\expndtw0\kerning0
+\ul BPDN\expnd0\expndtw0\kerning0
+\ulnone ) algorithm is used at the receiver to perform the reconstruction process. Figure 4 shows the results of the reconstruction successful rate against the \expnd0\expndtw0\kerning0
+\ul receiver\'92s\expnd0\expndtw0\kerning0
+\ulnone  sampling rates. Existing RD based system achieves \cf4 \expnd0\expndtw0\kerning0
+$100\\%$\cf0 \expnd0\expndtw0\kerning0
+ successful reconstruction starting at \expnd0\expndtw0\kerning0
+\ul 200MHz\expnd0\expndtw0\kerning0
+\ulnone  sampling rate, but requires \expnd0\expndtw0\kerning0
+\ul 10GHz\expnd0\expndtw0\kerning0
+\ulnone  \expnd0\expndtw0\kerning0
+\ul PN\expnd0\expndtw0\kerning0
+\ulnone  sequence at each receiver. Our proposed system use much lower rate \expnd0\expndtw0\kerning0
+\ul PN\expnd0\expndtw0\kerning0
+\ulnone  sequence (\expnd0\expndtw0\kerning0
+\ul 1GHz\expnd0\expndtw0\kerning0
+\ulnone  or \expnd0\expndtw0\kerning0
+\ul 500MHz\expnd0\expndtw0\kerning0
+\ulnone ) at the transmitter and achieve \cf4 \expnd0\expndtw0\kerning0
+$100\\%$\cf0 \expnd0\expndtw0\kerning0
+ successful reconstruction at \expnd0\expndtw0\kerning0
+\ul 350MHz\expnd0\expndtw0\kerning0
+\ulnone  and \expnd0\expndtw0\kerning0
+\ul 500MHz\expnd0\expndtw0\kerning0
+\ulnone  sampling rate. Hence, accuracy of the lower rate \expnd0\expndtw0\kerning0
+\ul PN\expnd0\expndtw0\kerning0
+\ulnone  sequence system can be improved by using higher sampling rate at the receiver. Therefore, the simulation result shows that the proposed system can apply trade-off among random projection rate, sub-Nyquist sampling rate and reconstruction rate. This design significantly reduce the peak frequency (Nyquist rate in mixing waveform or receiving end) in the system with acceptable rate increase in receivers' ADC sampling rate. \
+\
+Table I compares the accuracy of the two CS based systems against conventional \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  based system which uses hypothetical \expnd0\expndtw0\kerning0
+\ul 10GHz\expnd0\expndtw0\kerning0
+\ulnone  Nyquist sampling rate. Both CS based systems produces much lower errors then the conventional \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  based system, while the proposed RP system has similar performance as the RD based system. \
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\begin\cf0 \expnd0\expndtw0\kerning0
+\{figure\}[!t]\
+\pard\pardeftab720
+\cf3 \expnd0\expndtw0\kerning0
+\\centering\cf0 \expnd0\expndtw0\kerning0
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\includegraphics
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+[width=0.5\cf3 \expnd0\expndtw0\kerning0
+\\columnwidth\cf0 \expnd0\expndtw0\kerning0
+]\{figs/\expnd0\expndtw0\kerning0
+\ul res\expnd0\expndtw0\kerning0
+\ulnone -pub.\expnd0\expndtw0\kerning0
+\ul png\expnd0\expndtw0\kerning0
+\ulnone \}\
+\cf3 \expnd0\expndtw0\kerning0
+\\DeclareGraphicsExtensions.\cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+%\\caption\{CS based TOA estimation average error under different compression ratio based on the IEEE 802.15.4a CM1 model for line of sight (LOS) indoor environment\}\cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\label\{res-pub\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\end\cf0 \expnd0\expndtw0\kerning0
+\{figure\}\
+\cf2 \expnd0\expndtw0\kerning0
+\\begin\cf0 \expnd0\expndtw0\kerning0
+\{figure\}[!t]\
+\pard\pardeftab720
+\cf3 \expnd0\expndtw0\kerning0
+\\centering\cf0 \expnd0\expndtw0\kerning0
+\
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\includegraphics
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+[width=0.75\cf3 \expnd0\expndtw0\kerning0
+\\columnwidth\cf0 \expnd0\expndtw0\kerning0
+]\{figs/\expnd0\expndtw0\kerning0
+\ul res\expnd0\expndtw0\kerning0
+\ulnone -pub-table.\expnd0\expndtw0\kerning0
+\ul png\expnd0\expndtw0\kerning0
+\ulnone \}\
+\cf3 \expnd0\expndtw0\kerning0
+\\DeclareGraphicsExtensions.\cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+%\\caption\{CS based TOA estimation average error under different compression ratio based on the IEEE 802.15.4a CM1 model for line of sight (LOS) indoor environment\}\cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\label\{res-temp\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720
+\cf2 \expnd0\expndtw0\kerning0
+\\end\cf0 \expnd0\expndtw0\kerning0
+\{figure\}\
+\
+\pard\pardeftab720
+
+\f0\b \cf2 \expnd0\expndtw0\kerning0
+\\section\{Conclusion\}\\label\{sct:cs_uwb_conclusion\}
+\f1\b0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf3 \expnd0\expndtw0\kerning0
+\\indent\cf0 \expnd0\expndtw0\kerning0
+ \cf3 \expnd0\expndtw0\kerning0
+\\indent\cf0 \expnd0\expndtw0\kerning0
+ The compressed sensing is proven effective to improve the accuracy of \expnd0\expndtw0\kerning0
+\ul IR\expnd0\expndtw0\kerning0
+\ulnone -\expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning. However, most of papers do not concern the design complexity and energy cost in their implementations, for instance, the random mixing waveform is of extremely high frequency (in GHz). Our proposed compressive \expnd0\expndtw0\kerning0
+\ul UWB\expnd0\expndtw0\kerning0
+\ulnone  positioning present a novel view of energy trade-off design, which is implemented by a low-rate random-projection at transmitters and low rate \expnd0\expndtw0\kerning0
+\ul ADCs\expnd0\expndtw0\kerning0
+\ulnone  at receivers. This design significantly reduce the peak frequency (Nyquist rate in mixing waveform or receiving end) in the system with acceptable rate increase in receivers' ADC sampling rate. \
+\
+\pard\pardeftab720
+\cf5 \expnd0\expndtw0\kerning0
+%----------------------------------------------\cf0 \expnd0\expndtw0\kerning0
+\
+\cf5 \expnd0\expndtw0\kerning0
+%\\section\{Challenges in Ultra-Wideband System\}\cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%Impulse-radio ultra wideband (UWB) technology has attracted widely usage in communication and positioning application, because of its advantages of extreme wide transmission bandwidth, fine time resolution, low-power consumption, low fading margin in dense multipath environment. There are two primary challenges exist, which are (1) how to gather energy over the rich multipath components, and (2) how to sample extremely high rate signals\\cite\{zhang2009compressed\}. \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%%Additionally, in 2002, the FCC issued a first report and order allowing the unlicensed use of UWB devices, overlaid with existing devices, subject to a power spectral mask in a 7.5 GHz swath of spectrum. This has generated wide interest in potential UWB applications, and led to a rapid increase in the number of companies and governmental agencies working in UWB.\cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%%Many investigated applications for UWB are designed to operate in indoor environments. Indoor UWB systems must contend with dense multipath channels, which are characterised by tens or even hundreds of resolvable multipath components, and delay spreads typically orders of magnitude larger than the UWB pulse duration. Additionally, due to stringent FCC regulations, UWB systems are required to operate at a very low power emission level. These facts have led to several challenges pertaining to UWB transceiver design. Specifically, there are open challenges to be met in the areas of (a) UWB signal detection, (b) synchronisation, and (c) interference mitigation.\cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%%(1) Signal detection: Recent research has mainly concentrated on the Rake receiver and variants of the transmitted reference receiver as candidates for UWB detectors in dense multipath. However, both receivers have severe performance limitations. Specifically, the energy capture of the Rake receiver is relatively low for a moderate number of fingers, making its implementation impractical for UWB systems. Transmitted reference receivers suffer from a \'93noise-cross-noise\'94 term, caused by the use of a noisy signal as a correlation or matched filter template. Consequently, a prohibitively large number of pilot symbols are required to overcome this limitation.\cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%Time reversal [5] provides a promising solution to the first problem [6]. In particular, the concept of time reversal has recently demonstrated in a real-time hardware test-bed [7], [8]. At the heart of time reversal, the channel itself is exploited as a part of the transceiver. This idea makes sense since the channel is time-invariant and reciprocal [9]. In principle, most of the processing at the receiver can be moved to the transmitter where energy consumption and computation are sufficient for many advanced algorithms. This framework is called waveform-oriented pre-coding.\cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%For instance, ultra-wide band (UWB) positioning always suffers from extremely high-rate signal detection. The compressive sensing (CS), which is considered as the optimal solution of acquisition and reconstruction for sparse signals, provides an alternative solution by implementing random projection at transmitters or receivers. However, these CS based UWB positioning systems still cannot avoid high-rate mixing operation when generating the PN sequence during random projection. \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%In this paper, we propose a new CS based UWB positioning system to solve this problem, which implements a relatively low-rate random pre-mixing at the transmitter and correspondingly sub-Nyquist rate sampling at receivers. As a result, the new system successfully eliminates the extremely high Nyquist rate in the system by sacrifices a small degree of compression ratio. Simulation results demonstrate the new system maintains outstanding performance in terms of positioning accuracy. \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%----UWB short introduction----\cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%\\indent \\indent Ultra-wide band (UWB) communication is widely used in wireless communication and associated with features as extreme wide transmission bandwidth, low-power consumption, shared spectrum resources in wide ranges etc. Among all applicable areas, UWB based accurate positioning and tracking in short range communication become popular since it provide resilient to multipath fading in hostile environment and outstanding robustness even in low signal-to-noise (SNR) situations \\cite\{cassioli2002ultra\}. In addition, the requirements of high data rate and limitations of battery supply lead the impulse-radio ultra-wide band (IR-UWB) to become a suitable communication technique in short range high data rate communication. \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%However, along with the ultra high frequency transmission in IR-UWB communication, the receiving-end are suffering high sampling rate difficulty on its ADCs. Although many filter-bank based downsampling technologies are used to convert the high frequency into low frequency of original signal, complexity of multiple analog filters increase the design cost for hardware implementations.\'a0\'a0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%Recently the CS framework is introduced to solve this problem for UWB, which provide a more convenient way to reduce the sampling rate at receivers. Comparing to traditional methods, the CS-based UWB omits the multiple analog filters and thus reduce the design complexity and cost. Simulation results demonstrate that the CS-UWB positioning can achieve high accuracy performance and providing energy-efficient design. \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%Our proposed work for UWB positioning system follows this idea, and additionally, we consider a further energy optimisation from aspect of architecture. While the formal CS-UWB uses Nyquist rate chipping sequence (or PN sequence) to fulfil random sampling behaviour for CS framework, however, this procedure forces Nyquist sequence and thus the high frequency does NOT omitted although sampling rate has been reduced. Our design aims at this problem, analyses a tradeoff between the rate of PN sequence and the sampling rate, and finally eliminates the Nyquist rate in entire system.\'a0 \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%----performance describe in orignial latex---\cf0 \expnd0\expndtw0\kerning0
+\
+\cf5 \expnd0\expndtw0\kerning0
+%As shown in Fig.\\ref\{res1\}, when the Sampling rate comes close to ???, the average error of all CS-based UWB system has been converges to less than 10mm. However, when the compression ratio continuously increases, the error converging speed of CRM-UWB cannot catch up with the speed of others. This is because that if we manage to reduce the highest rate at transmitters in CRM-UWB, as a result, the required sampling rate must be increased as a sacrifice at receivers, otherwise the estimation error rate will increase. Furthermore, if we increase the sub-Nyquist sampling rate\'a0 by 10\\% of CR at receivers, which creates a revised system named CRM-UWB-R, then it produce outstanding performance: when compression ratio becomes less than 0.15 and continuously decreases, the advantage of the proposed CRM-UWB emerges: the error increasing speed is far slower than the others. This result suggests that the CRM-UWB-R (the revised low-rate compressive random mixing system) outperforms the traditional CS UWB positioning systems in terms of estimation error at lower compression ratio. \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%Besides, the CR-UWB, CPCT-UWB, and CRM-UWB all provide sub-mm estimation error with enough CS observations (CR $>$ 0.15), while the original UWB TOA system contains an average error around 3.92mm. Thus, CS UWB TOA positioning system can achieve a much higher positioning accuracy than the traditional system. \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\cf5 \expnd0\expndtw0\kerning0
+%The Fig.\\ref\{res1\} demonstrates the TOA estimation average error under different sampling rates. The received signal can be recovered from a certain amount of CS measurements $M$ which is far less than $N$ (Nyquist rate), where compression ratio (CR) equals $\\lfloor\{M/N\}$. In the simulation, three types of different UWB positioning system are tested: 1) compressive receivers for UWB positioning (CR-UWB), where random demodulator is implemented at receivers, and the CR refers to the sampling rate of its ADC. 2) The CS pre-coding transmitter (CPCT-UWB), where Nyquist rate random projection is implemented at transmitters and downsampling is realised at its receivers. The CR refers to the downsampling rate at its receivers. 3) The proposed new architecture, low-rate compressive random mixing for UWB positioning system (CRM-UWB), where sub-Nyquist rate random projection is implemented at transmitters and downsampling is realised at its receivers. In this new system, CR refers to the downsampling rate at its receivers, and especially, the low-rate pre-filtering is accomplished by mixing a pseudo-random sequence (PRS) which alternates at a (CR + 10\\%) of Nyquist rate. \cf0 \expnd0\expndtw0\kerning0
+\
+\
+\pard\pardeftab720
+
+\f2 \cf0 \expnd0\expndtw0\kerning0
+\
+}
